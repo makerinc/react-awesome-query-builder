@@ -3,7 +3,6 @@ npm-debug.log
 package-lock.json
 .idea
 yarn.lock
-build
 examples/*.ttf
 examples/*.svg
 examples/*.eot
@@ -12,4 +11,3 @@ examples/*.woff2
 examples/bundle.js
 examples/bundle.js.map
 .DS_Store
-
