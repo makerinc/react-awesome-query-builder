@@ -4,7 +4,7 @@ import uuid from "./uuid";
 import isArray from 'lodash/isArray'
 import {defaultValue} from "./stuff";
 import {
-    getFieldConfig, getWidgetForFieldOp, getValueSourcesForFieldOp, getOperatorConfig, getFieldWidgetConfig, 
+    getFieldConfig, getWidgetForFieldOp, getValueSourcesForFieldOp, getOperatorConfig, getFieldWidgetConfig,
     getFieldPath, getFieldPathLabels, fieldWidgetDefinition
 } from './configUtils';
 import omit from 'lodash/omit';
@@ -63,6 +63,7 @@ export const queryBuilderFormat = (item, config, rootQuery = null) => {
 
     if (type === 'group' && children && children.size) {
         const conjunction = properties.get('conjunction');
+        const storyId = properties.get('storyId')
         const not = properties.get('not');
         const conjunctionDefinition = config.conjunctions[conjunction];
 
@@ -76,7 +77,8 @@ export const queryBuilderFormat = (item, config, rootQuery = null) => {
         resultQuery['rules'] = list.toList();
         resultQuery['condition'] = conjunction.toUpperCase();
         resultQuery['not'] = not;
-
+        resultQuery['storyId'] = storyId;
+        console.log(item);
         return resultQuery;
     } else if (type === 'rule') {
         const operator = properties.get('operator');
@@ -137,7 +139,7 @@ export const queryBuilderFormat = (item, config, rootQuery = null) => {
         let operatorOptions = options ? options.toJS() : null;
         if (operatorOptions && !Object.keys(operatorOptions).length)
             operatorOptions = null;
-        
+
         var ruleQuery = {
             id,
             field,
