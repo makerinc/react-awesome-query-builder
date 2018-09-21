@@ -117,6 +117,15 @@ var setConjunction = function setConjunction(state, path, conjunction) {
 /**
  * @param {Immutable.Map} state
  * @param {Immutable.List} path
+ * @param {number} storyId
+ */
+var setStoryId = function setStoryId(state, path, storyId) {
+    return state.setIn((0, _treeUtils.expandTreePath)(path, 'properties', 'storyId'), storyId);
+};
+
+/**
+ * @param {Immutable.Map} state
+ * @param {Immutable.List} path
  * @param {string} type
  * @param {string} id
  * @param {Immutable.OrderedMap} properties
@@ -651,6 +660,9 @@ exports.default = function (config) {
 
             case constants.SET_DRAG_END:
                 return Object.assign({}, state, emptyDrag);
+
+            case constants.SET_STORY_ID:
+                return Object.assign({}, state, { tree: setStoryId(state.tree, action.path, action.storyId) });
 
             default:
                 return state;

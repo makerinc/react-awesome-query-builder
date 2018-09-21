@@ -84,6 +84,7 @@ var queryBuilderFormat = exports.queryBuilderFormat = function queryBuilderForma
 
     if (type === 'group' && children && children.size) {
         var conjunction = properties.get('conjunction');
+        var storyId = properties.get('storyId');
         var not = properties.get('not');
         var conjunctionDefinition = config.conjunctions[conjunction];
 
@@ -96,7 +97,8 @@ var queryBuilderFormat = exports.queryBuilderFormat = function queryBuilderForma
         resultQuery['rules'] = list.toList();
         resultQuery['condition'] = conjunction.toUpperCase();
         resultQuery['not'] = not;
-
+        resultQuery['storyId'] = storyId;
+        console.log(item);
         return resultQuery;
     } else if (type === 'rule') {
         var operator = properties.get('operator');

@@ -166,6 +166,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   selectedConjunction: _propTypes2.default.string,
   config: _propTypes2.default.object.isRequired,
   id: _propTypes2.default.string.isRequired,
+  storyId: _propTypes2.default.number.isRequired,
   path: _propTypes2.default.instanceOf(_immutable2.default.List),
   onDragStart: _propTypes2.default.func,
   children1: _propTypes2.default.instanceOf(_immutable2.default.OrderedMap),
@@ -174,10 +175,11 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   addGroup: _propTypes2.default.func.isRequired,
   removeSelf: _propTypes2.default.func.isRequired,
   setConjunction: _propTypes2.default.func.isRequired,
+  setStoryId: _propTypes2.default.func.isRequired,
   setNot: _propTypes2.default.func.isRequired,
   actions: _propTypes2.default.object.isRequired,
   //connected:
-  dragging: _propTypes2.default.object //{id, x, y, w, h}
+  dragging: _propTypes2.default.object //{id, x, y, w, h},
 }, _initialiseProps = function _initialiseProps() {
   var _this2 = this;
 
@@ -231,6 +233,16 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           _button2.default,
           {
             icon: 'plus',
+            className: 'action action--SELECT-STORY',
+            onClick: _this2.props.setStoryId
+          },
+          _this2.props.config.settings.selectStoryLabel || "Select Story",
+          _this2.props.storyId
+        ),
+        !_this2.props.config.settings.readonlyMode && _react2.default.createElement(
+          _button2.default,
+          {
+            icon: 'plus',
             className: 'action action--ADD-RULE',
             onClick: _this2.props.addRule
           },
@@ -264,7 +276,8 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
     return props.children1 ? props.children1.map(function (item) {
       return _react2.default.createElement(_Item2.default, {
         key: item.get('id'),
-        id: item.get('id')
+        id: item.get('id'),
+        storyId: item.get('storyId')
         //path={props.path.push(item.get('id'))}
         , path: item.get('path'),
         type: item.get('type'),

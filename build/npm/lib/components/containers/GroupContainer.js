@@ -85,6 +85,14 @@ exports.default = function (Group) {
         return false;
       };
 
+      _this.setStoryId = function (event) {
+        var storyId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 42;
+
+        event.preventDefault();
+        _this.props.actions.setStoryId(_this.props.path, storyId);
+        return false;
+      };
+
       _this.conjunctionOptions = _this._getConjunctionOptions(props);
       return _this;
     }
@@ -172,12 +180,14 @@ exports.default = function (Group) {
             key: "dragging",
             isForDrag: true,
             id: this.props.id,
+            storyId: this.props.storyId,
             isRoot: isRoot,
             allowFurtherNesting: allowFurtherNesting,
             conjunctionOptions: this.conjunctionOptions,
             not: this.props.not,
             selectedConjunction: this.props.conjunction,
             setConjunction: this.dummyFn,
+            setStoryId: this.dummyFn,
             setNot: this.dummyFn,
             removeSelf: this.dummyFn,
             addGroup: this.dummyFn,
@@ -191,12 +201,14 @@ exports.default = function (Group) {
           }), _react2.default.createElement(Group, {
             key: this.props.id,
             id: this.props.id,
+            storyId: this.props.storyId,
             isRoot: isRoot,
             allowFurtherNesting: allowFurtherNesting,
             conjunctionOptions: this.conjunctionOptions,
             not: this.props.not,
             selectedConjunction: this.props.conjunction,
             setConjunction: this.setConjunction,
+            setStoryId: this.setStoryId,
             setNot: this.setNot.bind(this),
             removeSelf: this.removeSelf,
             addGroup: this.addGroup,
@@ -220,6 +232,7 @@ exports.default = function (Group) {
     actions: _propTypes2.default.object.isRequired, //{setConjunction: Funciton, removeGroup, addGroup, addRule, ...}
     path: _propTypes2.default.instanceOf(_immutable2.default.List).isRequired,
     id: _propTypes2.default.string.isRequired,
+    storyId: _propTypes2.default.number.isRequired,
     not: _propTypes2.default.bool,
     conjunction: _propTypes2.default.string,
     children1: _propTypes2.default.instanceOf(_immutable2.default.OrderedMap),

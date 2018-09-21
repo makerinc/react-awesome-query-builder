@@ -1,7 +1,7 @@
 'use strict';
 
 exports.__esModule = true;
-exports.setNot = exports.setConjunction = undefined;
+exports.setStoryId = exports.setNot = exports.setConjunction = undefined;
 
 var _constants = require('../constants');
 
@@ -32,5 +32,18 @@ var setNot = exports.setNot = function setNot(config, path, not) {
     type: constants.SET_NOT,
     path: path,
     not: not
+  };
+};
+
+/**
+ * @param {object} config
+ * @param {Immutable.List} path
+ * @param {number} storyId
+ */
+var setStoryId = exports.setStoryId = function setStoryId(config, path, storyId) {
+  return {
+    type: constants.SET_STORY_ID,
+    path: path,
+    storyId: storyId
   };
 };
