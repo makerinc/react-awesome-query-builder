@@ -16,6 +16,7 @@ export default (Group) => {
       actions: PropTypes.object.isRequired, //{setConjunction: Funciton, removeGroup, addGroup, addRule, ...}
       path: PropTypes.instanceOf(Immutable.List).isRequired,
       id: PropTypes.string.isRequired,
+      storyId: PropTypes.number.isRequired,
       not: PropTypes.bool,
       conjunction: PropTypes.string,
       children1: PropTypes.instanceOf(Immutable.OrderedMap),
@@ -53,7 +54,7 @@ export default (Group) => {
                 should = false;
           }
         }
-        
+
         return should;
     }
 
@@ -109,6 +110,12 @@ export default (Group) => {
       return false;
     }
 
+    setStoryId = (event, storyId = 42) => {
+      event.preventDefault();
+      this.props.actions.setStoryId(this.props.path, storyId);
+      return false;
+    }
+
     render() {
       const currentNesting = this.props.path.size;
       const maxNesting = this.props.config.settings.maxNesting;
@@ -128,12 +135,14 @@ export default (Group) => {
               key={"dragging"}
               isForDrag={true}
               id={this.props.id}
+              storyId={this.props.storyId}
               isRoot={isRoot}
               allowFurtherNesting={allowFurtherNesting}
               conjunctionOptions={this.conjunctionOptions}
               not={this.props.not}
               selectedConjunction={this.props.conjunction}
               setConjunction={this.dummyFn}
+              setStoryId={this.dummyFn}
               setNot={this.dummyFn}
               removeSelf={this.dummyFn}
               addGroup={this.dummyFn}
@@ -149,12 +158,14 @@ export default (Group) => {
             <Group
               key={this.props.id}
               id={this.props.id}
+              storyId={this.props.storyId}
               isRoot={isRoot}
               allowFurtherNesting={allowFurtherNesting}
               conjunctionOptions={this.conjunctionOptions}
               not={this.props.not}
               selectedConjunction={this.props.conjunction}
               setConjunction={this.setConjunction}
+              setStoryId={this.setStoryId}
               setNot={this.setNot.bind(this)}
               removeSelf={this.removeSelf}
               addGroup={this.addGroup}

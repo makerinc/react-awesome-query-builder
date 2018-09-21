@@ -50,7 +50,7 @@ let ruleset = {
 
 export default class DemoQueryBuilder extends Component {
     getChildren(props) {
-        const jsonStyle = { backgroundColor: 'darkgrey', margin: '10px', padding: '10px' } 
+        const jsonStyle = { backgroundColor: 'darkgrey', margin: '10px', padding: '10px' }
         return (
             <div style={{padding: '10px'}}>
                 <div className="query-builder">
@@ -58,35 +58,35 @@ export default class DemoQueryBuilder extends Component {
                 </div>
                 <br />
                 <div>
-                  stringFormat: 
+                  stringFormat:
                   <pre style={jsonStyle}>
                     {stringify(queryString(props.tree, props.config), undefined, 2)}
                   </pre>
                 </div>
                 <hr/>
                 <div>
-                  humanStringFormat: 
+                  humanStringFormat:
                   <pre style={jsonStyle}>
                     {stringify(queryString(props.tree, props.config, true), undefined, 2)}
                   </pre>
                 </div>
                 <hr/>
                 <div>
-                  queryBuilderFormat: 
+                  queryBuilderFormat:
                     <pre style={jsonStyle}>
                       {stringify(queryBuilderFormat(props.tree, props.config), undefined, 2)}
                     </pre>
                 </div>
                 <hr/>
                 <div>
-                  Tree: 
+                  Tree:
                   <pre style={jsonStyle}>
                     {stringify(props.tree, undefined, 2)}
                   </pre>
                 </div>
                 <hr/>
                 <div>
-                  Immutable Tree: 
+                  Immutable Tree:
                   <div style={jsonStyle}>
                     {transit.toJSON(props.tree)}
                   </div>
@@ -96,15 +96,16 @@ export default class DemoQueryBuilder extends Component {
     }
 
     render() {
-        let initValueJSON = '["~#iM",["type","group","id","9a99988a-0123-4456-b89a-b1607f326fd8","children1",["~#iOM",["a98ab9b9-cdef-4012-b456-71607f326fd9",["^0",["type","rule","id","a98ab9b9-cdef-4012-b456-71607f326fd9","properties",["^0",["field","num","operator","less","value",["~#iL",[2]],"valueSrc",["^2",["value"]],"operatorOptions",null,"valueType",["^2",["number"]]]]]]]],"properties",["^0",["conjunction","AND","not",false]]]]';
+        let initValueJSON =
+            '["~#iM",["type","group","id","9ba9ab8b-0123-4456-b89a-b165f919dcb8","children1",["~#iOM",["b99a9b9a-cdef-4012-b456-7165f919dcb8",["^0",["type","rule","id","b99a9b9a-cdef-4012-b456-7165f919dcb8","properties",["^0",["field",null,"operator",null,"value",["~#iL",[]],"valueSrc",["^2",[]],"operatorOptions",null]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8","b99a9b9a-cdef-4012-b456-7165f919dcb8"]]]],"8a898a88-89ab-4cde-b012-3165f919ff2f",["^0",["type","group","id","8a898a88-89ab-4cde-b012-3165f919ff2f","properties",["^0",["conjunction","OR","storyId",42]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8","8a898a88-89ab-4cde-b012-3165f919ff2f"]],"children1",["^1",["9b9998a8-4567-489a-bcde-f165f919ff31",["^0",["type","rule","id","9b9998a8-4567-489a-bcde-f165f919ff31","properties",["^0",["field","matchedSegments__name","operator","select_equals","value",["^2",["Fortune 1,000"]],"valueSrc",["^2",["value"]],"operatorOptions",null,"conjunction","OR","valueType",["^2",["select"]]]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8","8a898a88-89ab-4cde-b012-3165f919ff2f","9b9998a8-4567-489a-bcde-f165f919ff31"]]]],"ab88b9ab-0123-4456-b89a-b165f91a5fdf",["^0",["type","rule","id","ab88b9ab-0123-4456-b89a-b165f91a5fdf","properties",["^0",["field",null,"operator",null,"value",["^2",[]],"valueSrc",["^2",[]],"operatorOptions",null]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8","8a898a88-89ab-4cde-b012-3165f919ff2f","ab88b9ab-0123-4456-b89a-b165f91a5fdf"]]]]]]]]]],"properties",["^0",["conjunction","OR","storyId",42]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8"]]]]';
 
         const {tree, ...config_props} = config;
-                
+
         return (
             <div>
-                <Query 
+                <Query
                     value={transit.fromJSON(initValueJSON)}
-                    {...config_props} 
+                    {...config_props}
                     get_children={this.getChildren}
                 > </Query>
             </div>

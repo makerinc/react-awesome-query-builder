@@ -34,10 +34,12 @@ export default class Builder extends Component {
   render() {
     const treeNodesCnt = getTotalNodesCountInTree(this.props.tree);
     const id = this.props.tree.get('id');
+    const storyId = this.props.tree.get('storyId');
     return (
-      <Item 
+      <Item
         key={id}
         id={id}
+        storyId={storyId}
         path={this.path}
         type={this.props.tree.get('type')}
         properties={this.props.tree.get('properties')}

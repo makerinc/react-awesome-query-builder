@@ -70,7 +70,7 @@ export const defaultRoot = (config) => {
   if (config.tree) {
     return new Immutable.Map(config.tree);
   }
-  
+
   return new Immutable.Map({
     type: 'group',
     id: uuid(),

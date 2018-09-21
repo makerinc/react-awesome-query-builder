@@ -39,6 +39,7 @@ class Group extends Component {
     selectedConjunction: PropTypes.string,
     config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
+    storyId: PropTypes.number.isRequired,
     path: PropTypes.instanceOf(Immutable.List),
     onDragStart: PropTypes.func,
     children1: PropTypes.instanceOf(Immutable.OrderedMap),
@@ -47,10 +48,11 @@ class Group extends Component {
     addGroup: PropTypes.func.isRequired,
     removeSelf: PropTypes.func.isRequired,
     setConjunction: PropTypes.func.isRequired,
+    setStoryId: PropTypes.func.isRequired,
     setNot: PropTypes.func.isRequired,
     actions: PropTypes.object.isRequired,
     //connected:
-    dragging: PropTypes.object, //{id, x, y, w, h}
+    dragging: PropTypes.object, //{id, x, y, w, h},
   };
 
   pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -111,6 +113,13 @@ class Group extends Component {
         >{!this.props.config.settings.readonlyMode &&
           <Button
             icon="plus"
+            className="action action--SELECT-STORY"
+            onClick={this.props.setStoryId}
+          >{this.props.config.settings.selectStoryLabel || "Select Story"}{this.props.storyId}</Button>
+          }
+          {!this.props.config.settings.readonlyMode &&
+          <Button
+            icon="plus"
             className="action action--ADD-RULE"
             onClick={this.props.addRule}
           >{this.props.config.settings.addRuleLabel || "Add rule"}</Button>
@@ -141,6 +150,7 @@ class Group extends Component {
       <Item
         key={item.get('id')}
         id={item.get('id')}
+        storyId={item.get('storyId')}
         //path={props.path.push(item.get('id'))}
         path={item.get('path')}
         type={item.get('type')}

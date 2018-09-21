@@ -21,3 +21,14 @@ export const setNot = (config, path, not) => ({
   path: path,
   not: not
 });
+
+/**
+ * @param {object} config
+ * @param {Immutable.List} path
+ * @param {number} storyId
+ */
+export const setStoryId = (config, path, storyId) => ({
+  type: constants.SET_STORY_ID,
+  path: path,
+  storyId: storyId
+});

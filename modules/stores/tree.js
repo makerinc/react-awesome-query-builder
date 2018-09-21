@@ -87,6 +87,14 @@ const setConjunction = (state, path, conjunction) =>
 /**
  * @param {Immutable.Map} state
  * @param {Immutable.List} path
+ * @param {number} storyId
+ */
+const setStoryId = (state, path, storyId) =>
+    state.setIn(expandTreePath(path, 'properties', 'storyId'), storyId);
+
+/**
+ * @param {Immutable.Map} state
+ * @param {Immutable.List} path
  * @param {string} type
  * @param {string} id
  * @param {Immutable.OrderedMap} properties
@@ -124,7 +132,7 @@ const moveItem = (state, fromPath, toPath, placement, config) => {
 
     let to = getItemByPath(state, toPath);
     let targetPath = (placement == constants.PLACEMENT_APPEND || placement == constants.PLACEMENT_PREPEND) ? toPath : toPath.pop();
-    let target = (placement == constants.PLACEMENT_APPEND || placement == constants.PLACEMENT_PREPEND) ? 
+    let target = (placement == constants.PLACEMENT_APPEND || placement == constants.PLACEMENT_PREPEND) ?
         to
         : toPath.size > 1 ? getItemByPath(state, targetPath) : null;
     let targetChildren = target ? target.get('children1') : null;
@@ -133,9 +141,9 @@ const moveItem = (state, fromPath, toPath, placement, config) => {
         return state;
 
     let isSameParent = (source.get('id') == target.get('id'));
-    let isSourceInsideTarget = targetPath.size < sourcePath.size 
+    let isSourceInsideTarget = targetPath.size < sourcePath.size
         && JSON.stringify(targetPath.toArray()) == JSON.stringify(sourcePath.toArray().slice(0, targetPath.size));
-    let isTargetInsideSource = targetPath.size > sourcePath.size 
+    let isTargetInsideSource = targetPath.size > sourcePath.size
         && JSON.stringify(sourcePath.toArray()) == JSON.stringify(targetPath.toArray().slice(0, sourcePath.size));
     let sourceSubpathFromTarget = null;
     let targetSubpathFromSource = null;
@@ -161,7 +169,7 @@ const moveItem = (state, fromPath, toPath, placement, config) => {
                 if (itemId == to.get('id') && placement == constants.PLACEMENT_BEFORE) {
                     r.set(from.get('id'), from);
                 }
-                
+
                 r.set(itemId, item);
 
                 if (itemId == to.get('id') && placement == constants.PLACEMENT_AFTER) {
@@ -226,11 +234,11 @@ export const _getNewValueForFieldOp = function (config, oldConfig = null, curren
     const commonWidgetsCnt = Math.min(newWidgets.length, currentWidgets.length);
     const firstWidgetConfig = getFieldWidgetConfig(config, newField, newOperator, null, currentValueSrc.first());
     const valueSources = getValueSourcesForFieldOp(config, newField, newOperator);
-    let canReuseValue = currentField && currentOperator && newOperator 
-        && (!changedField 
-            || changedField == 'field' && !config.settings.clearValueOnChangeField 
+    let canReuseValue = currentField && currentOperator && newOperator
+        && (!changedField
+            || changedField == 'field' && !config.settings.clearValueOnChangeField
             || changedField == 'operator' && !config.settings.clearValueOnChangeOp)
-        && (currentFieldConfig && newFieldConfig && currentFieldConfig.type == newFieldConfig.type) 
+        && (currentFieldConfig && newFieldConfig && currentFieldConfig.type == newFieldConfig.type)
         && JSON.stringify(currentWidgets.slice(0, commonWidgetsCnt)) == JSON.stringify(newWidgets.slice(0, commonWidgetsCnt))
     ;
 
@@ -335,7 +343,7 @@ const _validateValue = (config, field, operator, value, valueType, valueSrc) => 
         let fn = fieldWidgetDefinition.validateValue;
         if (typeof fn == 'function') {
             let args = [
-                v, 
+                v,
                 //field,
                 fieldConfig,
             ];
@@ -500,7 +508,7 @@ const emptyDrag = {
 export default (config) => {
     const emptyTree = defaultRoot(config);
     const emptyState = Object.assign({}, {tree: emptyTree}, emptyDrag);
-    
+
     return (state = emptyState, action) => {
         switch (action.type) {
             case constants.SET_TREE:
@@ -554,6 +562,9 @@ export default (config) => {
 
             case constants.SET_DRAG_END:
                 return Object.assign({}, state, emptyDrag);
+
+            case constants.SET_STORY_ID:
+                return Object.assign({}, state, {tree: setStoryId(state.tree, action.path, action.storyId)});
 
 
             default:

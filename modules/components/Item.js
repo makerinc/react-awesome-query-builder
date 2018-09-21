@@ -10,7 +10,7 @@ import {Provider, Connector, connect} from 'react-redux';
 
 const typeMap = {
   rule: (props) => (
-    <Rule 
+    <Rule
       {...props.properties.toObject()}
       id={props.id}
       path={props.path}
@@ -21,9 +21,10 @@ const typeMap = {
     />
   ),
   group: (props) => (
-    <Group 
+    <Group
       {...props.properties.toObject()}
       id={props.id}
+      storyId='123'
       path={props.path}
       actions={props.actions}
       config={props.config}
@@ -41,6 +42,7 @@ class Item extends Component {
     //tree: PropTypes.instanceOf(Immutable.Map).isRequired,
     config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
+    storyId: PropTypes.number.isRequired,
     type: PropTypes.oneOf(Object.keys(typeMap)).isRequired,
     path: PropTypes.instanceOf(Immutable.List).isRequired,
     properties: PropTypes.instanceOf(Immutable.Map).isRequired,
