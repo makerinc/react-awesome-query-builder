@@ -25,6 +25,7 @@ const typeMap = {
       {...props.properties.toObject()}
       id={props.id}
       storyId='123'
+      storyPicker={props.storyPicker}
       path={props.path}
       actions={props.actions}
       config={props.config}
@@ -43,6 +44,7 @@ class Item extends Component {
     config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     storyId: PropTypes.number.isRequired,
+    storyPicker: PropTypes.func,
     type: PropTypes.oneOf(Object.keys(typeMap)).isRequired,
     path: PropTypes.instanceOf(Immutable.List).isRequired,
     properties: PropTypes.instanceOf(Immutable.Map).isRequired,

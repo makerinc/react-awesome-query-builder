@@ -176,6 +176,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   removeSelf: _propTypes2.default.func.isRequired,
   setConjunction: _propTypes2.default.func.isRequired,
   setStoryId: _propTypes2.default.func.isRequired,
+  storyPicker: _propTypes2.default.func,
   setNot: _propTypes2.default.func.isRequired,
   actions: _propTypes2.default.object.isRequired,
   //connected:
@@ -234,7 +235,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           {
             icon: 'plus',
             className: 'action action--SELECT-STORY',
-            onClick: _this2.props.setStoryId
+            onClick: _this2.props.storyPicker
           },
           _this2.props.config.settings.selectStoryLabel || "Select Story",
           _this2.props.storyId

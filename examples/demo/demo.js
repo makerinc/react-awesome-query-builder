@@ -10,51 +10,16 @@ import '../../css/denormalize.scss';
 const Immutable = require('immutable');
 const transit = require('transit-immutable-js');
 
-/*
-let ruleset = {
-    "condition": "AND",
-    "rules": [
-        {
-            "id": "name",
-            "field": "name",
-            "type": "string",
-            "input": "text",
-            "operator": "less",
-            "value": "test name"
-        },
-        {
-            "condition": "OR",
-            "rules": [
-                {
-                    "id": "category",
-                    "field": "date",
-                    "type": "date",
-                    "input": "date",
-                    "operator": "equal",
-                    "value": "2012-01-12"
-                },
-                {
-                    "id": "category",
-                    "field": "name",
-                    "type": "string",
-                    "input": "text",
-                    "operator": "equal",
-                    "value": "1"
-                }
-            ]
-        }
-    ]
-}
-*/
-
-
 export default class DemoQueryBuilder extends Component {
     getChildren(props) {
         const jsonStyle = { backgroundColor: 'darkgrey', margin: '10px', padding: '10px' }
+        const storyPicker = () =>
+            console.log('story picker... duh')
+        const all_the_props = {...props, storyPicker}
         return (
             <div style={{padding: '10px'}}>
                 <div className="query-builder">
-                    <Builder {...props} />
+                    <Builder {...all_the_props} />
                 </div>
                 <br />
                 <div>
@@ -107,6 +72,7 @@ export default class DemoQueryBuilder extends Component {
                     value={transit.fromJSON(initValueJSON)}
                     {...config_props}
                     get_children={this.getChildren}
+                    selectStory={this.storyPicker}
                 > </Query>
             </div>
         );

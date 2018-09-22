@@ -66,10 +66,12 @@ var Builder = (0, _SortableContainer2.default)(_class = (_temp = _class2 = funct
       var treeNodesCnt = (0, _treeUtils.getTotalNodesCountInTree)(this.props.tree);
       var id = this.props.tree.get('id');
       var storyId = this.props.tree.get('storyId');
+
       return _react2.default.createElement(_Item2.default, {
         key: id,
         id: id,
         storyId: storyId,
+        storyPicker: this.props.storyPicker,
         path: this.path,
         type: this.props.tree.get('type'),
         properties: this.props.tree.get('properties'),

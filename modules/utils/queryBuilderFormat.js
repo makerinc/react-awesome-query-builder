@@ -78,7 +78,6 @@ export const queryBuilderFormat = (item, config, rootQuery = null) => {
         resultQuery['condition'] = conjunction.toUpperCase();
         resultQuery['not'] = not;
         resultQuery['storyId'] = storyId;
-        console.log(item);
         return resultQuery;
     } else if (type === 'rule') {
         const operator = properties.get('operator');

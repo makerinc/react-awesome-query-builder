@@ -49,6 +49,7 @@ class Group extends Component {
     removeSelf: PropTypes.func.isRequired,
     setConjunction: PropTypes.func.isRequired,
     setStoryId: PropTypes.func.isRequired,
+    storyPicker: PropTypes.func,
     setNot: PropTypes.func.isRequired,
     actions: PropTypes.object.isRequired,
     //connected:
@@ -114,7 +115,7 @@ class Group extends Component {
           <Button
             icon="plus"
             className="action action--SELECT-STORY"
-            onClick={this.props.setStoryId}
+            onClick={this.props.storyPicker}
           >{this.props.config.settings.selectStoryLabel || "Select Story"}{this.props.storyId}</Button>
           }
           {!this.props.config.settings.readonlyMode &&

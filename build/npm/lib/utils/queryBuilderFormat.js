@@ -98,7 +98,6 @@ var queryBuilderFormat = exports.queryBuilderFormat = function queryBuilderForma
         resultQuery['condition'] = conjunction.toUpperCase();
         resultQuery['not'] = not;
         resultQuery['storyId'] = storyId;
-        console.log(item);
         return resultQuery;
     } else if (type === 'rule') {
         var operator = properties.get('operator');
