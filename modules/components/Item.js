@@ -24,7 +24,7 @@ const typeMap = {
     <Group
       {...props.properties.toObject()}
       id={props.id}
-      storyId='123'
+      storyId={props.storyId}
       storyPicker={props.storyPicker}
       path={props.path}
       actions={props.actions}

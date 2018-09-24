@@ -235,9 +235,13 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           {
             icon: 'plus',
             className: 'action action--SELECT-STORY',
-            onClick: _this2.props.storyPicker
+            onClick: function onClick(e) {
+              e.preventDefault();
+              _this2.props.storyPicker(_this2.props.setStoryId);
+            }
           },
           _this2.props.config.settings.selectStoryLabel || "Select Story",
+          ' ',
           _this2.props.storyId
         ),
         !_this2.props.config.settings.readonlyMode && _react2.default.createElement(

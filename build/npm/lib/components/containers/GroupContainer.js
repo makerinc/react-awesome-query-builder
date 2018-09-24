@@ -85,10 +85,7 @@ exports.default = function (Group) {
         return false;
       };
 
-      _this.setStoryId = function (event) {
-        var storyId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 42;
-
-        event.preventDefault();
+      _this.setStoryId = function (storyId) {
         _this.props.actions.setStoryId(_this.props.path, storyId);
         return false;
       };

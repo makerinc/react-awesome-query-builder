@@ -115,8 +115,11 @@ class Group extends Component {
           <Button
             icon="plus"
             className="action action--SELECT-STORY"
-            onClick={this.props.storyPicker}
-          >{this.props.config.settings.selectStoryLabel || "Select Story"}{this.props.storyId}</Button>
+            onClick={(e) => {
+              e.preventDefault();
+              this.props.storyPicker(this.props.setStoryId);
+            }}
+          >{this.props.config.settings.selectStoryLabel || "Select Story"} {this.props.storyId}</Button>
           }
           {!this.props.config.settings.readonlyMode &&
           <Button

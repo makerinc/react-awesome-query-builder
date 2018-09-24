@@ -13,8 +13,10 @@ const transit = require('transit-immutable-js');
 export default class DemoQueryBuilder extends Component {
     getChildren(props) {
         const jsonStyle = { backgroundColor: 'darkgrey', margin: '10px', padding: '10px' }
-        const storyPicker = () =>
-            console.log('story picker... duh')
+        const storyPicker = (callback) => {
+          console.log('story picker... duh', callback);
+          callback(69);
+        }
         const all_the_props = {...props, storyPicker}
         return (
             <div style={{padding: '10px'}}>
@@ -72,7 +74,6 @@ export default class DemoQueryBuilder extends Component {
                     value={transit.fromJSON(initValueJSON)}
                     {...config_props}
                     get_children={this.getChildren}
-                    selectStory={this.storyPicker}
                 > </Query>
             </div>
         );

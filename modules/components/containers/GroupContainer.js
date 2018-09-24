@@ -110,8 +110,7 @@ export default (Group) => {
       return false;
     }
 
-    setStoryId = (event, storyId = 42) => {
-      event.preventDefault();
+    setStoryId = (storyId) => {
       this.props.actions.setStoryId(this.props.path, storyId);
       return false;
     }
