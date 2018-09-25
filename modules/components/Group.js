@@ -113,13 +113,13 @@ class Group extends Component {
           size={this.props.config.settings.renderSize || "small"}
         >{!this.props.config.settings.readonlyMode &&
           <Button
-            icon="plus"
+            icon={(this.props.storyId != null) ? "edit" : "plus"}
             className="action action--SELECT-STORY"
             onClick={(e) => {
               e.preventDefault();
               this.props.storyPicker(this.props.setStoryId);
             }}
-          >{this.props.config.settings.selectStoryLabel || "Select Story"} {this.props.storyId}</Button>
+          >{(this.props.storyId != null) ? "Select Different Story" : "Select Story"} {this.props.storyId}</Button>
           }
           {!this.props.config.settings.readonlyMode &&
           <Button
