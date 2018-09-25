@@ -80,7 +80,7 @@ export default {
       listValues: (window.gon || {}).stories_selector
     },
 
-    macthed__segments__id: {
+    matched__segments__id: {
       label: 'Matched Segments ID',
       type: 'number',
       operators: ['equal'],
@@ -90,7 +90,7 @@ export default {
     },
 
     abm__name: {
-      label: 'ABN Name',
+      label: 'ABM Name',
       type: 'multiselect',
       listValues: {
         top_key_accounts: 'top_key_accounts',
@@ -111,7 +111,6 @@ export default {
     org: {
       label: 'Org',
       type: 'text',
-      operators: ['equal', 'not_equal'],
       defaultOperator: 'equal',
       mainWidgetProps: {
         formatValue: (val, fieldDef, wgtDef, isForDisplay) =>
@@ -307,7 +306,19 @@ export default {
             'not_equal',
             'is_empty',
             'is_not_empty',
-            'proximity'
+            'proximity',
+            'contains',
+            'does_not_contain',
+            'starts_with',
+            'ends_with',
+            'matches_regex',
+            'is_one_of',
+            'does_not_exactly_match',
+            'does_not_contain',
+            'does_not_start_with',
+            'does_not_end_with',
+            'does_not_match_regex',
+            'is_not_one_of'
           ],
           widgetProps: {
             formatValue: (val, fieldDef, wgtDef, isForDisplay) =>
@@ -709,6 +720,72 @@ export default {
           proximity: 2
         }
       }
+    },
+
+    contains: {
+      label: 'Contains',
+      labelForFormat: 'contains',
+      reversedOp: 'does_not_contain'
+    },
+
+    does_not_contain: {
+      label: 'Does Not Contain',
+      labelForFormat: 'does_not_contain',
+      reversedOp: 'contains'
+    },
+
+    starts_with: {
+      label: 'Starts With',
+      labelForFormat: 'starts_with',
+      reversedOp: 'does_not_start_with'
+    },
+
+    does_not_start_with: {
+      label: 'Does not start with',
+      labelForFormat: 'does_not_start_with',
+      reversedOp: 'starts_with'
+    },
+
+    ends_with: {
+      label: 'Ends With',
+      labelForFormat: 'ends_with',
+      reversedOp: 'does_not_end_with'
+    },
+
+    does_not_end_with: {
+      label: 'Does not end with',
+      labelForFormat: 'does_not_end_with',
+      reversedOp: 'ends_with'
+    },
+
+    matches_regex: {
+      label: 'Matches Regex',
+      labelForFormat: 'matches_regex',
+      reversedOp: 'does_not_match_regex'
+    },
+
+    does_not_match_regex: {
+      label: 'Does not match regex',
+      labelForFormat: 'does_not_match_regex',
+      reversedOp: 'matches_regex'
+    },
+
+    is_one_of: {
+      label: 'Is one of',
+      labelForFormat: 'is_one_of',
+      reversedOp: 'is_not_one_of'
+    },
+
+    is_not_one_of: {
+      label: 'Is not one of',
+      labelForFormat: 'is_not_one_of',
+      reversedOp: 'is_one_of'
+    },
+
+    does_not_exactly_match: {
+      label: 'Does not exactly match',
+      labelForFormat: 'does_not_exactly_match',
+      reversedOp: 'equal'
     }
   },
   widgets: {
