@@ -17,7 +17,7 @@ export default class Builder extends Component {
 
   constructor(props) {
     super(props);
-
+    this.props.config.storyPicker = this.props.storyPicker;
     this._updPath(props);
   }
 
@@ -42,7 +42,6 @@ export default class Builder extends Component {
         key={id}
         id={id}
         storyId={storyId}
-        storyPicker={this.props.storyPicker}
         path={this.path}
         type={this.props.tree.get('type')}
         properties={this.props.tree.get('properties')}

@@ -99,7 +99,7 @@ export default (Group) => {
     }
 
     addGroup = (event) => {
-      this.props.actions.addGroup(this.props.path);
+      this.props.actions.addGroup(this.props.path, );
       event.preventDefault();
       return false;
     }
@@ -142,7 +142,6 @@ export default (Group) => {
               selectedConjunction={this.props.conjunction}
               setConjunction={this.dummyFn}
               setStoryId={this.dummyFn}
-              storyPicker={this.props.storyPicker}
               setNot={this.dummyFn}
               removeSelf={this.dummyFn}
               addGroup={this.dummyFn}
@@ -166,7 +165,6 @@ export default (Group) => {
               selectedConjunction={this.props.conjunction}
               setConjunction={this.setConjunction}
               setStoryId={this.setStoryId}
-              storyPicker={this.props.storyPicker}
               setNot={this.setNot.bind(this)}
               removeSelf={this.removeSelf}
               addGroup={this.addGroup}

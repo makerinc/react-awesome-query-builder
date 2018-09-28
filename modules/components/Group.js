@@ -49,7 +49,6 @@ class Group extends Component {
     removeSelf: PropTypes.func.isRequired,
     setConjunction: PropTypes.func.isRequired,
     setStoryId: PropTypes.func.isRequired,
-    storyPicker: PropTypes.func,
     setNot: PropTypes.func.isRequired,
     actions: PropTypes.object.isRequired,
     //connected:
@@ -117,7 +116,7 @@ class Group extends Component {
             className="action action--SELECT-STORY"
             onClick={(e) => {
               e.preventDefault();
-              this.props.storyPicker(this.props.setStoryId);
+              this.props.config.storyPicker(this.props.setStoryId);
             }}
           >{(this.props.storyId != null) ? "Select Different Story" : "Select Story"} {this.props.storyId}</Button>
           }
