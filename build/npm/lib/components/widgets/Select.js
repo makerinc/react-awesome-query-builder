@@ -75,7 +75,8 @@ var SelectWidget = (_temp2 = _class = function (_Component) {
       var size = this.props.config.settings.renderSize || "small";
       var placeholder = this.props.placeholder || "Select option";
       var fieldDefinition = (0, _configUtils.getFieldConfig)(this.props.field, this.props.config);
-      var options = (0, _map2.default)(fieldDefinition.listValues, function (label, value) {
+      var iterableValues = typeof fieldDefinition.listValues === "function" ? fieldDefinition.listValues() : fieldDefinition.listValues;
+      var options = (0, _map2.default)(iterableValues, function (label, value) {
         return _react2.default.createElement(
           Option,
           { key: value, value: value },

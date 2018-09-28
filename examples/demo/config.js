@@ -62,6 +62,18 @@ export default {
     // },
     //
 
+    google_ads_campaign_id: {
+      label: 'Google AdWords Campaign',
+      type: 'select',
+      // listValues: {
+      //   sam: 'rat'
+      // }
+      listValues: function() {
+        console.log('imma call this bish');
+        return (window.gon || {}).google_ads_campaign_id;
+      }
+    },
+
     matchedSegments__name: {
       label: 'Matched Segments Name',
       type: 'select',
@@ -306,7 +318,6 @@ export default {
             'not_equal',
             'is_empty',
             'is_not_empty',
-            'proximity',
             'contains',
             'does_not_contain',
             'starts_with',

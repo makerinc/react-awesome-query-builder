@@ -31,7 +31,8 @@ export default class SelectWidget extends Component {
     let size = this.props.config.settings.renderSize || "small";
     let placeholder = this.props.placeholder || "Select option";
     const fieldDefinition = getFieldConfig(this.props.field, this.props.config);
-    const options = map(fieldDefinition.listValues, (label, value) => {
+    let iterableValues = typeof fieldDefinition.listValues === "function" ? fieldDefinition.listValues() : fieldDefinition.listValues;
+    const options = map(iterableValues, (label, value) => {
       return (<Option key={value} value={value}>{label}</Option>);
     });
     let placeholderWidth = calcTextWidth(placeholder, '12px');

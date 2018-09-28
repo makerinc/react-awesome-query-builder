@@ -377,7 +377,8 @@ var _validateValue = function _validateValue(config, field, operator, value, val
             if (vType != wType) {
                 isValid = false;
             }
-            if (fieldConfig && fieldConfig.listValues) {
+            var iterableValues = typeof fieldConfig.listValues === "function" ? fieldConfig.listValues() : fieldConfig.listValues;
+            if (fieldConfig && iterableValues) {
                 if (v instanceof Array) {
                     var _iteratorNormalCompletion2 = true;
                     var _didIteratorError2 = false;
@@ -387,7 +388,7 @@ var _validateValue = function _validateValue(config, field, operator, value, val
                         for (var _iterator2 = v[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                             var _v = _step2.value;
 
-                            if (fieldConfig.listValues[_v] == undefined) {
+                            if (iterableValues[_v] == undefined) {
                                 //prev value is not in new list of values!
                                 isValid = false;
                                 break;
@@ -408,7 +409,7 @@ var _validateValue = function _validateValue(config, field, operator, value, val
                         }
                     }
                 } else {
-                    if (fieldConfig.listValues[v] == undefined) {
+                    if (iterableValues[v] == undefined) {
                         //prev value is not in new list of values!
                         isValid = false;
                     }
