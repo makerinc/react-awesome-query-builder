@@ -17,11 +17,12 @@ export default class DemoQueryBuilder extends Component {
           console.log('story picker... duh', callback);
           callback(69);
         }
-        const all_the_props = {...props, storyPicker}
+        const propsWithStoryPicker = Object.assign({}, props, { config: { ...props.config, storyPicker: storyPicker.bind(this)} } );
+
         return (
             <div style={{padding: '10px'}}>
                 <div className="query-builder">
-                    <Builder {...all_the_props} />
+                    <Builder {...propsWithStoryPicker} />
                 </div>
                 <br />
                 <div>
