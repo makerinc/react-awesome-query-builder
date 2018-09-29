@@ -17,7 +17,6 @@ export default class Builder extends Component {
 
   constructor(props) {
     super(props);
-    this.props.config.storyPicker = this.props.storyPicker;
     this._updPath(props);
   }
 

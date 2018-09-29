@@ -45,7 +45,6 @@ var Builder = (0, _SortableContainer2.default)(_class = (_temp = _class2 = funct
 
     var _this = _possibleConstructorReturn(this, (Builder.__proto__ || Object.getPrototypeOf(Builder)).call(this, props));
 
-    _this.props.config.storyPicker = _this.props.storyPicker;
     _this._updPath(props);
     return _this;
   }
