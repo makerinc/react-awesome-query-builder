@@ -15,7 +15,7 @@ export default class DemoQueryBuilder extends Component {
         const jsonStyle = { backgroundColor: 'darkgrey', margin: '10px', padding: '10px' }
         const storyPicker = (callback) => {
           console.log('story picker... duh', callback);
-          callback({id: 69, name: 'such wow'});
+          callback({id: 69, name: 'such Mad'});
         }
         const propsWithStoryPicker = Object.assign({}, props, { config: { ...props.config, storyPicker: storyPicker.bind(this)} } );
 

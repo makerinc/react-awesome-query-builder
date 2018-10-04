@@ -232,23 +232,14 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         !_this2.props.config.settings.readonlyMode && _react2.default.createElement(
           _button2.default,
           {
-<<<<<<< HEAD
             icon: _this2.props.story != null ? "edit" : "plus",
-            className: 'action action--SELECT-STORY',
-=======
-            icon: _this2.props.storyId != null ? "edit" : "plus",
             className: "action action--SELECT-STORY",
->>>>>>> afd90706b0b436e53250d98b0e4cfe53700c1265
             onClick: function onClick(e) {
               e.preventDefault();
               _this2.props.config.storyPicker(_this2.props.setStory);
             }
           },
-<<<<<<< HEAD
-          _this2.props.story != null ? (_this2.props.story || {}).name : "Select Story"
-=======
-          _this2.props.storyId != null ? "Story: " + _this2.props.storyId : "Select Story"
->>>>>>> afd90706b0b436e53250d98b0e4cfe53700c1265
+          _this2.props.story != null ? "Story: " + (_this2.props.story || {}).name : "Select Story"
         ),
         !_this2.props.config.settings.readonlyMode && _react2.default.createElement(
           _button2.default,
@@ -286,22 +277,16 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
     var props = _this2.props;
     return props.children1 ? props.children1.map(function (item) {
       return _react2.default.createElement(_Item2.default, {
-<<<<<<< HEAD
         key: item.get('id'),
         id: item.get('id'),
         story: item.get('story')
-=======
-        key: item.get("id"),
-        id: item.get("id"),
-        storyId: item.get("storyId")
->>>>>>> afd90706b0b436e53250d98b0e4cfe53700c1265
         //path={props.path.push(item.get('id'))}
-        , path: item.get("path"),
-        type: item.get("type"),
-        properties: item.get("properties"),
+        , path: item.get('path'),
+        type: item.get('type'),
+        properties: item.get('properties'),
         config: props.config,
         actions: props.actions,
-        children1: item.get("children1")
+        children1: item.get('children1')
         //tree={props.tree}
         , treeNodesCnt: props.treeNodesCnt,
         onDragStart: props.onDragStart

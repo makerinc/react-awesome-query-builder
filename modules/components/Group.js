@@ -113,32 +113,18 @@ class Group extends Component {
   renderGroup = position => {
     return (
       <div className={`group--actions ${position}`}>
-<<<<<<< HEAD
-        <ButtonGroup
-          size={this.props.config.settings.renderSize || "small"}
-        >{!this.props.config.settings.readonlyMode &&
-          <Button
-            icon={(this.props.story != null) ? "edit" : "plus"}
-            className="action action--SELECT-STORY"
-            onClick={(e) => {
-              e.preventDefault();
-              this.props.config.storyPicker(this.props.setStory);
-            }}
-          >{(this.props.story != null) ? (this.props.story || {}).name  : "Select Story"}</Button>
-          }
-=======
         <ButtonGroup size={this.props.config.settings.renderSize || "small"}>
           {!this.props.config.settings.readonlyMode && (
             <Button
-              icon={this.props.storyId != null ? "edit" : "plus"}
+              icon={this.props.story != null ? "edit" : "plus"}
               className="action action--SELECT-STORY"
               onClick={e => {
                 e.preventDefault();
-                this.props.config.storyPicker(this.props.setStoryId);
+                this.props.config.storyPicker(this.props.setStory);
               }}
             >
-              {this.props.storyId != null
-                ? `Story: ${this.props.storyId}`
+              {this.props.story != null
+                ? `Story: ${(this.props.story || {}).name}`
                 : "Select Story"}
             </Button>
           )}
@@ -151,7 +137,6 @@ class Group extends Component {
               {this.props.config.settings.addRuleLabel || "Add rule"}
             </Button>
           )}
->>>>>>> afd90706b0b436e53250d98b0e4cfe53700c1265
           {!this.props.config.settings.readonlyMode &&
           this.props.allowFurtherNesting ? (
             <Button
@@ -181,7 +166,6 @@ class Group extends Component {
 
   renderChildren = () => {
     let props = this.props;
-<<<<<<< HEAD
     return props.children1 ? props.children1.map((item) => (
       <Item
         key={item.get('id')}
@@ -200,30 +184,6 @@ class Group extends Component {
       />
     )).toList() : null;
   }
-=======
-    return props.children1
-      ? props.children1
-          .map(item => (
-            <Item
-              key={item.get("id")}
-              id={item.get("id")}
-              storyId={item.get("storyId")}
-              //path={props.path.push(item.get('id'))}
-              path={item.get("path")}
-              type={item.get("type")}
-              properties={item.get("properties")}
-              config={props.config}
-              actions={props.actions}
-              children1={item.get("children1")}
-              //tree={props.tree}
-              treeNodesCnt={props.treeNodesCnt}
-              onDragStart={props.onDragStart}
-            />
-          ))
-          .toList()
-      : null;
-  };
->>>>>>> afd90706b0b436e53250d98b0e4cfe53700c1265
 
   renderHeader = () => {
     let renderConjsAsRadios = false;
