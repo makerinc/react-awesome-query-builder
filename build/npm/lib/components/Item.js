@@ -62,7 +62,7 @@ var typeMap = {
   group: function group(props) {
     return _react2.default.createElement(_Group2.default, _extends({}, props.properties.toObject(), {
       id: props.id,
-      storyId: props.properties.get('storyId'),
+      story: props.properties.get('story'),
       path: props.path,
       actions: props.actions,
       config: props.config
@@ -107,7 +107,7 @@ var Item = (_temp2 = _class = function (_Component) {
   //tree: PropTypes.instanceOf(Immutable.Map).isRequired,
   config: _propTypes2.default.object.isRequired,
   id: _propTypes2.default.string.isRequired,
-  storyId: _propTypes2.default.number.isRequired,
+  story: _propTypes2.default.number.isRequired,
   type: _propTypes2.default.oneOf(Object.keys(typeMap)).isRequired,
   path: _propTypes2.default.instanceOf(_immutable2.default.List).isRequired,
   properties: _propTypes2.default.instanceOf(_immutable2.default.Map).isRequired,

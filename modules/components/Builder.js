@@ -33,14 +33,17 @@ export default class Builder extends Component {
   render() {
     const treeNodesCnt = getTotalNodesCountInTree(this.props.tree);
     const id = this.props.tree.get('id');
-    const storyId = this.props.tree.get('properties').get('storyId');
-    console.log(`here be builder tree ${id} with ${storyId}`);
+    let story = {};
+    if (this.props.tree.get('properties')) {
+      story = this.props.tree.get('properties').get('story');
+      console.log(`here be builder tree ${id} with ${story}`);
+    }
 
     return (
       <Item
         key={id}
         id={id}
-        storyId={storyId}
+        story={story}
         path={this.path}
         type={this.props.tree.get('type')}
         properties={this.props.tree.get('properties')}

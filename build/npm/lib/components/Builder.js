@@ -65,13 +65,16 @@ var Builder = (0, _SortableContainer2.default)(_class = (_temp = _class2 = funct
     value: function render() {
       var treeNodesCnt = (0, _treeUtils.getTotalNodesCountInTree)(this.props.tree);
       var id = this.props.tree.get('id');
-      var storyId = this.props.tree.get('properties').get('storyId');
-      console.log('here be builder tree ' + id + ' with ' + storyId);
+      var story = {};
+      if (this.props.tree.get('properties')) {
+        story = this.props.tree.get('properties').get('story');
+        console.log('here be builder tree ' + id + ' with ' + story);
+      }
 
       return _react2.default.createElement(_Item2.default, {
         key: id,
         id: id,
-        storyId: storyId,
+        story: story,
         path: this.path,
         type: this.props.tree.get('type'),
         properties: this.props.tree.get('properties'),

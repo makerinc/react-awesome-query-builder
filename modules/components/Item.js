@@ -24,7 +24,7 @@ const typeMap = {
     <Group
       {...props.properties.toObject()}
       id={props.id}
-      storyId={props.properties.get('storyId')}
+      story={props.properties.get('story')}
       path={props.path}
       actions={props.actions}
       config={props.config}
@@ -42,7 +42,7 @@ class Item extends Component {
     //tree: PropTypes.instanceOf(Immutable.Map).isRequired,
     config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
-    storyId: PropTypes.number.isRequired,
+    story: PropTypes.number.isRequired,
     type: PropTypes.oneOf(Object.keys(typeMap)).isRequired,
     path: PropTypes.instanceOf(Immutable.List).isRequired,
     properties: PropTypes.instanceOf(Immutable.Map).isRequired,

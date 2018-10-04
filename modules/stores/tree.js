@@ -87,10 +87,10 @@ const setConjunction = (state, path, conjunction) =>
 /**
  * @param {Immutable.Map} state
  * @param {Immutable.List} path
- * @param {number} storyId
+ * @param {number} story
  */
-const setStoryId = (state, path, storyId) =>
-    state.setIn(expandTreePath(path, 'properties', 'storyId'), storyId);
+const setStory = (state, path, story) =>
+    state.setIn(expandTreePath(path, 'properties', 'story'), story);
 
 /**
  * @param {Immutable.Map} state
@@ -564,8 +564,8 @@ export default (config) => {
             case constants.SET_DRAG_END:
                 return Object.assign({}, state, emptyDrag);
 
-            case constants.SET_STORY_ID:
-                return Object.assign({}, state, {tree: setStoryId(state.tree, action.path, action.storyId)});
+            case constants.SET_STORY:
+                return Object.assign({}, state, {tree: setStory(state.tree, action.path, action.story)});
 
 
             default:

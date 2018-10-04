@@ -27,4 +27,4 @@ export const PLACEMENT_PREPEND = 'prepend';
 export const SET_DRAG_PROGRESS = 'SET_DRAG_PROGRESS';
 export const SET_DRAG_START = 'SET_DRAG_START';
 export const SET_DRAG_END = 'SET_DRAG_END';
-export const SET_STORY_ID = 'SET_STORY_ID';
+export const SET_STORY = 'SET_STORY';

@@ -85,8 +85,8 @@ exports.default = function (Group) {
         return false;
       };
 
-      _this.setStoryId = function (storyId) {
-        _this.props.actions.setStoryId(_this.props.path, storyId);
+      _this.setStory = function (story) {
+        _this.props.actions.setStory(_this.props.path, story);
         return false;
       };
 
@@ -177,14 +177,14 @@ exports.default = function (Group) {
             key: "dragging",
             isForDrag: true,
             id: this.props.id,
-            storyId: this.props.storyId,
+            story: this.props.story,
             isRoot: isRoot,
             allowFurtherNesting: allowFurtherNesting,
             conjunctionOptions: this.conjunctionOptions,
             not: this.props.not,
             selectedConjunction: this.props.conjunction,
             setConjunction: this.dummyFn,
-            setStoryId: this.dummyFn,
+            setStory: this.dummyFn,
             setNot: this.dummyFn,
             removeSelf: this.dummyFn,
             addGroup: this.dummyFn,
@@ -198,14 +198,14 @@ exports.default = function (Group) {
           }), _react2.default.createElement(Group, {
             key: this.props.id,
             id: this.props.id,
-            storyId: this.props.storyId,
+            story: this.props.story,
             isRoot: isRoot,
             allowFurtherNesting: allowFurtherNesting,
             conjunctionOptions: this.conjunctionOptions,
             not: this.props.not,
             selectedConjunction: this.props.conjunction,
             setConjunction: this.setConjunction,
-            setStoryId: this.setStoryId,
+            setStory: this.setStory,
             setNot: this.setNot.bind(this),
             removeSelf: this.removeSelf,
             addGroup: this.addGroup,
@@ -229,7 +229,7 @@ exports.default = function (Group) {
     actions: _propTypes2.default.object.isRequired, //{setConjunction: Funciton, removeGroup, addGroup, addRule, ...}
     path: _propTypes2.default.instanceOf(_immutable2.default.List).isRequired,
     id: _propTypes2.default.string.isRequired,
-    storyId: _propTypes2.default.number.isRequired,
+    story: _propTypes2.default.number.isRequired,
     not: _propTypes2.default.bool,
     conjunction: _propTypes2.default.string,
     children1: _propTypes2.default.instanceOf(_immutable2.default.OrderedMap),

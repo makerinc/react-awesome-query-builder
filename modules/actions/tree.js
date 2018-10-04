@@ -89,7 +89,7 @@ export const removeRule = (config, path) => ({
  */
 export const addGroup = (config, path, properties) => ({
     type: constants.ADD_NEW_GROUP,
-    storyId: null,
+    story: {},
     path: path,
     properties: defaultGroupProperties(config).merge(properties || {}),
     config: config

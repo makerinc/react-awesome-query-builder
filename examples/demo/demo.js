@@ -15,7 +15,7 @@ export default class DemoQueryBuilder extends Component {
         const jsonStyle = { backgroundColor: 'darkgrey', margin: '10px', padding: '10px' }
         const storyPicker = (callback) => {
           console.log('story picker... duh', callback);
-          callback(69);
+          callback({id: 69, name: 'such wow'});
         }
         const propsWithStoryPicker = Object.assign({}, props, { config: { ...props.config, storyPicker: storyPicker.bind(this)} } );
 
@@ -65,7 +65,7 @@ export default class DemoQueryBuilder extends Component {
 
     render() {
         let initValueJSON =
-            '["~#iM",["type","group","id","9ba9ab8b-0123-4456-b89a-b165f919dcb8","children1",["~#iOM",["b99a9b9a-cdef-4012-b456-7165f919dcb8",["^0",["type","rule","id","b99a9b9a-cdef-4012-b456-7165f919dcb8","properties",["^0",["field",null,"operator",null,"value",["~#iL",[]],"valueSrc",["^2",[]],"operatorOptions",null]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8","b99a9b9a-cdef-4012-b456-7165f919dcb8"]]]],"8a898a88-89ab-4cde-b012-3165f919ff2f",["^0",["type","group","id","8a898a88-89ab-4cde-b012-3165f919ff2f","properties",["^0",["conjunction","OR"]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8","8a898a88-89ab-4cde-b012-3165f919ff2f"]],"children1",["^1",["9b9998a8-4567-489a-bcde-f165f919ff31",["^0",["type","rule","id","9b9998a8-4567-489a-bcde-f165f919ff31","properties",["^0",["field","matchedSegments__name","operator","select_equals","value",["^2",["Fortune 1,000"]],"valueSrc",["^2",["value"]],"operatorOptions",null,"conjunction","OR","valueType",["^2",["select"]]]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8","8a898a88-89ab-4cde-b012-3165f919ff2f","9b9998a8-4567-489a-bcde-f165f919ff31"]]]],"ab88b9ab-0123-4456-b89a-b165f91a5fdf",["^0",["type","rule","id","ab88b9ab-0123-4456-b89a-b165f91a5fdf","properties",["^0",["field",null,"operator",null,"value",["^2",[]],"valueSrc",["^2",[]],"operatorOptions",null]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8","8a898a88-89ab-4cde-b012-3165f919ff2f","ab88b9ab-0123-4456-b89a-b165f91a5fdf"]]]]]]]]]],"properties",["^0",["conjunction","OR"]],"path",["^2",["9ba9ab8b-0123-4456-b89a-b165f919dcb8"]]]]';
+            '["~#iM",["type","group","id","9a99988a-0123-4456-b89a-b1607f326fd8","children1",["~#iOM",["989899ab-0123-4456-b89a-b166405981c9",["^0",["type","rule","id","989899ab-0123-4456-b89a-b166405981c9","properties",["^0",["field","google_ads_campaign_id","operator","select_not_equals","value",["~#iL",["dog"]],"valueSrc",["^2",["value"]],"operatorOptions",null,"valueType",["^2",["select"]]]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8","989899ab-0123-4456-b89a-b166405981c9"]]]],"b9b8a8b9-cdef-4012-b456-716640599c28",["^0",["type","rule","id","b9b8a8b9-cdef-4012-b456-716640599c28","properties",["^0",["field",null,"operator",null,"value",["^2",[]],"valueSrc",["^2",[]],"operatorOptions",null]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8","b9b8a8b9-cdef-4012-b456-716640599c28"]]]]]],"properties",["^0",["conjunction","AND","story",["^ ","id",69,"name","such wow"]]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8"]]]]';
 
         const {tree, ...config_props} = config;
 

@@ -39,7 +39,7 @@ class Group extends Component {
     selectedConjunction: PropTypes.string,
     config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
-    storyId: PropTypes.number.isRequired,
+    story: PropTypes.object.isRequired,
     path: PropTypes.instanceOf(Immutable.List),
     onDragStart: PropTypes.func,
     children1: PropTypes.instanceOf(Immutable.OrderedMap),
@@ -48,7 +48,7 @@ class Group extends Component {
     addGroup: PropTypes.func.isRequired,
     removeSelf: PropTypes.func.isRequired,
     setConjunction: PropTypes.func.isRequired,
-    setStoryId: PropTypes.func.isRequired,
+    setStory: PropTypes.func.isRequired,
     setNot: PropTypes.func.isRequired,
     actions: PropTypes.object.isRequired,
     //connected:
@@ -112,13 +112,13 @@ class Group extends Component {
           size={this.props.config.settings.renderSize || "small"}
         >{!this.props.config.settings.readonlyMode &&
           <Button
-            icon={(this.props.storyId != null) ? "edit" : "plus"}
+            icon={(this.props.story != null) ? "edit" : "plus"}
             className="action action--SELECT-STORY"
             onClick={(e) => {
               e.preventDefault();
-              this.props.config.storyPicker(this.props.setStoryId);
+              this.props.config.storyPicker(this.props.setStory);
             }}
-          >{(this.props.storyId != null) ? "Select Different Story" : "Select Story"} {this.props.storyId}</Button>
+          >{(this.props.story != null) ? (this.props.story || {}).name  : "Select Story"}</Button>
           }
           {!this.props.config.settings.readonlyMode &&
           <Button
@@ -153,7 +153,7 @@ class Group extends Component {
       <Item
         key={item.get('id')}
         id={item.get('id')}
-        storyId={item.get('storyId')}
+        story={item.get('story')}
         //path={props.path.push(item.get('id'))}
         path={item.get('path')}
         type={item.get('type')}

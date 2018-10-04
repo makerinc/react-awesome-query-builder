@@ -166,7 +166,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   selectedConjunction: _propTypes2.default.string,
   config: _propTypes2.default.object.isRequired,
   id: _propTypes2.default.string.isRequired,
-  storyId: _propTypes2.default.number.isRequired,
+  story: _propTypes2.default.object.isRequired,
   path: _propTypes2.default.instanceOf(_immutable2.default.List),
   onDragStart: _propTypes2.default.func,
   children1: _propTypes2.default.instanceOf(_immutable2.default.OrderedMap),
@@ -175,7 +175,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   addGroup: _propTypes2.default.func.isRequired,
   removeSelf: _propTypes2.default.func.isRequired,
   setConjunction: _propTypes2.default.func.isRequired,
-  setStoryId: _propTypes2.default.func.isRequired,
+  setStory: _propTypes2.default.func.isRequired,
   setNot: _propTypes2.default.func.isRequired,
   actions: _propTypes2.default.object.isRequired,
   //connected:
@@ -232,16 +232,14 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         !_this2.props.config.settings.readonlyMode && _react2.default.createElement(
           _button2.default,
           {
-            icon: _this2.props.storyId != null ? "edit" : "plus",
+            icon: _this2.props.story != null ? "edit" : "plus",
             className: 'action action--SELECT-STORY',
             onClick: function onClick(e) {
               e.preventDefault();
-              _this2.props.config.storyPicker(_this2.props.setStoryId);
+              _this2.props.config.storyPicker(_this2.props.setStory);
             }
           },
-          _this2.props.storyId != null ? "Select Different Story" : "Select Story",
-          ' ',
-          _this2.props.storyId
+          _this2.props.story != null ? (_this2.props.story || {}).name : "Select Story"
         ),
         !_this2.props.config.settings.readonlyMode && _react2.default.createElement(
           _button2.default,
@@ -281,7 +279,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       return _react2.default.createElement(_Item2.default, {
         key: item.get('id'),
         id: item.get('id'),
-        storyId: item.get('storyId')
+        story: item.get('story')
         //path={props.path.push(item.get('id'))}
         , path: item.get('path'),
         type: item.get('type'),

@@ -25,10 +25,10 @@ export const setNot = (config, path, not) => ({
 /**
  * @param {object} config
  * @param {Immutable.List} path
- * @param {number} storyId
+ * @param {object} story
  */
-export const setStoryId = (config, path, storyId) => ({
-  type: constants.SET_STORY_ID,
+export const setStory = (config, path, story) => ({
+  type: constants.SET_STORY,
   path: path,
-  storyId: storyId
+  story: story
 });

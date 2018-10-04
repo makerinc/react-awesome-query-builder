@@ -115,7 +115,7 @@ var removeRule = exports.removeRule = function removeRule(config, path) {
 var addGroup = exports.addGroup = function addGroup(config, path, properties) {
   return {
     type: constants.ADD_NEW_GROUP,
-    storyId: null,
+    story: {},
     path: path,
     properties: (0, _defaultUtils.defaultGroupProperties)(config).merge(properties || {}),
     config: config
