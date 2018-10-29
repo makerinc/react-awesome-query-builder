@@ -4,7 +4,7 @@ import shallowCompare from "react-addons-shallow-compare";
 import map from "lodash/map";
 import startsWith from "lodash/startsWith";
 import GroupContainer from "./containers/GroupContainer";
-import { Row, Col, Icon, Button, Radio } from "antd";
+import { Row, Col, Icon, Button, Radio, Input, Select } from "antd";
 const ButtonGroup = Button.Group;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -39,6 +39,7 @@ class Group extends Component {
     config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     story: PropTypes.object.isRequired,
+    meta: PropTypes.object.isRequired,
     path: PropTypes.instanceOf(Immutable.List),
     onDragStart: PropTypes.func,
     children1: PropTypes.instanceOf(Immutable.OrderedMap),
@@ -48,6 +49,7 @@ class Group extends Component {
     removeSelf: PropTypes.func.isRequired,
     setConjunction: PropTypes.func.isRequired,
     setStory: PropTypes.func.isRequired,
+    setMeta: PropTypes.func.isRequired,
     setNot: PropTypes.func.isRequired,
     actions: PropTypes.object.isRequired,
     //connected:
@@ -171,6 +173,7 @@ class Group extends Component {
         key={item.get('id')}
         id={item.get('id')}
         story={item.get('story')}
+        meta={item.get('meta')}
         //path={props.path.push(item.get('id'))}
         path={item.get('path')}
         type={item.get('type')}
@@ -187,6 +190,11 @@ class Group extends Component {
 
   renderHeader = () => {
     let renderConjsAsRadios = false;
+
+    const experienceStatusOptions = map(['draft', 'running', 'ended', 'archived', 'scheduled'], (label, value) => {
+      return (<Option key={value} value={value}>{label}</Option>);
+    });
+
     return (
       <div
         className={classNames(
@@ -247,6 +255,39 @@ class Group extends Component {
               <Icon type="bars" />{" "}
             </span>
           )}
+
+        <Col>
+          <Input
+            key="widget-text"
+            ref="text"
+            type={"text"}
+            value={(this.props.meta || {}).name || null}
+            placeholder="name"
+            onChange={(e) => this.props.setMeta({name: e.target.value})}
+          />
+        </Col>
+        <Col>
+          <Input
+            key="widget-text"
+            ref="text"
+            type={"text"}
+            value={(this.props.meta || {}).description || null}
+            placeholder="description"
+            onChange={(e) => this.props.setMeta({description: e.target.value})}
+          />
+        </Col>
+
+        <Select
+            style={{ width: 100 }}
+            key={"widget-select"}
+            dropdownMatchSelectWidth={false}
+            ref="val"
+            size="small"
+            placeholder="status"
+            value={(this.props.meta).status || undefined}
+            onChange={(e) => this.props.setMeta({status: e})}
+          >{experienceStatusOptions}
+        </Select>
       </div>
     );
   };

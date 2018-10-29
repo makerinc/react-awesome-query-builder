@@ -69,7 +69,6 @@ export default {
       //   sam: 'rat'
       // }
       listValues: function() {
-        console.log('imma call this bish');
         return (window.gon || {}).google_ads_campaign_id;
       }
     },

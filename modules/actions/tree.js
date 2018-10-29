@@ -90,6 +90,7 @@ export const removeRule = (config, path) => ({
 export const addGroup = (config, path, properties) => ({
     type: constants.ADD_NEW_GROUP,
     story: {},
+    meta: {user_id: ((window.gon || {}).current_user || {}).id || null},
     path: path,
     properties: defaultGroupProperties(config).merge(properties || {}),
     config: config

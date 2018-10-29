@@ -64,6 +64,7 @@ export const queryBuilderFormat = (item, config, rootQuery = null) => {
     if (type === 'group' && children && children.size) {
         const conjunction = properties.get('conjunction');
         const story = properties.get('story')
+        const meta = properties.get('meta')
         const not = properties.get('not');
         const conjunctionDefinition = config.conjunctions[conjunction];
 
@@ -78,6 +79,7 @@ export const queryBuilderFormat = (item, config, rootQuery = null) => {
         resultQuery['condition'] = conjunction.toUpperCase();
         resultQuery['not'] = not;
         resultQuery['story'] = story;
+        resultQuery['meta'] = meta;
         return resultQuery;
     } else if (type === 'rule') {
         const operator = properties.get('operator');

@@ -32,3 +32,14 @@ export const setStory = (config, path, story) => ({
   path: path,
   story: story
 });
+
+/**
+ * @param {object} config
+ * @param {Immutable.List} path
+ * @param {object} meta
+ */
+export const setMeta = (config, path, meta) => ({
+  type: constants.SET_META,
+  path: path,
+  meta: meta
+});

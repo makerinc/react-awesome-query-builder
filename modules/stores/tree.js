@@ -87,10 +87,21 @@ const setConjunction = (state, path, conjunction) =>
 /**
  * @param {Immutable.Map} state
  * @param {Immutable.List} path
- * @param {number} story
+ * @param {object} story
  */
 const setStory = (state, path, story) =>
     state.setIn(expandTreePath(path, 'properties', 'story'), story);
+
+/**
+ * @param {Immutable.Map} state
+ * @param {Immutable.List} path
+ * @param {object} meta
+ */
+const setMeta = (state, path, meta) => {
+    let currentMeta = getItemByPath(state, path).get('properties').get('meta') || {};
+    let newMeta = {...currentMeta, ...meta}
+    return state.setIn(expandTreePath(path, 'properties', 'meta'), newMeta);
+}
 
 /**
  * @param {Immutable.Map} state
@@ -566,6 +577,9 @@ export default (config) => {
 
             case constants.SET_STORY:
                 return Object.assign({}, state, {tree: setStory(state.tree, action.path, action.story)});
+
+            case constants.SET_META:
+                return Object.assign({}, state, {tree: setMeta(state.tree, action.path, action.meta)});
 
 
             default:

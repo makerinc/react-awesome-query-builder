@@ -25,6 +25,7 @@ const typeMap = {
       {...props.properties.toObject()}
       id={props.id}
       story={props.properties.get('story')}
+      meta={props.properties.get('meta')}
       path={props.path}
       actions={props.actions}
       config={props.config}
@@ -43,6 +44,7 @@ class Item extends Component {
     config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     story: PropTypes.number.isRequired,
+    meta: PropTypes.number.isRequired,
     type: PropTypes.oneOf(Object.keys(typeMap)).isRequired,
     path: PropTypes.instanceOf(Immutable.List).isRequired,
     properties: PropTypes.instanceOf(Immutable.Map).isRequired,
