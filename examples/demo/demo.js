@@ -17,7 +17,16 @@ export default class DemoQueryBuilder extends Component {
           console.log('story picker... duh', callback);
           callback({id: 69, name: 'such Mad'});
         }
-        const propsWithStoryPicker = Object.assign({}, props, { config: { ...props.config, storyPicker: storyPicker.bind(this)} } );
+        const experimentManager = (callback) => {
+          console.log('experiment manager... duh', callback);
+          callback(420);
+        }
+        const propsWithStoryPicker = Object.assign({},
+                                                  props,
+                                                  { config: { ...props.config,
+                                                   storyPicker: storyPicker.bind(this),
+                                                   experimentManager: experimentManager.bind(this)
+                                                 } } );
 
         return (
             <div style={{padding: '10px'}}>

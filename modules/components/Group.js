@@ -284,10 +284,37 @@ class Group extends Component {
             ref="val"
             size="small"
             placeholder="status"
-            value={(this.props.meta).status || undefined}
+            value={(this.props.meta || {}).status || undefined}
             onChange={(e) => this.props.setMeta({status: e})}
           >{experienceStatusOptions}
         </Select>
+
+        <Select
+            style={{ width: 100 }}
+            key={"widget-select"}
+            dropdownMatchSelectWidth={false}
+            ref="val"
+            size="small"
+            placeholder="status"
+            value={(this.props.meta || {}).status || undefined}
+            onChange={(e) => this.props.setMeta({status: e})}
+          >{experienceStatusOptions}
+        </Select>
+
+        <Button
+          icon={(this.props.meta || {}).experiment_id != null ? "edit" : "plus"}
+          className="action action--MANAGE-EXPERIMENT"
+          onClick={e => {
+            e.preventDefault();
+            this.props.config.experimentManager((id) => this.props.setMeta({experiment_id: id}));
+          }}
+        >
+          {(this.props.meta || {}).experiment_id != null
+            ? "Edit Experience"
+            : "Start Experience"}
+        </Button>
+
+
       </div>
     );
   };
