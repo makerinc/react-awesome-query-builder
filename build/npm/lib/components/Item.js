@@ -63,6 +63,7 @@ var typeMap = {
     return _react2.default.createElement(_Group2.default, _extends({}, props.properties.toObject(), {
       id: props.id,
       story: props.properties.get('story'),
+      meta: props.properties.get('meta'),
       path: props.path,
       actions: props.actions,
       config: props.config
@@ -108,6 +109,7 @@ var Item = (_temp2 = _class = function (_Component) {
   config: _propTypes2.default.object.isRequired,
   id: _propTypes2.default.string.isRequired,
   story: _propTypes2.default.number.isRequired,
+  meta: _propTypes2.default.number.isRequired,
   type: _propTypes2.default.oneOf(Object.keys(typeMap)).isRequired,
   path: _propTypes2.default.instanceOf(_immutable2.default.List).isRequired,
   properties: _propTypes2.default.instanceOf(_immutable2.default.Map).isRequired,

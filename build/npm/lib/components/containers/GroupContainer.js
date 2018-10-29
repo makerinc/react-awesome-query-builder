@@ -90,6 +90,11 @@ exports.default = function (Group) {
         return false;
       };
 
+      _this.setMeta = function (meta) {
+        _this.props.actions.setMeta(_this.props.path, meta);
+        return false;
+      };
+
       _this.conjunctionOptions = _this._getConjunctionOptions(props);
       return _this;
     }
@@ -178,6 +183,7 @@ exports.default = function (Group) {
             isForDrag: true,
             id: this.props.id,
             story: this.props.story,
+            meta: this.props.meta,
             isRoot: isRoot,
             allowFurtherNesting: allowFurtherNesting,
             conjunctionOptions: this.conjunctionOptions,
@@ -185,6 +191,7 @@ exports.default = function (Group) {
             selectedConjunction: this.props.conjunction,
             setConjunction: this.dummyFn,
             setStory: this.dummyFn,
+            setMeta: this.dummyFn,
             setNot: this.dummyFn,
             removeSelf: this.dummyFn,
             addGroup: this.dummyFn,
@@ -199,13 +206,14 @@ exports.default = function (Group) {
             key: this.props.id,
             id: this.props.id,
             story: this.props.story,
+            meta: this.props.meta,
             isRoot: isRoot,
             allowFurtherNesting: allowFurtherNesting,
             conjunctionOptions: this.conjunctionOptions,
             not: this.props.not,
             selectedConjunction: this.props.conjunction,
             setConjunction: this.setConjunction,
-            setStory: this.setStory,
+            setMeta: this.setMeta,
             setNot: this.setNot.bind(this),
             removeSelf: this.removeSelf,
             addGroup: this.addGroup,
@@ -229,7 +237,8 @@ exports.default = function (Group) {
     actions: _propTypes2.default.object.isRequired, //{setConjunction: Funciton, removeGroup, addGroup, addRule, ...}
     path: _propTypes2.default.instanceOf(_immutable2.default.List).isRequired,
     id: _propTypes2.default.string.isRequired,
-    story: _propTypes2.default.number.isRequired,
+    story: _propTypes2.default.object.isRequired,
+    meta: _propTypes2.default.object.isRequired,
     not: _propTypes2.default.bool,
     conjunction: _propTypes2.default.string,
     children1: _propTypes2.default.instanceOf(_immutable2.default.OrderedMap),

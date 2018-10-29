@@ -3,6 +3,18 @@
 exports.__esModule = true;
 exports.groupActionsPositionList = undefined;
 
+var _select = require("antd/lib/select");
+
+var _select2 = _interopRequireDefault(_select);
+
+var _col = require("antd/lib/col");
+
+var _col2 = _interopRequireDefault(_col);
+
+var _input = require("antd/lib/input");
+
+var _input2 = _interopRequireDefault(_input);
+
 var _icon = require("antd/lib/icon");
 
 var _icon2 = _interopRequireDefault(_icon);
@@ -18,6 +30,12 @@ var _button2 = _interopRequireDefault(_button);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _class, _class2, _temp, _initialiseProps;
+
+require("antd/lib/select/style/css");
+
+require("antd/lib/col/style/css");
+
+require("antd/lib/input/style/css");
 
 require("antd/lib/icon/style/css");
 
@@ -169,6 +187,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   config: _propTypes2.default.object.isRequired,
   id: _propTypes2.default.string.isRequired,
   story: _propTypes2.default.object.isRequired,
+  meta: _propTypes2.default.object.isRequired,
   path: _propTypes2.default.instanceOf(_immutable2.default.List),
   onDragStart: _propTypes2.default.func,
   children1: _propTypes2.default.instanceOf(_immutable2.default.OrderedMap),
@@ -178,6 +197,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   removeSelf: _propTypes2.default.func.isRequired,
   setConjunction: _propTypes2.default.func.isRequired,
   setStory: _propTypes2.default.func.isRequired,
+  setMeta: _propTypes2.default.func.isRequired,
   setNot: _propTypes2.default.func.isRequired,
   actions: _propTypes2.default.object.isRequired,
   //connected:
@@ -279,7 +299,8 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       return _react2.default.createElement(_Item2.default, {
         key: item.get('id'),
         id: item.get('id'),
-        story: item.get('story')
+        story: item.get('story'),
+        meta: item.get('meta')
         //path={props.path.push(item.get('id'))}
         , path: item.get('path'),
         type: item.get('type'),
@@ -296,6 +317,15 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
 
   this.renderHeader = function () {
     var renderConjsAsRadios = false;
+
+    var experienceStatusOptions = (0, _map2.default)(['draft', 'running', 'ended', 'archived', 'scheduled'], function (label, value) {
+      return _react2.default.createElement(
+        Option,
+        { key: value, value: value },
+        label
+      );
+    });
+
     return _react2.default.createElement(
       "div",
       {
@@ -360,6 +390,80 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         " ",
         _react2.default.createElement(_icon2.default, { type: "bars" }),
         " "
+      ),
+      _react2.default.createElement(
+        _col2.default,
+        null,
+        _react2.default.createElement(_input2.default, {
+          key: "widget-text",
+          ref: "text",
+          type: "text",
+          value: (_this2.props.meta || {}).name || null,
+          placeholder: "name",
+          onChange: function onChange(e) {
+            return _this2.props.setMeta({ name: e.target.value });
+          }
+        })
+      ),
+      _react2.default.createElement(
+        _col2.default,
+        null,
+        _react2.default.createElement(_input2.default, {
+          key: "widget-text",
+          ref: "text",
+          type: "text",
+          value: (_this2.props.meta || {}).description || null,
+          placeholder: "description",
+          onChange: function onChange(e) {
+            return _this2.props.setMeta({ description: e.target.value });
+          }
+        })
+      ),
+      _react2.default.createElement(
+        _select2.default,
+        {
+          style: { width: 100 },
+          key: "widget-select",
+          dropdownMatchSelectWidth: false,
+          ref: "val",
+          size: "small",
+          placeholder: "status",
+          value: (_this2.props.meta || {}).status || undefined,
+          onChange: function onChange(e) {
+            return _this2.props.setMeta({ status: e });
+          }
+        },
+        experienceStatusOptions
+      ),
+      _react2.default.createElement(
+        _select2.default,
+        {
+          style: { width: 100 },
+          key: "widget-select",
+          dropdownMatchSelectWidth: false,
+          ref: "val",
+          size: "small",
+          placeholder: "status",
+          value: (_this2.props.meta || {}).status || undefined,
+          onChange: function onChange(e) {
+            return _this2.props.setMeta({ status: e });
+          }
+        },
+        experienceStatusOptions
+      ),
+      _react2.default.createElement(
+        _button2.default,
+        {
+          icon: (_this2.props.meta || {}).experiment_id != null ? "edit" : "plus",
+          className: "action action--MANAGE-EXPERIMENT",
+          onClick: function onClick(e) {
+            e.preventDefault();
+            _this2.props.config.experimentManager(function (id) {
+              return _this2.props.setMeta({ experiment_id: id });
+            });
+          }
+        },
+        (_this2.props.meta || {}).experiment_id != null ? "Edit Experience" : "Start Experience"
       )
     );
   };

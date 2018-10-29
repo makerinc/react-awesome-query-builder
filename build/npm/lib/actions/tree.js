@@ -116,6 +116,7 @@ var addGroup = exports.addGroup = function addGroup(config, path, properties) {
   return {
     type: constants.ADD_NEW_GROUP,
     story: {},
+    meta: { user_id: ((window.gon || {}).current_user || {}).id || null },
     path: path,
     properties: (0, _defaultUtils.defaultGroupProperties)(config).merge(properties || {}),
     config: config
