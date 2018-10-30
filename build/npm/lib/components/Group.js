@@ -391,64 +391,68 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         _react2.default.createElement(_icon2.default, { type: "bars" }),
         " "
       ),
-      _react2.default.createElement(
-        _col2.default,
+      _this2.props.isRoot ? _react2.default.createElement(
+        "div",
         null,
-        _react2.default.createElement(_input2.default, {
-          key: "widget-text",
-          ref: "text",
-          type: "text",
-          value: (_this2.props.meta || {}).name || null,
-          placeholder: "name",
-          onChange: function onChange(e) {
-            return _this2.props.setMeta({ name: e.target.value });
-          }
-        })
-      ),
-      _react2.default.createElement(
-        _col2.default,
-        null,
-        _react2.default.createElement(_input2.default, {
-          key: "widget-text",
-          ref: "text",
-          type: "text",
-          value: (_this2.props.meta || {}).description || null,
-          placeholder: "description",
-          onChange: function onChange(e) {
-            return _this2.props.setMeta({ description: e.target.value });
-          }
-        })
-      ),
-      _react2.default.createElement(
-        _select2.default,
-        {
-          style: { width: 100 },
-          key: "widget-select",
-          dropdownMatchSelectWidth: false,
-          ref: "val",
-          size: "small",
-          placeholder: "status",
-          value: (_this2.props.meta || {}).status || undefined,
-          onChange: function onChange(e) {
-            return _this2.props.setMeta({ status: e });
-          }
-        },
-        experienceStatusOptions
-      ),
-      _react2.default.createElement(
-        _button2.default,
-        {
-          icon: (_this2.props.meta || {}).experiment_id != null ? "edit" : "plus",
-          className: "action action--MANAGE-EXPERIMENT",
-          onClick: function onClick(e) {
-            e.preventDefault();
-            _this2.props.config.experimentManager(function (id) {
-              return _this2.props.setMeta({ experiment_id: id });
-            });
-          }
-        },
-        (_this2.props.meta || {}).experiment_id != null ? "Edit Experience" : "Start Experience"
-      )
+        _react2.default.createElement(
+          _col2.default,
+          null,
+          _react2.default.createElement(_input2.default, {
+            key: "widget-text",
+            ref: "text",
+            type: "text",
+            value: (_this2.props.meta || {}).name || null,
+            placeholder: "name",
+            onChange: function onChange(e) {
+              return _this2.props.setMeta({ name: e.target.value });
+            }
+          })
+        ),
+        _react2.default.createElement(
+          _col2.default,
+          null,
+          _react2.default.createElement(_input2.default, {
+            key: "widget-text",
+            ref: "text",
+            type: "text",
+            value: (_this2.props.meta || {}).description || null,
+            placeholder: "description",
+            onChange: function onChange(e) {
+              return _this2.props.setMeta({ description: e.target.value });
+            }
+          })
+        ),
+        _react2.default.createElement(
+          _select2.default,
+          {
+            style: { width: 100 },
+            key: "widget-select",
+            dropdownMatchSelectWidth: false,
+            ref: "val",
+            size: "small",
+            placeholder: "status",
+            value: (_this2.props.meta || {}).status || undefined,
+            onChange: function onChange(e) {
+              return _this2.props.setMeta({ status: e });
+            }
+          },
+          experienceStatusOptions
+        ),
+        _react2.default.createElement(
+          _button2.default,
+          {
+            icon: (_this2.props.meta || {}).experiment_id != null ? "edit" : "plus",
+            className: "action action--MANAGE-EXPERIMENT",
+            onClick: function onClick(e) {
+              e.preventDefault();
+              _this2.props.config.experimentManager(function (id) {
+                return _this2.props.setMeta({ experiment_id: id });
+              });
+            }
+          },
+          (_this2.props.meta || {}).experiment_id != null ? "Edit Experience" : "Start Experience"
+        )
+      ) : ''
     );
   };
 }, _temp)) || _class;
