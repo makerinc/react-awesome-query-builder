@@ -436,22 +436,6 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         experienceStatusOptions
       ),
       _react2.default.createElement(
-        _select2.default,
-        {
-          style: { width: 100 },
-          key: "widget-select",
-          dropdownMatchSelectWidth: false,
-          ref: "val",
-          size: "small",
-          placeholder: "status",
-          value: (_this2.props.meta || {}).status || undefined,
-          onChange: function onChange(e) {
-            return _this2.props.setMeta({ status: e });
-          }
-        },
-        experienceStatusOptions
-      ),
-      _react2.default.createElement(
         _button2.default,
         {
           icon: (_this2.props.meta || {}).experiment_id != null ? "edit" : "plus",

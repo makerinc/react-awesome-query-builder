@@ -24,10 +24,9 @@ export default class DemoQueryBuilder extends Component {
         const propsWithStoryPicker = Object.assign({},
                                                   props,
                                                   { config: { ...props.config,
-                                                   storyPicker: storyPicker.bind(this),
-                                                   experimentManager: experimentManager.bind(this)
+                                                   experimentManager: experimentManager.bind(this),
+                                                   storyPicker: storyPicker.bind(this)
                                                  } } );
-
         return (
             <div style={{padding: '10px'}}>
                 <div className="query-builder">

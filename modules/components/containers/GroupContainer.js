@@ -173,6 +173,7 @@ export default (Group) => {
               not={this.props.not}
               selectedConjunction={this.props.conjunction}
               setConjunction={this.setConjunction}
+              setStory={this.setStory}
               setMeta={this.setMeta}
               setNot={this.setNot.bind(this)}
               removeSelf={this.removeSelf}

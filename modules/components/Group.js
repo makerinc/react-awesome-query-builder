@@ -289,18 +289,6 @@ class Group extends Component {
           >{experienceStatusOptions}
         </Select>
 
-        <Select
-            style={{ width: 100 }}
-            key={"widget-select"}
-            dropdownMatchSelectWidth={false}
-            ref="val"
-            size="small"
-            placeholder="status"
-            value={(this.props.meta || {}).status || undefined}
-            onChange={(e) => this.props.setMeta({status: e})}
-          >{experienceStatusOptions}
-        </Select>
-
         <Button
           icon={(this.props.meta || {}).experiment_id != null ? "edit" : "plus"}
           className="action action--MANAGE-EXPERIMENT"
