@@ -119,6 +119,11 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   }
 
   _createClass(Group, [{
+    key: "isDraftMode",
+    value: function isDraftMode(props) {
+      return (props.meta || {}).status === 'draft' || (props.meta || {}).status === undefined;
+    }
+  }, {
     key: "getRenderType",
     value: function getRenderType(props) {
       var renderType = void 0;
@@ -249,7 +254,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       _react2.default.createElement(
         ButtonGroup,
         { size: _this2.props.config.settings.renderSize || "small" },
-        !_this2.props.config.settings.readonlyMode && _react2.default.createElement(
+        !_this2.props.config.settings.readonlyMode && _this2.isDraftMode(_this2.props) && _react2.default.createElement(
           _button2.default,
           {
             icon: _this2.props.story != null ? "edit" : "plus",
@@ -261,7 +266,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           },
           _this2.props.story != null ? "Story: " + (_this2.props.story || {}).name : "Select Story"
         ),
-        !_this2.props.config.settings.readonlyMode && _react2.default.createElement(
+        !_this2.props.config.settings.readonlyMode && _this2.isDraftMode(_this2.props) && _react2.default.createElement(
           _button2.default,
           {
             icon: "plus",
@@ -270,7 +275,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           },
           _this2.props.config.settings.addRuleLabel || "Add rule"
         ),
-        !_this2.props.config.settings.readonlyMode && _this2.props.allowFurtherNesting ? _react2.default.createElement(
+        !_this2.props.config.settings.readonlyMode && _this2.isDraftMode(_this2.props) && _this2.props.allowFurtherNesting ? _react2.default.createElement(
           _button2.default,
           {
             className: "action action--ADD-GROUP",
@@ -279,7 +284,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           },
           _this2.props.config.settings.addGroupLabel || "Add group"
         ) : null,
-        !_this2.props.config.settings.readonlyMode && !_this2.props.isRoot ? _react2.default.createElement(
+        !_this2.props.config.settings.readonlyMode && _this2.isDraftMode(_this2.props) && !_this2.props.isRoot ? _react2.default.createElement(
           _button2.default,
           {
             type: "danger",
@@ -321,7 +326,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
     var experienceStatusOptions = (0, _map2.default)(['draft', 'running', 'ended', 'archived', 'scheduled'], function (label, value) {
       return _react2.default.createElement(
         Option,
-        { key: value, value: value },
+        { key: label, value: label },
         label
       );
     });

@@ -927,7 +927,7 @@ export default {
     clearValueOnChangeField: false, //false - if prev & next fields have same type (widget), keep
     clearValueOnChangeOp: false,
     setDefaultFieldAndOp: false,
-    maxNesting: 2,
+    maxNesting: 3,
     fieldSeparator: '.',
     fieldSeparatorDisplay: '->',
     showLabels: false,

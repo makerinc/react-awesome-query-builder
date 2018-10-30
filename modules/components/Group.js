@@ -102,6 +102,10 @@ class Group extends Component {
     );
   };
 
+  isDraftMode(props) {
+    return (props.meta || {}).status === 'draft' || (props.meta || {}).status === undefined
+  }
+
   getRenderType(props) {
     let renderType;
     if (props.dragging && props.dragging.id == props.id) {
@@ -116,7 +120,7 @@ class Group extends Component {
     return (
       <div className={`group--actions ${position}`}>
         <ButtonGroup size={this.props.config.settings.renderSize || "small"}>
-          {!this.props.config.settings.readonlyMode && (
+          {!this.props.config.settings.readonlyMode && this.isDraftMode(this.props) && (
             <Button
               icon={this.props.story != null ? "edit" : "plus"}
               className="action action--SELECT-STORY"
@@ -130,7 +134,9 @@ class Group extends Component {
                 : "Select Story"}
             </Button>
           )}
-          {!this.props.config.settings.readonlyMode && (
+          {!this.props.config.settings.readonlyMode &&
+            this.isDraftMode(this.props) &&
+           (
             <Button
               icon="plus"
               className="action action--ADD-RULE"
@@ -140,6 +146,7 @@ class Group extends Component {
             </Button>
           )}
           {!this.props.config.settings.readonlyMode &&
+          this.isDraftMode(this.props) &&
           this.props.allowFurtherNesting ? (
             <Button
               className="action action--ADD-GROUP"
@@ -149,7 +156,9 @@ class Group extends Component {
               {this.props.config.settings.addGroupLabel || "Add group"}
             </Button>
           ) : null}
-          {!this.props.config.settings.readonlyMode && !this.props.isRoot ? (
+          {!this.props.config.settings.readonlyMode &&
+           this.isDraftMode(this.props) &&
+           !this.props.isRoot ? (
             <Button
               type="danger"
               icon="delete"
@@ -192,7 +201,7 @@ class Group extends Component {
     let renderConjsAsRadios = false;
 
     const experienceStatusOptions = map(['draft', 'running', 'ended', 'archived', 'scheduled'], (label, value) => {
-      return (<Option key={value} value={value}>{label}</Option>);
+      return (<Option key={label} value={label}>{label}</Option>);
     });
 
     return (
