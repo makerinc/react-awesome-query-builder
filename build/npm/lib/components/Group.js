@@ -3,6 +3,10 @@
 exports.__esModule = true;
 exports.groupActionsPositionList = undefined;
 
+var _icon = require("antd/lib/icon");
+
+var _icon2 = _interopRequireDefault(_icon);
+
 var _select = require("antd/lib/select");
 
 var _select2 = _interopRequireDefault(_select);
@@ -10,10 +14,6 @@ var _select2 = _interopRequireDefault(_select);
 var _input = require("antd/lib/input");
 
 var _input2 = _interopRequireDefault(_input);
-
-var _icon = require("antd/lib/icon");
-
-var _icon2 = _interopRequireDefault(_icon);
 
 var _radio = require("antd/lib/radio");
 
@@ -27,11 +27,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _class, _class2, _temp, _initialiseProps;
 
+require("antd/lib/icon/style/css");
+
 require("antd/lib/select/style/css");
 
 require("antd/lib/input/style/css");
-
-require("antd/lib/icon/style/css");
 
 require("antd/lib/radio/style/css");
 
@@ -133,6 +133,84 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       return renderType;
     }
   }, {
+    key: "renderFooter",
+    value: function renderFooter() {
+      var _this2 = this;
+
+      var experienceStatusOptions = (0, _map2.default)(["draft", "running", "ended", "archived", "scheduled"], function (label, value) {
+        return _react2.default.createElement(
+          Option,
+          { key: label, value: label },
+          label
+        );
+      });
+
+      return !this.props.isRoot && this.props.allowFurtherNesting ? _react2.default.createElement(
+        "div",
+        { className: "group--footer" },
+        _react2.default.createElement(
+          "div",
+          { style: { display: "none" } },
+          _react2.default.createElement(_input2.default, {
+            key: "widget-text",
+            ref: "text",
+            type: "text",
+            value: (this.props.meta || {}).description || null,
+            placeholder: "description",
+            onChange: function onChange(e) {
+              return _this2.props.setMeta({ description: e.target.value });
+            }
+          }),
+          _react2.default.createElement(
+            _select2.default,
+            {
+              style: { width: 100 },
+              key: "widget-select",
+              dropdownMatchSelectWidth: false,
+              ref: "val",
+              size: "small",
+              placeholder: "status",
+              value: (this.props.meta || {}).status || undefined,
+              onChange: function onChange(e) {
+                return _this2.props.setMeta({ status: e });
+              }
+            },
+            experienceStatusOptions
+          )
+        ),
+        _react2.default.createElement(_input2.default, {
+          style: { width: 200 },
+          key: "widget-text",
+          ref: "experimentName",
+          type: "text",
+          value: (this.props.meta || {}).name || null,
+          placeholder: "Experience name",
+          onChange: function onChange(e) {
+            return _this2.props.setMeta({ name: e.target.value });
+          }
+        }),
+        _react2.default.createElement(
+          _button2.default,
+          {
+            icon: (this.props.meta || {}).experiment_id != null ? "edit" : "plus",
+            className: "action action--MANAGE-EXPERIMENT",
+            onClick: function onClick(e) {
+              var tmpId = (0, _uuid2.default)();
+
+              e.preventDefault();
+
+              _this2.props.setMeta({ tmpId: tmpId });
+
+              setTimeout(function () {
+                _this2.props.config.experimentManager(tmpId, _this2.refs.experimentName.refs.input.value, _this2.props.setMeta.bind(_this2));
+              }, 0);
+            }
+          },
+          (this.props.meta || {}).starting_status === "loading" ? "Starting..." : (this.props.meta || {}).starting_status === "failed" ? "Failed" : (this.props.meta || {}).experiment_id != null ? "Edit Experience" : "Start Experience"
+        )
+      ) : null;
+    }
+  }, {
     key: "render",
     value: function render() {
       var renderType = this.getRenderType(this.props);
@@ -168,6 +246,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           },
           this.renderChildren()
         ) : null,
+        this.renderFooter(),
         !this.isGroupTopPosition() && _react2.default.createElement(
           "div",
           { className: "group--footer" },
@@ -206,7 +285,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   //connected:
   dragging: _propTypes2.default.object //{id, x, y, w, h},
 }, _initialiseProps = function _initialiseProps() {
-  var _this2 = this;
+  var _this3 = this;
 
   this.pureShouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(this);
   this.shouldComponentUpdate = this.pureShouldComponentUpdate;
@@ -215,34 +294,34 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
     var itemKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
     var k = "" + itemKey;
-    var h = _this2._setConjunctionHandlers[k];
+    var h = _this3._setConjunctionHandlers[k];
     if (!h) {
-      h = _this2._setConjunction.bind(_this2, itemKey);
-      _this2._setConjunctionHandlers[k] = h;
+      h = _this3._setConjunction.bind(_this3, itemKey);
+      _this3._setConjunctionHandlers[k] = h;
     }
     return h;
   };
 
   this._setConjunction = function (itemKey, e) {
-    _this2.props.setConjunction(e, itemKey);
+    _this3.props.setConjunction(e, itemKey);
   };
 
   this.handleDraggerMouseDown = function (e) {
-    var nodeId = _this2.props.id;
-    var dom = _this2.refs.group;
-    if (_this2.props.onDragStart) {
-      _this2.props.onDragStart(nodeId, dom, e);
+    var nodeId = _this3.props.id;
+    var dom = _this3.refs.group;
+    if (_this3.props.onDragStart) {
+      _this3.props.onDragStart(nodeId, dom, e);
     }
   };
 
   this.getGroupPositionClass = function () {
-    var groupActionsPosition = _this2.props.config.settings.groupActionsPosition;
+    var groupActionsPosition = _this3.props.config.settings.groupActionsPosition;
 
     return groupActionsPositionList[groupActionsPosition] || groupActionsPositionList[defaultPosition];
   };
 
   this.isGroupTopPosition = function () {
-    return (0, _startsWith2.default)(_this2.props.config.settings.groupActionsPosition || defaultPosition, "top");
+    return (0, _startsWith2.default)(_this3.props.config.settings.groupActionsPosition || defaultPosition, "top");
   };
 
   this.renderGroup = function (position) {
@@ -251,53 +330,53 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       { className: "group--actions " + position },
       _react2.default.createElement(
         ButtonGroup,
-        { size: _this2.props.config.settings.renderSize || "small" },
-        !_this2.props.config.settings.readonlyMode && _this2.isDraftMode(_this2.props) && !_this2.props.isRoot && !_this2.props.allowFurtherNesting && _react2.default.createElement(
+        { size: _this3.props.config.settings.renderSize || "small" },
+        !_this3.props.config.settings.readonlyMode && _this3.isDraftMode(_this3.props) && !_this3.props.isRoot && !_this3.props.allowFurtherNesting && _react2.default.createElement(
           _button2.default,
           {
-            icon: _this2.props.story != null ? "edit" : "plus",
+            icon: _this3.props.story != null ? "edit" : "plus",
             className: "action action--SELECT-STORY",
             onClick: function onClick(e) {
               e.preventDefault();
-              _this2.props.config.storyPicker(_this2.props.setStory);
+              _this3.props.config.storyPicker(_this3.props.setStory);
             }
           },
-          _this2.props.story != null ? "Story: " + (_this2.props.story || {}).name : "Select Story"
+          _this3.props.story != null ? "Story: " + (_this3.props.story || {}).name : "Select Story"
         ),
-        !_this2.props.config.settings.readonlyMode && _this2.isDraftMode(_this2.props) && !_this2.props.isRoot && !_this2.props.allowFurtherNesting && _react2.default.createElement(
+        !_this3.props.config.settings.readonlyMode && _this3.isDraftMode(_this3.props) && !_this3.props.isRoot && !_this3.props.allowFurtherNesting && _react2.default.createElement(
           _button2.default,
           {
             icon: "plus",
             className: "action action--ADD-RULE",
-            onClick: _this2.props.addRule
+            onClick: _this3.props.addRule
           },
-          _this2.props.config.settings.addRuleLabel || "Add rule"
+          _this3.props.config.settings.addRuleLabel || "Add rule"
         ),
-        !_this2.props.config.settings.readonlyMode && _this2.isDraftMode(_this2.props) && _this2.props.allowFurtherNesting ? _react2.default.createElement(
+        !_this3.props.config.settings.readonlyMode && _this3.isDraftMode(_this3.props) && _this3.props.allowFurtherNesting ? _react2.default.createElement(
           _button2.default,
           {
             className: "action action--ADD-GROUP",
             icon: "plus-circle-o",
-            onClick: _this2.props.addGroup
+            onClick: _this3.props.addGroup
           },
-          _this2.props.isRoot ? "Add Experience" : _this2.props.config.settings.addGroupLabel || "Add group"
+          _this3.props.isRoot ? "Add Experience" : _this3.props.config.settings.addGroupLabel || "Add group"
         ) : null,
-        !_this2.props.config.settings.readonlyMode && !_this2.props.isRoot && _this2.isDraftMode(_this2.props) ? _react2.default.createElement(
+        !_this3.props.config.settings.readonlyMode && !_this3.props.isRoot && _this3.isDraftMode(_this3.props) ? _react2.default.createElement(
           _button2.default,
           {
             type: "danger",
             icon: "delete",
             className: "action action--ADD-DELETE",
-            onClick: _this2.props.removeSelf
+            onClick: _this3.props.removeSelf
           },
-          _this2.props.config.settings.delGroupLabel !== undefined ? _this2.props.allowFurtherNesting ? "Delete Experience" : _this2.props.config.settings.delGroupLabel : "Delete"
+          _this3.props.config.settings.delGroupLabel !== undefined ? _this3.props.allowFurtherNesting ? "Delete Experience" : _this3.props.config.settings.delGroupLabel : "Delete"
         ) : null
       )
     );
   };
 
   this.renderChildren = function () {
-    var props = _this2.props;
+    var props = _this3.props;
     return props.children1 ? props.children1.map(function (item) {
       return _react2.default.createElement(_Item2.default, {
         key: item.get("id"),
@@ -321,14 +400,6 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   this.renderHeader = function () {
     var renderConjsAsRadios = false;
 
-    var experienceStatusOptions = (0, _map2.default)(["draft", "running", "ended", "archived", "scheduled"], function (label, value) {
-      return _react2.default.createElement(
-        Option,
-        { key: label, value: label },
-        label
-      );
-    });
-
     return _react2.default.createElement(
       "div",
       {
@@ -336,15 +407,15 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         // this.props.children1.size < 2 && this.props.config.settings.hideConjForOne ? 'hide--conj' : ''
         )
       },
-      _this2.props.config.settings.renderConjsAsRadios ? _react2.default.createElement(
+      _this3.props.config.settings.renderConjsAsRadios ? _react2.default.createElement(
         RadioGroup,
         {
-          disabled: _this2.props.children1.size < 2,
-          value: _this2.props.selectedConjunction,
-          size: _this2.props.config.settings.renderSize || "small",
-          onChange: _this2.props.setConjunction
+          disabled: _this3.props.children1.size < 2,
+          value: _this3.props.selectedConjunction,
+          size: _this3.props.config.settings.renderSize || "small",
+          onChange: _this3.props.setConjunction
         },
-        (0, _map2.default)(_this2.props.conjunctionOptions, function (item, index) {
+        (0, _map2.default)(_this3.props.conjunctionOptions, function (item, index) {
           return _react2.default.createElement(
             RadioButton,
             {
@@ -358,106 +429,42 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       ) : _react2.default.createElement(
         ButtonGroup,
         {
-          size: _this2.props.config.settings.renderSize || "small",
-          disabled: _this2.props.children1.size < 2
+          size: _this3.props.config.settings.renderSize || "small",
+          disabled: _this3.props.children1.size < 2
         },
-        _this2.props.config.settings.showNot && _react2.default.createElement(
+        _this3.props.config.settings.showNot && _react2.default.createElement(
           _button2.default,
           {
             onClick: function onClick(ev) {
-              return _this2.props.setNot(ev, !_this2.props.not);
+              return _this3.props.setNot(ev, !_this3.props.not);
             },
-            type: _this2.props.not ? "primary" : null
+            type: _this3.props.not ? "primary" : null
           },
-          _this2.props.config.settings.notLabel
+          _this3.props.config.settings.notLabel
         ),
-        (0, _map2.default)(_this2.props.conjunctionOptions, function (item, index) {
+        (0, _map2.default)(_this3.props.conjunctionOptions, function (item, index) {
           return _react2.default.createElement(
             _button2.default,
             {
-              disabled: _this2.props.children1.size < 2,
+              disabled: _this3.props.children1.size < 2,
               key: item.id,
               type: item.checked ? "primary" : null,
-              onClick: _this2._getSetConjunctionHandler(item.key)
+              onClick: _this3._getSetConjunctionHandler(item.key)
             },
             item.label
           );
         })
       ),
-      _this2.props.config.settings.canReorder && _this2.props.treeNodesCnt > 2 && !_this2.props.isRoot && _react2.default.createElement(
+      _this3.props.config.settings.canReorder && _this3.props.treeNodesCnt > 2 && !_this3.props.isRoot && _react2.default.createElement(
         "span",
         {
           className: "qb-drag-handler",
-          onMouseDown: _this2.handleDraggerMouseDown
+          onMouseDown: _this3.handleDraggerMouseDown
         },
         " ",
         _react2.default.createElement(_icon2.default, { type: "bars" }),
         " "
-      ),
-      !_this2.props.isRoot && _this2.props.allowFurtherNesting ? _react2.default.createElement(
-        "div",
-        null,
-        _react2.default.createElement(
-          "div",
-          { style: { display: "none" } },
-          _react2.default.createElement(_input2.default, {
-            key: "widget-text",
-            ref: "text",
-            type: "text",
-            value: (_this2.props.meta || {}).description || null,
-            placeholder: "description",
-            onChange: function onChange(e) {
-              return _this2.props.setMeta({ description: e.target.value });
-            }
-          }),
-          _react2.default.createElement(
-            _select2.default,
-            {
-              style: { width: 100 },
-              key: "widget-select",
-              dropdownMatchSelectWidth: false,
-              ref: "val",
-              size: "small",
-              placeholder: "status",
-              value: (_this2.props.meta || {}).status || undefined,
-              onChange: function onChange(e) {
-                return _this2.props.setMeta({ status: e });
-              }
-            },
-            experienceStatusOptions
-          )
-        ),
-        _react2.default.createElement(_input2.default, {
-          style: { width: 200 },
-          key: "widget-text",
-          ref: "experimentName",
-          type: "text",
-          value: (_this2.props.meta || {}).name || null,
-          placeholder: "name",
-          onChange: function onChange(e) {
-            return _this2.props.setMeta({ name: e.target.value });
-          }
-        }),
-        _react2.default.createElement(
-          _button2.default,
-          {
-            icon: (_this2.props.meta || {}).experiment_id != null ? "edit" : "plus",
-            className: "action action--MANAGE-EXPERIMENT",
-            onClick: function onClick(e) {
-              var tmpId = (0, _uuid2.default)();
-
-              e.preventDefault();
-
-              _this2.props.setMeta({ tmpId: tmpId });
-
-              setTimeout(function () {
-                _this2.props.config.experimentManager(tmpId, _this2.refs.experimentName.refs.input.value, _this2.props.setMeta.bind(_this2));
-              }, 0);
-            }
-          },
-          (_this2.props.meta || {}).starting_status === "loading" ? "Starting..." : (_this2.props.meta || {}).starting_status === "failed" ? "Failed" : (_this2.props.meta || {}).experiment_id != null ? "Edit Experience" : "Start Experience"
-        )
-      ) : ""
+      )
     );
   };
 }, _temp)) || _class;

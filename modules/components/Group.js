@@ -216,17 +216,6 @@ class Group extends Component {
   renderHeader = () => {
     let renderConjsAsRadios = false;
 
-    const experienceStatusOptions = map(
-      ["draft", "running", "ended", "archived", "scheduled"],
-      (label, value) => {
-        return (
-          <Option key={label} value={label}>
-            {label}
-          </Option>
-        );
-      }
-    );
-
     return (
       <div
         className={classNames(
@@ -287,81 +276,88 @@ class Group extends Component {
               <Icon type="bars" />{" "}
             </span>
           )}
-
-        {!this.props.isRoot && this.props.allowFurtherNesting ? (
-          <div>
-            <div style={{ display: "none" }}>
-              <Input
-                key="widget-text"
-                ref="text"
-                type={"text"}
-                value={(this.props.meta || {}).description || null}
-                placeholder="description"
-                onChange={e =>
-                  this.props.setMeta({ description: e.target.value })
-                }
-              />
-
-              <Select
-                style={{ width: 100 }}
-                key={"widget-select"}
-                dropdownMatchSelectWidth={false}
-                ref="val"
-                size="small"
-                placeholder="status"
-                value={(this.props.meta || {}).status || undefined}
-                onChange={e => this.props.setMeta({ status: e })}
-              >
-                {experienceStatusOptions}
-              </Select>
-            </div>
-
-            <Input
-              style={{ width: 200 }}
-              key="widget-text"
-              ref="experimentName"
-              type={"text"}
-              value={(this.props.meta || {}).name || null}
-              placeholder="name"
-              onChange={e => this.props.setMeta({ name: e.target.value })}
-            />
-
-            <Button
-              icon={
-                (this.props.meta || {}).experiment_id != null ? "edit" : "plus"
-              }
-              className="action action--MANAGE-EXPERIMENT"
-              onClick={e => {
-                const tmpId = uuid();
-
-                e.preventDefault();
-
-                this.props.setMeta({ tmpId: tmpId });
-
-                setTimeout(() => {
-                  this.props.config.experimentManager(
-                    tmpId,
-                    this.refs.experimentName.refs.input.value,
-                    this.props.setMeta.bind(this)
-                  );
-                }, 0);
-              }}
-            >
-              {(this.props.meta || {}).starting_status === "loading"
-                ? "Starting..."
-                : (this.props.meta || {}).starting_status === "failed"
-                  ? "Failed"
-                  : (this.props.meta || {}).experiment_id != null
-                    ? "Edit Experience"
-                    : "Start Experience"}
-            </Button>
-          </div>
-        ) : (
-          ""
-        )}
       </div>
     );
   };
+
+  renderFooter() {
+    const experienceStatusOptions = map(
+      ["draft", "running", "ended", "archived", "scheduled"],
+      (label, value) => {
+        return (
+          <Option key={label} value={label}>
+            {label}
+          </Option>
+        );
+      }
+    );
+
+    return !this.props.isRoot && this.props.allowFurtherNesting ? (
+      <div className="group--footer">
+        <div style={{ display: "none" }}>
+          <Input
+            key="widget-text"
+            ref="text"
+            type={"text"}
+            value={(this.props.meta || {}).description || null}
+            placeholder="description"
+            onChange={e => this.props.setMeta({ description: e.target.value })}
+          />
+
+          <Select
+            style={{ width: 100 }}
+            key={"widget-select"}
+            dropdownMatchSelectWidth={false}
+            ref="val"
+            size="small"
+            placeholder="status"
+            value={(this.props.meta || {}).status || undefined}
+            onChange={e => this.props.setMeta({ status: e })}
+          >
+            {experienceStatusOptions}
+          </Select>
+        </div>
+
+        <Input
+          style={{ width: 200 }}
+          key="widget-text"
+          ref="experimentName"
+          type={"text"}
+          value={(this.props.meta || {}).name || null}
+          placeholder="Experience name"
+          onChange={e => this.props.setMeta({ name: e.target.value })}
+        />
+
+        <Button
+          icon={(this.props.meta || {}).experiment_id != null ? "edit" : "plus"}
+          className="action action--MANAGE-EXPERIMENT"
+          onClick={e => {
+            const tmpId = uuid();
+
+            e.preventDefault();
+
+            this.props.setMeta({ tmpId: tmpId });
+
+            setTimeout(() => {
+              this.props.config.experimentManager(
+                tmpId,
+                this.refs.experimentName.refs.input.value,
+                this.props.setMeta.bind(this)
+              );
+            }, 0);
+          }}
+        >
+          {(this.props.meta || {}).starting_status === "loading"
+            ? "Starting..."
+            : (this.props.meta || {}).starting_status === "failed"
+              ? "Failed"
+              : (this.props.meta || {}).experiment_id != null
+                ? "Edit Experience"
+                : "Start Experience"}
+        </Button>
+      </div>
+    ) : null;
+  }
 
   render() {
     let renderType = this.getRenderType(this.props);
@@ -406,6 +402,7 @@ class Group extends Component {
             {this.renderChildren()}
           </div>
         ) : null}
+        {this.renderFooter()}
         {!this.isGroupTopPosition() && (
           <div className="group--footer">
             {this.renderGroup(this.getGroupPositionClass())}
