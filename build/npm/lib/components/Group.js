@@ -7,10 +7,6 @@ var _select = require("antd/lib/select");
 
 var _select2 = _interopRequireDefault(_select);
 
-var _col = require("antd/lib/col");
-
-var _col2 = _interopRequireDefault(_col);
-
 var _input = require("antd/lib/input");
 
 var _input2 = _interopRequireDefault(_input);
@@ -32,8 +28,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _class, _class2, _temp, _initialiseProps;
 
 require("antd/lib/select/style/css");
-
-require("antd/lib/col/style/css");
 
 require("antd/lib/input/style/css");
 
@@ -81,6 +75,10 @@ var _Item = require("./Item");
 
 var _Item2 = _interopRequireDefault(_Item);
 
+var _uuid = require("../utils/uuid");
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -121,7 +119,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   _createClass(Group, [{
     key: "isDraftMode",
     value: function isDraftMode(props) {
-      return (props.meta || {}).status === 'draft' || (props.meta || {}).status === undefined;
+      return (props.meta || {}).status === "draft" || (props.meta || {}).status === undefined;
     }
   }, {
     key: "getRenderType",
@@ -302,17 +300,17 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
     var props = _this2.props;
     return props.children1 ? props.children1.map(function (item) {
       return _react2.default.createElement(_Item2.default, {
-        key: item.get('id'),
-        id: item.get('id'),
-        story: item.get('story'),
-        meta: item.get('meta')
+        key: item.get("id"),
+        id: item.get("id"),
+        story: item.get("story"),
+        meta: item.get("meta")
         //path={props.path.push(item.get('id'))}
-        , path: item.get('path'),
-        type: item.get('type'),
-        properties: item.get('properties'),
+        , path: item.get("path"),
+        type: item.get("type"),
+        properties: item.get("properties"),
         config: props.config,
         actions: props.actions,
-        children1: item.get('children1')
+        children1: item.get("children1")
         //tree={props.tree}
         , treeNodesCnt: props.treeNodesCnt,
         onDragStart: props.onDragStart
@@ -323,7 +321,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   this.renderHeader = function () {
     var renderConjsAsRadios = false;
 
-    var experienceStatusOptions = (0, _map2.default)(['draft', 'running', 'ended', 'archived', 'scheduled'], function (label, value) {
+    var experienceStatusOptions = (0, _map2.default)(["draft", "running", "ended", "archived", "scheduled"], function (label, value) {
       return _react2.default.createElement(
         Option,
         { key: label, value: label },
@@ -400,22 +398,8 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         "div",
         null,
         _react2.default.createElement(
-          _col2.default,
-          null,
-          _react2.default.createElement(_input2.default, {
-            key: "widget-text",
-            ref: "text",
-            type: "text",
-            value: (_this2.props.meta || {}).name || null,
-            placeholder: "name",
-            onChange: function onChange(e) {
-              return _this2.props.setMeta({ name: e.target.value });
-            }
-          })
-        ),
-        _react2.default.createElement(
-          _col2.default,
-          null,
+          "div",
+          { style: { display: "none" } },
           _react2.default.createElement(_input2.default, {
             key: "widget-text",
             ref: "text",
@@ -425,39 +409,55 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
             onChange: function onChange(e) {
               return _this2.props.setMeta({ description: e.target.value });
             }
-          })
+          }),
+          _react2.default.createElement(
+            _select2.default,
+            {
+              style: { width: 100 },
+              key: "widget-select",
+              dropdownMatchSelectWidth: false,
+              ref: "val",
+              size: "small",
+              placeholder: "status",
+              value: (_this2.props.meta || {}).status || undefined,
+              onChange: function onChange(e) {
+                return _this2.props.setMeta({ status: e });
+              }
+            },
+            experienceStatusOptions
+          )
         ),
-        _react2.default.createElement(
-          _select2.default,
-          {
-            style: { width: 100 },
-            key: "widget-select",
-            dropdownMatchSelectWidth: false,
-            ref: "val",
-            size: "small",
-            placeholder: "status",
-            value: (_this2.props.meta || {}).status || undefined,
-            onChange: function onChange(e) {
-              return _this2.props.setMeta({ status: e });
-            }
-          },
-          experienceStatusOptions
-        ),
+        _react2.default.createElement(_input2.default, {
+          style: { width: 200 },
+          key: "widget-text",
+          ref: "experimentName",
+          type: "text",
+          value: (_this2.props.meta || {}).name || null,
+          placeholder: "name",
+          onChange: function onChange(e) {
+            return _this2.props.setMeta({ name: e.target.value });
+          }
+        }),
         _react2.default.createElement(
           _button2.default,
           {
             icon: (_this2.props.meta || {}).experiment_id != null ? "edit" : "plus",
             className: "action action--MANAGE-EXPERIMENT",
             onClick: function onClick(e) {
+              var tmpId = (0, _uuid2.default)();
+
               e.preventDefault();
-              _this2.props.config.experimentManager(function (id) {
-                return _this2.props.setMeta({ experiment_id: id });
-              });
+
+              _this2.props.setMeta({ tmpId: tmpId });
+
+              setTimeout(function () {
+                _this2.props.config.experimentManager(tmpId, _this2.refs.experimentName.refs.input.value, _this2.props.setMeta.bind(_this2));
+              }, 0);
             }
           },
-          (_this2.props.meta || {}).experiment_id != null ? "Edit Experience" : "Start Experience"
+          (_this2.props.meta || {}).starting_status === "loading" ? "Starting..." : (_this2.props.meta || {}).starting_status === "failed" ? "Failed" : (_this2.props.meta || {}).experiment_id != null ? "Edit Experience" : "Start Experience"
         )
-      ) : ''
+      ) : ""
     );
   };
 }, _temp)) || _class;

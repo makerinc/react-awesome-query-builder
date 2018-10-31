@@ -13,6 +13,7 @@ import Immutable from "immutable";
 import PureRenderMixin from "react-addons-pure-render-mixin";
 import { Provider, Connector, connect } from "react-redux";
 import Item from "./Item";
+import uuid from "../utils/uuid";
 
 export const groupActionsPositionList = {
   topLeft: "group--actions--tl",
@@ -103,7 +104,10 @@ class Group extends Component {
   };
 
   isDraftMode(props) {
-    return (props.meta || {}).status === 'draft' || (props.meta || {}).status === undefined
+    return (
+      (props.meta || {}).status === "draft" ||
+      (props.meta || {}).status === undefined
+    );
   }
 
   getRenderType(props) {
@@ -123,34 +127,32 @@ class Group extends Component {
           {!this.props.config.settings.readonlyMode &&
             this.isDraftMode(this.props) &&
             !this.props.isRoot &&
-            !this.props.allowFurtherNesting &&
-             (
-            <Button
-              icon={this.props.story != null ? "edit" : "plus"}
-              className="action action--SELECT-STORY"
-              onClick={e => {
-                e.preventDefault();
-                this.props.config.storyPicker(this.props.setStory);
-              }}
-            >
-              {this.props.story != null
-                ? `Story: ${(this.props.story || {}).name}`
-                : "Select Story"}
-            </Button>
-          )}
+            !this.props.allowFurtherNesting && (
+              <Button
+                icon={this.props.story != null ? "edit" : "plus"}
+                className="action action--SELECT-STORY"
+                onClick={e => {
+                  e.preventDefault();
+                  this.props.config.storyPicker(this.props.setStory);
+                }}
+              >
+                {this.props.story != null
+                  ? `Story: ${(this.props.story || {}).name}`
+                  : "Select Story"}
+              </Button>
+            )}
           {!this.props.config.settings.readonlyMode &&
             this.isDraftMode(this.props) &&
             !this.props.isRoot &&
-            !this.props.allowFurtherNesting &&
-           (
-            <Button
-              icon="plus"
-              className="action action--ADD-RULE"
-              onClick={this.props.addRule}
-            >
-              {this.props.config.settings.addRuleLabel || "Add rule"}
-            </Button>
-          )}
+            !this.props.allowFurtherNesting && (
+              <Button
+                icon="plus"
+                className="action action--ADD-RULE"
+                onClick={this.props.addRule}
+              >
+                {this.props.config.settings.addRuleLabel || "Add rule"}
+              </Button>
+            )}
           {!this.props.config.settings.readonlyMode &&
           this.isDraftMode(this.props) &&
           this.props.allowFurtherNesting ? (
@@ -159,16 +161,14 @@ class Group extends Component {
               icon="plus-circle-o"
               onClick={this.props.addGroup}
             >
-              {this.props.isRoot ?
-                "Add Experience" :
-                 (this.props.config.settings.addGroupLabel || "Add group")
-               }
+              {this.props.isRoot
+                ? "Add Experience"
+                : this.props.config.settings.addGroupLabel || "Add group"}
             </Button>
           ) : null}
           {!this.props.config.settings.readonlyMode &&
-           !this.props.isRoot &&
-           this.isDraftMode(this.props)
-           ? (
+          !this.props.isRoot &&
+          this.isDraftMode(this.props) ? (
             <Button
               type="danger"
               icon="delete"
@@ -176,9 +176,9 @@ class Group extends Component {
               onClick={this.props.removeSelf}
             >
               {this.props.config.settings.delGroupLabel !== undefined
-                ? (
-                    this.props.allowFurtherNesting ? "Delete Experience" : this.props.config.settings.delGroupLabel
-                  )
+                ? this.props.allowFurtherNesting
+                  ? "Delete Experience"
+                  : this.props.config.settings.delGroupLabel
                 : "Delete"}
             </Button>
           ) : null}
@@ -189,32 +189,43 @@ class Group extends Component {
 
   renderChildren = () => {
     let props = this.props;
-    return props.children1 ? props.children1.map((item) => (
-      <Item
-        key={item.get('id')}
-        id={item.get('id')}
-        story={item.get('story')}
-        meta={item.get('meta')}
-        //path={props.path.push(item.get('id'))}
-        path={item.get('path')}
-        type={item.get('type')}
-        properties={item.get('properties')}
-        config={props.config}
-        actions={props.actions}
-        children1={item.get('children1')}
-        //tree={props.tree}
-        treeNodesCnt={props.treeNodesCnt}
-        onDragStart={props.onDragStart}
-      />
-    )).toList() : null;
-  }
+    return props.children1
+      ? props.children1
+          .map(item => (
+            <Item
+              key={item.get("id")}
+              id={item.get("id")}
+              story={item.get("story")}
+              meta={item.get("meta")}
+              //path={props.path.push(item.get('id'))}
+              path={item.get("path")}
+              type={item.get("type")}
+              properties={item.get("properties")}
+              config={props.config}
+              actions={props.actions}
+              children1={item.get("children1")}
+              //tree={props.tree}
+              treeNodesCnt={props.treeNodesCnt}
+              onDragStart={props.onDragStart}
+            />
+          ))
+          .toList()
+      : null;
+  };
 
   renderHeader = () => {
     let renderConjsAsRadios = false;
 
-    const experienceStatusOptions = map(['draft', 'running', 'ended', 'archived', 'scheduled'], (label, value) => {
-      return (<Option key={label} value={label}>{label}</Option>);
-    });
+    const experienceStatusOptions = map(
+      ["draft", "running", "ended", "archived", "scheduled"],
+      (label, value) => {
+        return (
+          <Option key={label} value={label}>
+            {label}
+          </Option>
+        );
+      }
+    );
 
     return (
       <div
@@ -277,58 +288,77 @@ class Group extends Component {
             </span>
           )}
 
-        {
-          !this.props.isRoot && this.props.allowFurtherNesting ?
-          (
-            <div>
-              <Col>
-                <Input
-                  key="widget-text"
-                  ref="text"
-                  type={"text"}
-                  value={(this.props.meta || {}).name || null}
-                  placeholder="name"
-                  onChange={(e) => this.props.setMeta({name: e.target.value})}
-                />
-              </Col>
-              <Col>
-                <Input
-                  key="widget-text"
-                  ref="text"
-                  type={"text"}
-                  value={(this.props.meta || {}).description || null}
-                  placeholder="description"
-                  onChange={(e) => this.props.setMeta({description: e.target.value})}
-                />
-              </Col>
+        {!this.props.isRoot && this.props.allowFurtherNesting ? (
+          <div>
+            <div style={{ display: "none" }}>
+              <Input
+                key="widget-text"
+                ref="text"
+                type={"text"}
+                value={(this.props.meta || {}).description || null}
+                placeholder="description"
+                onChange={e =>
+                  this.props.setMeta({ description: e.target.value })
+                }
+              />
 
               <Select
-                  style={{ width: 100 }}
-                  key={"widget-select"}
-                  dropdownMatchSelectWidth={false}
-                  ref="val"
-                  size="small"
-                  placeholder="status"
-                  value={(this.props.meta || {}).status || undefined}
-                  onChange={(e) => this.props.setMeta({status: e})}
-                >{experienceStatusOptions}
-              </Select>
-
-              <Button
-                icon={(this.props.meta || {}).experiment_id != null ? "edit" : "plus"}
-                className="action action--MANAGE-EXPERIMENT"
-                onClick={e => {
-                  e.preventDefault();
-                  this.props.config.experimentManager((id) => this.props.setMeta({experiment_id: id}));
-                }}
+                style={{ width: 100 }}
+                key={"widget-select"}
+                dropdownMatchSelectWidth={false}
+                ref="val"
+                size="small"
+                placeholder="status"
+                value={(this.props.meta || {}).status || undefined}
+                onChange={e => this.props.setMeta({ status: e })}
               >
-                {(this.props.meta || {}).experiment_id != null
-                  ? "Edit Experience"
-                  : "Start Experience"}
-              </Button>
+                {experienceStatusOptions}
+              </Select>
             </div>
-          ) : ''
-        }
+
+            <Input
+              style={{ width: 200 }}
+              key="widget-text"
+              ref="experimentName"
+              type={"text"}
+              value={(this.props.meta || {}).name || null}
+              placeholder="name"
+              onChange={e => this.props.setMeta({ name: e.target.value })}
+            />
+
+            <Button
+              icon={
+                (this.props.meta || {}).experiment_id != null ? "edit" : "plus"
+              }
+              className="action action--MANAGE-EXPERIMENT"
+              onClick={e => {
+                const tmpId = uuid();
+
+                e.preventDefault();
+
+                this.props.setMeta({ tmpId: tmpId });
+
+                setTimeout(() => {
+                  this.props.config.experimentManager(
+                    tmpId,
+                    this.refs.experimentName.refs.input.value,
+                    this.props.setMeta.bind(this)
+                  );
+                }, 0);
+              }}
+            >
+              {(this.props.meta || {}).starting_status === "loading"
+                ? "Starting..."
+                : (this.props.meta || {}).starting_status === "failed"
+                  ? "Failed"
+                  : (this.props.meta || {}).experiment_id != null
+                    ? "Edit Experience"
+                    : "Start Experience"}
+            </Button>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   };
