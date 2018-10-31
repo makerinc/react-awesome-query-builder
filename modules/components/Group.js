@@ -176,7 +176,9 @@ class Group extends Component {
               onClick={this.props.removeSelf}
             >
               {this.props.config.settings.delGroupLabel !== undefined
-                ? this.props.config.settings.delGroupLabel
+                ? (
+                    this.props.allowFurtherNesting ? "Delete Experience" : this.props.config.settings.delGroupLabel
+                  )
                 : "Delete"}
             </Button>
           ) : null}

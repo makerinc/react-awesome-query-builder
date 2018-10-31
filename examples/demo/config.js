@@ -944,7 +944,7 @@ export default {
     readonlyMode: false,
     notLabel: 'Not',
     showNot: true,
-    delGroupLabel: null,
+    delGroupLabel: 'Delete Group',
     canLeaveEmptyGroup: true, //after deletion
     formatReverse: (
       q,

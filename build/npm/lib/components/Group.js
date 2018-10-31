@@ -292,7 +292,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
             className: "action action--ADD-DELETE",
             onClick: _this2.props.removeSelf
           },
-          _this2.props.config.settings.delGroupLabel !== undefined ? _this2.props.config.settings.delGroupLabel : "Delete"
+          _this2.props.config.settings.delGroupLabel !== undefined ? _this2.props.allowFurtherNesting ? "Delete Experience" : _this2.props.config.settings.delGroupLabel : "Delete"
         ) : null
       )
     );
