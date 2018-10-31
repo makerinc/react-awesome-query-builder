@@ -120,7 +120,11 @@ class Group extends Component {
     return (
       <div className={`group--actions ${position}`}>
         <ButtonGroup size={this.props.config.settings.renderSize || "small"}>
-          {!this.props.config.settings.readonlyMode && this.isDraftMode(this.props) && (
+          {!this.props.config.settings.readonlyMode &&
+            this.isDraftMode(this.props) &&
+            !this.props.isRoot &&
+            !this.props.allowFurtherNesting &&
+             (
             <Button
               icon={this.props.story != null ? "edit" : "plus"}
               className="action action--SELECT-STORY"
@@ -136,6 +140,8 @@ class Group extends Component {
           )}
           {!this.props.config.settings.readonlyMode &&
             this.isDraftMode(this.props) &&
+            !this.props.isRoot &&
+            !this.props.allowFurtherNesting &&
            (
             <Button
               icon="plus"
@@ -153,12 +159,16 @@ class Group extends Component {
               icon="plus-circle-o"
               onClick={this.props.addGroup}
             >
-              {this.props.config.settings.addGroupLabel || "Add group"}
+              {this.props.isRoot ?
+                "Add Experience" :
+                 (this.props.config.settings.addGroupLabel || "Add group")
+               }
             </Button>
           ) : null}
           {!this.props.config.settings.readonlyMode &&
-           this.isDraftMode(this.props) &&
-           !this.props.isRoot ? (
+           !this.props.isRoot &&
+           this.isDraftMode(this.props)
+           ? (
             <Button
               type="danger"
               icon="delete"
@@ -265,53 +275,58 @@ class Group extends Component {
             </span>
           )}
 
-        <Col>
-          <Input
-            key="widget-text"
-            ref="text"
-            type={"text"}
-            value={(this.props.meta || {}).name || null}
-            placeholder="name"
-            onChange={(e) => this.props.setMeta({name: e.target.value})}
-          />
-        </Col>
-        <Col>
-          <Input
-            key="widget-text"
-            ref="text"
-            type={"text"}
-            value={(this.props.meta || {}).description || null}
-            placeholder="description"
-            onChange={(e) => this.props.setMeta({description: e.target.value})}
-          />
-        </Col>
+        {
+          !this.props.isRoot && this.props.allowFurtherNesting ?
+          (
+            <div>
+              <Col>
+                <Input
+                  key="widget-text"
+                  ref="text"
+                  type={"text"}
+                  value={(this.props.meta || {}).name || null}
+                  placeholder="name"
+                  onChange={(e) => this.props.setMeta({name: e.target.value})}
+                />
+              </Col>
+              <Col>
+                <Input
+                  key="widget-text"
+                  ref="text"
+                  type={"text"}
+                  value={(this.props.meta || {}).description || null}
+                  placeholder="description"
+                  onChange={(e) => this.props.setMeta({description: e.target.value})}
+                />
+              </Col>
 
-        <Select
-            style={{ width: 100 }}
-            key={"widget-select"}
-            dropdownMatchSelectWidth={false}
-            ref="val"
-            size="small"
-            placeholder="status"
-            value={(this.props.meta || {}).status || undefined}
-            onChange={(e) => this.props.setMeta({status: e})}
-          >{experienceStatusOptions}
-        </Select>
+              <Select
+                  style={{ width: 100 }}
+                  key={"widget-select"}
+                  dropdownMatchSelectWidth={false}
+                  ref="val"
+                  size="small"
+                  placeholder="status"
+                  value={(this.props.meta || {}).status || undefined}
+                  onChange={(e) => this.props.setMeta({status: e})}
+                >{experienceStatusOptions}
+              </Select>
 
-        <Button
-          icon={(this.props.meta || {}).experiment_id != null ? "edit" : "plus"}
-          className="action action--MANAGE-EXPERIMENT"
-          onClick={e => {
-            e.preventDefault();
-            this.props.config.experimentManager((id) => this.props.setMeta({experiment_id: id}));
-          }}
-        >
-          {(this.props.meta || {}).experiment_id != null
-            ? "Edit Experience"
-            : "Start Experience"}
-        </Button>
-
-
+              <Button
+                icon={(this.props.meta || {}).experiment_id != null ? "edit" : "plus"}
+                className="action action--MANAGE-EXPERIMENT"
+                onClick={e => {
+                  e.preventDefault();
+                  this.props.config.experimentManager((id) => this.props.setMeta({experiment_id: id}));
+                }}
+              >
+                {(this.props.meta || {}).experiment_id != null
+                  ? "Edit Experience"
+                  : "Start Experience"}
+              </Button>
+            </div>
+          ) : ''
+        }
       </div>
     );
   };

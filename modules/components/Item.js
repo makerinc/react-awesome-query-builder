@@ -18,6 +18,7 @@ const typeMap = {
       treeNodesCnt={props.treeNodesCnt}
       config={props.config}
       onDragStart={props.onDragStart}
+      meta={props.properties.get('meta')}
     />
   ),
   group: (props) => (
@@ -51,7 +52,7 @@ class Item extends Component {
     children1: PropTypes.instanceOf(Immutable.OrderedMap),
     actions: PropTypes.object.isRequired,
     treeNodesCnt: PropTypes.number,
-    onDragStart: PropTypes.func,
+    onDragStart: PropTypes.func
   };
 
   pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);

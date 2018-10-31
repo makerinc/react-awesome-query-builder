@@ -21,7 +21,7 @@ export default (Rule) => {
       value: PropTypes.any, //depends on widget
       valueSrc: PropTypes.any,
       operatorOptions: PropTypes.object,
-      treeNodesCnt: PropTypes.number,
+      treeNodesCnt: PropTypes.number
       //connected:
       //dragging: PropTypes.object, //{id, x, y, w, h}
     };
@@ -64,7 +64,7 @@ export default (Rule) => {
 
     pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     //shouldComponentUpdate = this.pureShouldComponentUpdate;
-    
+
     shouldComponentUpdate(nextProps, nextState) {
         let prevProps = this.props;
         let prevState = this.state;

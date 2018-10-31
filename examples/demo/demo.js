@@ -73,7 +73,7 @@ export default class DemoQueryBuilder extends Component {
 
     render() {
         let initValueJSON =
-            '["~#iM",["type","group","id","9a99988a-0123-4456-b89a-b1607f326fd8","children1",["~#iOM",["989899ab-0123-4456-b89a-b166405981c9",["^0",["type","rule","id","989899ab-0123-4456-b89a-b166405981c9","properties",["^0",["field","google_ads_campaign_id","operator","select_not_equals","value",["~#iL",["dog"]],"valueSrc",["^2",["value"]],"operatorOptions",null,"valueType",["^2",["select"]]]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8","989899ab-0123-4456-b89a-b166405981c9"]]]],"b9b8a8b9-cdef-4012-b456-716640599c28",["^0",["type","rule","id","b9b8a8b9-cdef-4012-b456-716640599c28","properties",["^0",["field",null,"operator",null,"value",["^2",[]],"valueSrc",["^2",[]],"operatorOptions",null]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8","b9b8a8b9-cdef-4012-b456-716640599c28"]]]]]],"properties",["^0",["conjunction","AND","story",["^ ","id",69,"name","such wow"]]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8"]]]]';
+            '["~#iM",["type","group","id","9a99988a-0123-4456-b89a-b1607f326fd8","children1",["~#iOM",["baaba898-89ab-4cde-b012-3166c738311e",["^0",["type","group","id","baaba898-89ab-4cde-b012-3166c738311e","properties",["^0",["conjunction","AND"]],"children1",["^1",["b8a88abb-4567-489a-bcde-f166c738311e",["^0",["type","rule","id","b8a88abb-4567-489a-bcde-f166c738311e","properties",["^0",["field",null,"operator",null,"value",["~#iL",[]],"valueSrc",["^2",[]],"operatorOptions",null,"conjunction","AND"]]]]]]]]]],"properties",["^0",["conjunction","AND"]]]]'
 
         const {tree, ...config_props} = config;
 

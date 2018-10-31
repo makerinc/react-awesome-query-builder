@@ -938,7 +938,7 @@ export default {
     fieldPlaceholder: 'Select field',
     operatorPlaceholder: 'Select operator',
     deleteLabel: null,
-    addGroupLabel: 'Add group',
+    addGroupLabel: 'Add group of rules',
     addRuleLabel: 'Add rule',
     selectStoryLabel: 'Select Story',
     readonlyMode: false,
