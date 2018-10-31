@@ -192,7 +192,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         _react2.default.createElement(
           _button2.default,
           {
-            icon: (this.props.meta || {}).experiment_id != null ? "edit" : "plus",
+            icon: (this.props.meta || {}).experiment_id != null ? "stop" : "plus",
             className: "action action--MANAGE-EXPERIMENT",
             onClick: function onClick(e) {
               var tmpId = (0, _uuid2.default)();
@@ -206,7 +206,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
               }, 0);
             }
           },
-          (this.props.meta || {}).starting_status === "loading" ? "Starting..." : (this.props.meta || {}).starting_status === "failed" ? "Failed" : (this.props.meta || {}).experiment_id != null ? "Edit Experience" : "Start Experience"
+          (this.props.meta || {}).starting_status === "loading" ? "Starting..." : (this.props.meta || {}).starting_status === "failed" ? "Failed" : (this.props.meta || {}).experiment_id != null ? "Stop Experience" : "Start Experience"
         )
       ) : null;
     }

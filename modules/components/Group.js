@@ -329,7 +329,7 @@ class Group extends Component {
         />
 
         <Button
-          icon={(this.props.meta || {}).experiment_id != null ? "edit" : "plus"}
+          icon={(this.props.meta || {}).experiment_id != null ? "stop" : "plus"}
           className="action action--MANAGE-EXPERIMENT"
           onClick={e => {
             const tmpId = uuid();
@@ -352,7 +352,7 @@ class Group extends Component {
             : (this.props.meta || {}).starting_status === "failed"
               ? "Failed"
               : (this.props.meta || {}).experiment_id != null
-                ? "Edit Experience"
+                ? "Stop Experience"
                 : "Start Experience"}
         </Button>
       </div>
