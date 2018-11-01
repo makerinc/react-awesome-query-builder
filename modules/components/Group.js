@@ -338,54 +338,60 @@ class Group extends Component {
           disabled={Boolean((this.props.meta || {}).experiment_id)}
         />
 
-        <Button
-          icon={(this.props.meta || {}).experiment_id != null ? "stop" : "plus"}
-          className="action action--MANAGE-EXPERIMENT"
-          disabled={disabled}
-          onClick={e => {
-            const tmpId = uuid();
-
-            e.preventDefault();
-
-            if (disabled) {
-              return;
+        {this.props.config.gaSignedIn ? (
+          <Button
+            icon={
+              (this.props.meta || {}).experiment_id != null ? "stop" : "plus"
             }
+            className="action action--MANAGE-EXPERIMENT"
+            disabled={disabled}
+            onClick={e => {
+              const tmpId = uuid();
 
-            this.props.setMeta({ tmpId: tmpId });
+              e.preventDefault();
 
-            setTimeout(() => {
-              this.props.config.experimentManager({
-                tmpId: tmpId,
-                experimentId: (this.props.meta || {}).experiment_id,
-                gaExperimentId: (this.props.meta || {}).ga_experiment_id,
-                name: this.refs.experimentName.refs.input.value,
-                callback: attr => {
-                  this.props.setMeta(attr);
+              if (disabled) {
+                return;
+              }
 
-                  if (attr.starting_status) {
-                    return;
+              this.props.setMeta({ tmpId: tmpId });
+
+              setTimeout(() => {
+                this.props.config.experimentManager({
+                  tmpId: tmpId,
+                  experimentId: (this.props.meta || {}).experiment_id,
+                  gaExperimentId: (this.props.meta || {}).ga_experiment_id,
+                  name: this.refs.experimentName.refs.input.value,
+                  callback: attr => {
+                    this.props.setMeta(attr);
+
+                    if (attr.starting_status) {
+                      return;
+                    }
+
+                    setTimeout(
+                      () =>
+                        document.dispatchEvent(new Event("query-builder-save")),
+                      100
+                    );
                   }
-
-                  setTimeout(
-                    () =>
-                      document.dispatchEvent(new Event("query-builder-save")),
-                    100
-                  );
-                }
-              });
-            }, 0);
-          }}
-        >
-          {disabled
-            ? "Experience Ended"
-            : (this.props.meta || {}).starting_status === "loading"
-              ? "Loading..."
-              : (this.props.meta || {}).starting_status === "failed"
-                ? "Failed"
-                : (this.props.meta || {}).experiment_id != null
-                  ? "Stop Experience"
-                  : "Start Experience"}
-        </Button>
+                });
+              }, 0);
+            }}
+          >
+            {disabled
+              ? "Experience Ended"
+              : (this.props.meta || {}).starting_status === "loading"
+                ? "Loading..."
+                : (this.props.meta || {}).starting_status === "failed"
+                  ? "Failed"
+                  : (this.props.meta || {}).experiment_id != null
+                    ? "Stop Experience"
+                    : "Start Experience"}
+          </Button>
+        ) : (
+          <span>&nbsp;&nbsp;&nbsp; Connect your Google Analytics first</span>
+        )}
       </div>
     ) : null;
   }

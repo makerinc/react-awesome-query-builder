@@ -191,7 +191,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           },
           disabled: Boolean((this.props.meta || {}).experiment_id)
         }),
-        _react2.default.createElement(
+        this.props.config.gaSignedIn ? _react2.default.createElement(
           _button2.default,
           {
             icon: (this.props.meta || {}).experiment_id != null ? "stop" : "plus",
@@ -229,7 +229,11 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
               }, 0);
             }
           },
-          disabled ? "Experience Ended" : (this.props.meta || {}).starting_status === "loading" ? "Starting..." : (this.props.meta || {}).starting_status === "failed" ? "Failed" : (this.props.meta || {}).experiment_id != null ? "Stop Experience" : "Start Experience"
+          disabled ? "Experience Ended" : (this.props.meta || {}).starting_status === "loading" ? "Loading..." : (this.props.meta || {}).starting_status === "failed" ? "Failed" : (this.props.meta || {}).experiment_id != null ? "Stop Experience" : "Start Experience"
+        ) : _react2.default.createElement(
+          "span",
+          null,
+          "\xA0\xA0\xA0 Connect your Google Analytics first"
         )
       ) : null;
     }
