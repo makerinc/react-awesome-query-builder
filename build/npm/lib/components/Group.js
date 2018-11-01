@@ -143,7 +143,8 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           { key: label, value: label },
           label
         );
-      });
+      }),
+          disabled = ["ended", "archived", "scheduled"].indexOf((this.props.meta || {}).status) > -1;
 
       return !this.props.isRoot && this.props.allowFurtherNesting ? _react2.default.createElement(
         "div",
@@ -187,26 +188,38 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           placeholder: "Experience name",
           onChange: function onChange(e) {
             return _this2.props.setMeta({ name: e.target.value });
-          }
+          },
+          disabled: Boolean((this.props.meta || {}).experiment_id)
         }),
         _react2.default.createElement(
           _button2.default,
           {
             icon: (this.props.meta || {}).experiment_id != null ? "stop" : "plus",
             className: "action action--MANAGE-EXPERIMENT",
+            disabled: disabled,
             onClick: function onClick(e) {
               var tmpId = (0, _uuid2.default)();
 
               e.preventDefault();
 
+              if (disabled) {
+                return;
+              }
+
               _this2.props.setMeta({ tmpId: tmpId });
 
               setTimeout(function () {
-                _this2.props.config.experimentManager(tmpId, _this2.refs.experimentName.refs.input.value, _this2.props.setMeta.bind(_this2));
+                _this2.props.config.experimentManager({
+                  tmpId: tmpId,
+                  experimentId: (_this2.props.meta || {}).experiment_id,
+                  gaExperimentId: (_this2.props.meta || {}).ga_experiment_id,
+                  name: _this2.refs.experimentName.refs.input.value,
+                  callback: _this2.props.setMeta.bind(_this2)
+                });
               }, 0);
             }
           },
-          (this.props.meta || {}).starting_status === "loading" ? "Starting..." : (this.props.meta || {}).starting_status === "failed" ? "Failed" : (this.props.meta || {}).experiment_id != null ? "Stop Experience" : "Start Experience"
+          disabled ? "Experience Ended" : (this.props.meta || {}).starting_status === "loading" ? "Starting..." : (this.props.meta || {}).starting_status === "failed" ? "Failed" : (this.props.meta || {}).experiment_id != null ? "Stop Experience" : "Start Experience"
         )
       ) : null;
     }
@@ -358,7 +371,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
             className: "action action--ADD-GROUP",
             icon: "plus-circle-o",
             onClick: function onClick(e) {
-              return _this3.props.addGroup(e, _this3.props.isRoot ? 'ADD_EXPERIENCE' : '');
+              return _this3.props.addGroup(e, _this3.props.isRoot ? "ADD_EXPERIENCE" : "");
             }
           },
           _this3.props.isRoot ? "Add Experience" : _this3.props.config.settings.addGroupLabel || "Add group"

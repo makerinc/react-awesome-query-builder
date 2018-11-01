@@ -159,7 +159,12 @@ class Group extends Component {
             <Button
               className="action action--ADD-GROUP"
               icon="plus-circle-o"
-              onClick={(e) => this.props.addGroup(e, (this.props.isRoot ? 'ADD_EXPERIENCE' : ''))}
+              onClick={e =>
+                this.props.addGroup(
+                  e,
+                  this.props.isRoot ? "ADD_EXPERIENCE" : ""
+                )
+              }
             >
               {this.props.isRoot
                 ? "Add Experience"
@@ -282,15 +287,19 @@ class Group extends Component {
 
   renderFooter() {
     const experienceStatusOptions = map(
-      ["draft", "running", "ended", "archived", "scheduled"],
-      (label, value) => {
-        return (
-          <Option key={label} value={label}>
-            {label}
-          </Option>
-        );
-      }
-    );
+        ["draft", "running", "ended", "archived", "scheduled"],
+        (label, value) => {
+          return (
+            <Option key={label} value={label}>
+              {label}
+            </Option>
+          );
+        }
+      ),
+      disabled =
+        ["ended", "archived", "scheduled"].indexOf(
+          (this.props.meta || {}).status
+        ) > -1;
 
     return !this.props.isRoot && this.props.allowFurtherNesting ? (
       <div className="group--footer">
@@ -326,34 +335,44 @@ class Group extends Component {
           value={(this.props.meta || {}).name || null}
           placeholder="Experience name"
           onChange={e => this.props.setMeta({ name: e.target.value })}
+          disabled={Boolean((this.props.meta || {}).experiment_id)}
         />
 
         <Button
           icon={(this.props.meta || {}).experiment_id != null ? "stop" : "plus"}
           className="action action--MANAGE-EXPERIMENT"
+          disabled={disabled}
           onClick={e => {
             const tmpId = uuid();
 
             e.preventDefault();
 
+            if (disabled) {
+              return;
+            }
+
             this.props.setMeta({ tmpId: tmpId });
 
             setTimeout(() => {
-              this.props.config.experimentManager(
-                tmpId,
-                this.refs.experimentName.refs.input.value,
-                this.props.setMeta.bind(this)
-              );
+              this.props.config.experimentManager({
+                tmpId: tmpId,
+                experimentId: (this.props.meta || {}).experiment_id,
+                gaExperimentId: (this.props.meta || {}).ga_experiment_id,
+                name: this.refs.experimentName.refs.input.value,
+                callback: this.props.setMeta.bind(this)
+              });
             }, 0);
           }}
         >
-          {(this.props.meta || {}).starting_status === "loading"
-            ? "Starting..."
-            : (this.props.meta || {}).starting_status === "failed"
-              ? "Failed"
-              : (this.props.meta || {}).experiment_id != null
-                ? "Stop Experience"
-                : "Start Experience"}
+          {disabled
+            ? "Experience Ended"
+            : (this.props.meta || {}).starting_status === "loading"
+              ? "Starting..."
+              : (this.props.meta || {}).starting_status === "failed"
+                ? "Failed"
+                : (this.props.meta || {}).experiment_id != null
+                  ? "Stop Experience"
+                  : "Start Experience"}
         </Button>
       </div>
     ) : null;
