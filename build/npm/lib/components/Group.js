@@ -214,7 +214,17 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
                   experimentId: (_this2.props.meta || {}).experiment_id,
                   gaExperimentId: (_this2.props.meta || {}).ga_experiment_id,
                   name: _this2.refs.experimentName.refs.input.value,
-                  callback: _this2.props.setMeta.bind(_this2)
+                  callback: function callback(attr) {
+                    _this2.props.setMeta(attr);
+
+                    if (attr.starting_status) {
+                      return;
+                    }
+
+                    setTimeout(function () {
+                      return document.dispatchEvent(new Event("query-builder-save"));
+                    }, 100);
+                  }
                 });
               }, 0);
             }

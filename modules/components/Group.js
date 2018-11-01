@@ -359,7 +359,19 @@ class Group extends Component {
                 experimentId: (this.props.meta || {}).experiment_id,
                 gaExperimentId: (this.props.meta || {}).ga_experiment_id,
                 name: this.refs.experimentName.refs.input.value,
-                callback: this.props.setMeta.bind(this)
+                callback: attr => {
+                  this.props.setMeta(attr);
+
+                  if (attr.starting_status) {
+                    return;
+                  }
+
+                  setTimeout(
+                    () =>
+                      document.dispatchEvent(new Event("query-builder-save")),
+                    100
+                  );
+                }
               });
             }, 0);
           }}
