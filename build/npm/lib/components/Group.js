@@ -357,7 +357,9 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           {
             className: "action action--ADD-GROUP",
             icon: "plus-circle-o",
-            onClick: _this3.props.addGroup
+            onClick: function onClick(e) {
+              return _this3.props.addGroup(e, _this3.props.isRoot ? 'ADD_EXPERIENCE' : '');
+            }
           },
           _this3.props.isRoot ? "Add Experience" : _this3.props.config.settings.addGroupLabel || "Add group"
         ) : null,

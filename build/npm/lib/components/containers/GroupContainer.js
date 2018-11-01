@@ -73,8 +73,8 @@ exports.default = function (Group) {
         return false;
       };
 
-      _this.addGroup = function (event) {
-        _this.props.actions.addGroup(_this.props.path);
+      _this.addGroup = function (event, groupType) {
+        _this.props.actions.addGroup(_this.props.path, {}, groupType);
         event.preventDefault();
         return false;
       };

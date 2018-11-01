@@ -112,14 +112,15 @@ var removeRule = exports.removeRule = function removeRule(config, path) {
  * @param {Immutable.List} path
  * @param {object} properties
  */
-var addGroup = exports.addGroup = function addGroup(config, path, properties) {
+var addGroup = exports.addGroup = function addGroup(config, path, properties, groupType) {
   return {
     type: constants.ADD_NEW_GROUP,
     story: {},
     meta: { user_id: ((window.gon || {}).current_user || {}).id || null },
     path: path,
     properties: (0, _defaultUtils.defaultGroupProperties)(config).merge(properties || {}),
-    config: config
+    config: config,
+    groupType: groupType
   };
 };
 

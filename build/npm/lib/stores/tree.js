@@ -48,7 +48,7 @@ var hasChildren = function hasChildren(tree, path) {
  * @param {Immutable.List} path
  * @param {object} properties
  */
-var addNewGroup = function addNewGroup(state, path, properties, config) {
+var addNewGroup = function addNewGroup(state, path, properties, config, groupType) {
     //console.log("Adding group");
     var groupUuid = (0, _uuid2.default)();
     state = addItem(state, path, 'group', groupUuid, (0, _defaultUtils.defaultGroupProperties)(config).merge(properties || {}));
@@ -56,7 +56,9 @@ var addNewGroup = function addNewGroup(state, path, properties, config) {
     var groupPath = path.push(groupUuid);
     // If we don't set the empty map, then the following merge of addItem will create a Map rather than an OrderedMap for some reason
     state = state.setIn((0, _treeUtils.expandTreePath)(groupPath, 'children1'), new _immutable2.default.OrderedMap());
-    state = addItem(state, groupPath, 'rule', (0, _uuid2.default)(), (0, _defaultUtils.defaultRuleProperties)(config).merge(properties || {}));
+    if (groupType !== 'ADD_EXPERIENCE') {
+        state = addItem(state, groupPath, 'rule', (0, _uuid2.default)(), (0, _defaultUtils.defaultRuleProperties)(config).merge(properties || {}));
+    }
     state = (0, _treeUtils.fixPathsInTree)(state);
     return state;
 };
@@ -628,7 +630,7 @@ exports.default = function (config) {
                 return Object.assign({}, state, { tree: action.tree });
 
             case constants.ADD_NEW_GROUP:
-                return Object.assign({}, state, { tree: addNewGroup(state.tree, action.path, action.properties, action.config) });
+                return Object.assign({}, state, { tree: addNewGroup(state.tree, action.path, action.properties, action.config, action.groupType) });
 
             case constants.ADD_GROUP:
                 return Object.assign({}, state, { tree: addItem(state.tree, action.path, 'group', action.id, action.properties) });
