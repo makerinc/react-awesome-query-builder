@@ -379,7 +379,7 @@ class Group extends Component {
           {disabled
             ? "Experience Ended"
             : (this.props.meta || {}).starting_status === "loading"
-              ? "Starting..."
+              ? "Loading..."
               : (this.props.meta || {}).starting_status === "failed"
                 ? "Failed"
                 : (this.props.meta || {}).experiment_id != null
