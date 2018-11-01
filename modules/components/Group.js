@@ -159,7 +159,7 @@ class Group extends Component {
             <Button
               className="action action--ADD-GROUP"
               icon="plus-circle-o"
-              onClick={this.props.addGroup}
+              onClick={(e) => this.props.addGroup(e, (this.props.isRoot ? 'ADD_EXPERIENCE' : ''))}
             >
               {this.props.isRoot
                 ? "Add Experience"

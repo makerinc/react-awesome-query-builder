@@ -87,13 +87,14 @@ export const removeRule = (config, path) => ({
  * @param {Immutable.List} path
  * @param {object} properties
  */
-export const addGroup = (config, path, properties) => ({
+export const addGroup = (config, path, properties, groupType) => ({
     type: constants.ADD_NEW_GROUP,
     story: {},
     meta: {user_id: ((window.gon || {}).current_user || {}).id || null},
     path: path,
     properties: defaultGroupProperties(config).merge(properties || {}),
-    config: config
+    config: config,
+    groupType: groupType
 });
 
 

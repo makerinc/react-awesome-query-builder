@@ -99,8 +99,8 @@ export default (Group) => {
       return false;
     }
 
-    addGroup = (event) => {
-      this.props.actions.addGroup(this.props.path, );
+    addGroup = (event, groupType) => {
+      this.props.actions.addGroup(this.props.path, {} , groupType);
       event.preventDefault();
       return false;
     }
