@@ -201,7 +201,7 @@ class Group extends Component {
               key={item.get("id")}
               id={item.get("id")}
               story={item.get("story")}
-              meta={item.get("meta")}
+              meta={props.meta}
               //path={props.path.push(item.get('id'))}
               path={item.get("path")}
               type={item.get("type")}
@@ -272,7 +272,8 @@ class Group extends Component {
         )}
         {this.props.config.settings.canReorder &&
           this.props.treeNodesCnt > 2 &&
-          !this.props.isRoot && (
+          !this.props.isRoot &&
+          this.isDraftMode(this.props) && (
             <span
               className={"qb-drag-handler"}
               onMouseDown={this.handleDraggerMouseDown}
@@ -297,7 +298,7 @@ class Group extends Component {
         }
       ),
       disabled =
-        ["ended", "archived", "scheduled"].indexOf(
+        ["running","ended", "archived", "scheduled"].indexOf(
           (this.props.meta || {}).status
         ) > -1;
 

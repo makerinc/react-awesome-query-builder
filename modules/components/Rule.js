@@ -42,6 +42,7 @@ class Rule extends Component {
         treeNodesCnt: PropTypes.number,
         //connected:
         dragging: PropTypes.object, //{id, x, y, w, h}
+        meta: PropTypes.object
     };
 
     pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -69,6 +70,13 @@ class Rule extends Component {
         renderType = props.isForDrag ? null : 'normal';
       }
       return renderType;
+    }
+
+    isDraftMode(props) {
+      return (
+        (props.meta || {}).status === "draft" ||
+        (props.meta || {}).status === undefined
+      );
     }
 
     render () {
@@ -105,6 +113,7 @@ class Rule extends Component {
             >
                 <div className="rule--header">
                     {!this.props.config.settings.readonlyMode &&
+                        this.isDraftMode(this.props) &&
                         <Button
                             type="danger"
                             icon="delete"
@@ -118,6 +127,7 @@ class Rule extends Component {
                 {/*<div className="rule--body">*/}
                     {/*<Row>*/}
                         { this.props.config.settings.canReorder && this.props.treeNodesCnt > 2 &&
+                            this.isDraftMode(this.props) &&
                             <span className={"qb-drag-handler"} onMouseDown={this.handleDraggerMouseDown} ><Icon type="bars" /> </span>
                         }
                         {true ? (

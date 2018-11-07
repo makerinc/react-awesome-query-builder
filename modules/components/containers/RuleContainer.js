@@ -21,7 +21,8 @@ export default (Rule) => {
       value: PropTypes.any, //depends on widget
       valueSrc: PropTypes.any,
       operatorOptions: PropTypes.object,
-      treeNodesCnt: PropTypes.number
+      treeNodesCnt: PropTypes.number,
+      meta: PropTypes.meta
       //connected:
       //dragging: PropTypes.object, //{id, x, y, w, h}
     };
@@ -116,6 +117,7 @@ export default (Rule) => {
               config={this.props.config}
               treeNodesCnt={this.props.treeNodesCnt}
               dragging={this.props.dragging}
+              meta={this.props.meta}
             />
           ), (
             <Rule
@@ -136,6 +138,7 @@ export default (Rule) => {
               treeNodesCnt={this.props.treeNodesCnt}
               onDragStart={this.props.onDragStart}
               dragging={this.props.dragging}
+              meta={this.props.meta}
             />
           )]}
         </div>

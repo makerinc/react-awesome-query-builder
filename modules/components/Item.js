@@ -18,7 +18,7 @@ const typeMap = {
       treeNodesCnt={props.treeNodesCnt}
       config={props.config}
       onDragStart={props.onDragStart}
-      meta={props.properties.get('meta')}
+      meta={props.meta}
     />
   ),
   group: (props) => (
