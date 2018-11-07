@@ -134,6 +134,11 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
             return renderType;
         }
     }, {
+        key: 'isDraftMode',
+        value: function isDraftMode(props) {
+            return (props.meta || {}).status === "draft" || (props.meta || {}).status === undefined;
+        }
+    }, {
         key: 'render',
         value: function render() {
             var renderType = this.getRenderType(this.props);
@@ -167,7 +172,7 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
                 _react2.default.createElement(
                     'div',
                     { className: 'rule--header' },
-                    !this.props.config.settings.readonlyMode && _react2.default.createElement(
+                    !this.props.config.settings.readonlyMode && this.isDraftMode(this.props) && _react2.default.createElement(
                         _button2.default,
                         {
                             type: 'danger',
@@ -178,7 +183,7 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
                         this.props.config.settings.deleteLabel !== undefined ? this.props.config.settings.deleteLabel : "Delete"
                     )
                 ),
-                this.props.config.settings.canReorder && this.props.treeNodesCnt > 2 && _react2.default.createElement(
+                this.props.config.settings.canReorder && this.props.treeNodesCnt > 2 && this.isDraftMode(this.props) && _react2.default.createElement(
                     'span',
                     { className: "qb-drag-handler", onMouseDown: this.handleDraggerMouseDown },
                     _react2.default.createElement(_icon2.default, { type: 'bars' }),
@@ -287,7 +292,8 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
     setValueSrc: _propTypes2.default.func,
     treeNodesCnt: _propTypes2.default.number,
     //connected:
-    dragging: _propTypes2.default.object //{id, x, y, w, h}
+    dragging: _propTypes2.default.object, //{id, x, y, w, h}
+    meta: _propTypes2.default.object
 }, _temp)) || _class;
 
 exports.default = Rule;

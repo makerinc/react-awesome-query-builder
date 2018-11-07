@@ -144,7 +144,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           label
         );
       }),
-          disabled = ["ended", "archived", "scheduled"].indexOf((this.props.meta || {}).status) > -1;
+          disabled = ["running", "ended", "archived", "scheduled"].indexOf((this.props.meta || {}).status) > -1;
 
       return !this.props.isRoot && this.props.allowFurtherNesting ? _react2.default.createElement(
         "div",
@@ -411,7 +411,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         key: item.get("id"),
         id: item.get("id"),
         story: item.get("story"),
-        meta: item.get("meta")
+        meta: props.meta
         //path={props.path.push(item.get('id'))}
         , path: item.get("path"),
         type: item.get("type"),
@@ -484,7 +484,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           );
         })
       ),
-      _this3.props.config.settings.canReorder && _this3.props.treeNodesCnt > 2 && !_this3.props.isRoot && _react2.default.createElement(
+      _this3.props.config.settings.canReorder && _this3.props.treeNodesCnt > 2 && !_this3.props.isRoot && _this3.isDraftMode(_this3.props) && _react2.default.createElement(
         "span",
         {
           className: "qb-drag-handler",

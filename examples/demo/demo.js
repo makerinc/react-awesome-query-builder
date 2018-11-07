@@ -73,7 +73,7 @@ export default class DemoQueryBuilder extends Component {
 
     render() {
         let initValueJSON =
-            '["~#iM",["type","group","id","9a99988a-0123-4456-b89a-b1607f326fd8","children1",["~#iOM",["baaba898-89ab-4cde-b012-3166c738311e",["^0",["type","group","id","baaba898-89ab-4cde-b012-3166c738311e","properties",["^0",["conjunction","AND"]],"children1",["^1",["b8a88abb-4567-489a-bcde-f166c738311e",["^0",["type","rule","id","b8a88abb-4567-489a-bcde-f166c738311e","properties",["^0",["field",null,"operator",null,"value",["~#iL",[]],"valueSrc",["^2",[]],"operatorOptions",null,"conjunction","AND"]]]]]]]]]],"properties",["^0",["conjunction","AND"]]]]'
+            '["~#iM",["type","group","id","9a99988a-0123-4456-b89a-b1607f326fd8","children1",["~#iOM",["baaba898-89ab-4cde-b012-3166c738311e",["^0",["type","group","id","baaba898-89ab-4cde-b012-3166c738311e","properties",["^0",["conjunction","AND"]],"children1",["^1",["b8a88abb-4567-489a-bcde-f166c738311e",["^0",["type","rule","id","b8a88abb-4567-489a-bcde-f166c738311e","properties",["^0",["field","location__city","operator","equal","value",["~#iL",[["^ ","textKey","key","textValue","value"]]],"valueSrc",["^2",["value"]],"operatorOptions",null,"conjunction","AND","valueType",["^2",["text"]]]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8","baaba898-89ab-4cde-b012-3166c738311e","b8a88abb-4567-489a-bcde-f166c738311e"]]]]]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8","baaba898-89ab-4cde-b012-3166c738311e"]]]]]],"properties",["^0",["conjunction","AND"]],"path",["^2",["9a99988a-0123-4456-b89a-b1607f326fd8"]]]]'
 
         const {tree, ...config_props} = config;
 

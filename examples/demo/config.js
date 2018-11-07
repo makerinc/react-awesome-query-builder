@@ -2,6 +2,7 @@ import React from 'react';
 import { Widgets, Operators } from 'react-awesome-query-builder';
 const {
   TextWidget,
+  MultiTextWidget,
   NumberWidget,
   SelectWidget,
   MultiSelectWidget,
@@ -168,14 +169,15 @@ export default {
 
     location__city: {
       label: 'City',
-      type: 'text',
+      type: 'multitext',
       operators: ['equal', 'not_equal'],
       defaultOperator: 'not_equal',
       mainWidgetProps: {
         formatValue: (val, fieldDef, wgtDef, isForDisplay) =>
           `__${JSON.stringify(val)}`,
         valueLabel: 'City',
-        valuePlaceholder: 'City Name',
+        keyPlaceholder: 'City Key',
+        valuePlaceholder: 'City Value',
         validateValue: (val, fieldDef) => {
           return val !== 'test2';
         }
@@ -311,6 +313,47 @@ export default {
     text: {
       widgets: {
         text: {
+          defaultOperator: 'is_empty',
+          operators: [
+            'equal',
+            'not_equal',
+            'is_empty',
+            'is_not_empty',
+            'contains',
+            'does_not_contain',
+            'starts_with',
+            'ends_with',
+            'matches_regex',
+            'is_one_of',
+            'does_not_exactly_match',
+            'does_not_contain',
+            'does_not_start_with',
+            'does_not_end_with',
+            'does_not_match_regex',
+            'is_not_one_of'
+          ],
+          widgetProps: {
+            formatValue: (val, fieldDef, wgtDef, isForDisplay) =>
+              `_${JSON.stringify(val)}`,
+            valueLabel: 'Text',
+            valuePlaceholder: 'Enter text'
+          }
+        },
+        field: {
+          operators: [
+            'equal',
+            'not_equal',
+            //note that unary ops will be excluded anyway, see getWidgetsForFieldOp()
+            //"is_empty",
+            //"is_not_empty",
+            'proximity'
+          ]
+        }
+      }
+    },
+    multitext: {
+      widgets: {
+        multiText: {
           defaultOperator: 'is_empty',
           operators: [
             'equal',
@@ -805,9 +848,15 @@ export default {
       factory: props => <TextWidget {...props} />,
       formatValue: (val, fieldDef, wgtDef, isForDisplay) => {
         return isForDisplay ? `"${val}"` : JSON.stringify(val);
-      },
-      validateValue: (val, fieldDef) => {
-        return val !== 'test';
+      }
+    },
+
+    multiText: {
+      type: 'text',
+      valueSrc: 'value',
+      factory: props => <MultiTextWidget {...props} />,
+      formatValue: (val, fieldDef, wgtDef, isForDisplay) => {
+        return isForDisplay ? `"${val}"` : JSON.stringify(val);
       }
     },
     number: {

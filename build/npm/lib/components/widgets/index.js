@@ -47,6 +47,15 @@ Object.defineProperty(exports, 'TextWidget', {
   }
 });
 
+var _MultiText = require('./MultiText');
+
+Object.defineProperty(exports, 'MultiTextWidget', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_MultiText).default;
+  }
+});
+
 var _Number = require('./Number');
 
 Object.defineProperty(exports, 'NumberWidget', {
