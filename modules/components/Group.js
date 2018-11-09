@@ -348,8 +348,22 @@ class Group extends Component {
             disabled={disabled}
             onClick={e => {
               const tmpId = uuid();
+              let needsValidation = false;
 
               e.preventDefault();
+
+              this.props.children1.map(item =>
+                (
+                  item.get('properties').get('story') === undefined ? (
+                    needsValidation = true
+                  ) : ''
+                )
+              )
+
+              if (needsValidation) {
+                swal('Please pick a story for all variants before continuing');
+                return;
+              }
 
               if (disabled) {
                 return;

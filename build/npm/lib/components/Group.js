@@ -199,8 +199,18 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
             disabled: disabled,
             onClick: function onClick(e) {
               var tmpId = (0, _uuid2.default)();
+              var needsValidation = false;
 
               e.preventDefault();
+
+              _this2.props.children1.map(function (item) {
+                return item.get('properties').get('story') === undefined ? needsValidation = true : '';
+              });
+
+              if (needsValidation) {
+                swal('Please pick a story for all variants before continuing');
+                return;
+              }
 
               if (disabled) {
                 return;
