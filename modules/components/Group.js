@@ -339,7 +339,9 @@ class Group extends Component {
           disabled={Boolean((this.props.meta || {}).experiment_id)}
         />
 
-        {this.props.config.gaSignedIn ? (
+        {this.props.config.gaSignedIn &&
+          this.props.config.settings.page_rule.enhance_page_type == "enhanced"
+         ? (
           <Button
             icon={
               (this.props.meta || {}).experiment_id != null ? "stop" : "plus"
