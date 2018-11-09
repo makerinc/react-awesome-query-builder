@@ -22,6 +22,7 @@ export default class Operator extends Component {
     selectedField: PropTypes.string,
     selectedOperator: PropTypes.string,
     renderAsDropdown: PropTypes.bool,
+    customProps: PropTypes.object,
     //actions
     setOperator: PropTypes.func.isRequired,
   };
@@ -104,6 +105,8 @@ export default class Operator extends Component {
     let placeholder = this.curOpOpts().label || this.props.config.settings.operatorPlaceholder;
     let placeholderWidth = calcTextWidth(placeholder, '12px');
     let fieldSelectItems = this.buildSelectItems(this.operatorOptions);
+    let customProps = this.props.customProps || {};
+
     let opSelect = (
         <Select
             dropdownAlign={dropdownPlacement ? BUILT_IN_PLACEMENTS[dropdownPlacement] : undefined}
@@ -114,6 +117,7 @@ export default class Operator extends Component {
             size={this.props.config.settings.renderSize || "small"}
             onChange={this.handleOperatorSelect}
             value={this.props.selectedOperator || undefined}
+            {...customProps}
         >{fieldSelectItems}</Select>
     );
 

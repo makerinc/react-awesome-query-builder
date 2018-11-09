@@ -9,7 +9,8 @@ export default class Widget extends Component {
   static propTypes = {
     config: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
-    children: PropTypes.oneOfType([PropTypes.array, PropTypes.element])
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
+    customProps: PropTypes.object
   };
 
   shouldComponentUpdate = shallowCompare;

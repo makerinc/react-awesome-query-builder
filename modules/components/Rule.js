@@ -141,7 +141,7 @@ class Rule extends Component {
                                     selectedField={this.props.selectedField}
                                     setField={this.props.setField}
                                     renderAsDropdown={this.props.config.settings.renderFieldAndOpAsDropdown}
-                                    customProps={this.props.config.settings.customFieldSelectProps}
+                                    customProps={{...this.props.config.settings.customFieldSelectProps, disabled: !this.isDraftMode(this.props)}}
                                 />
                             </Col>
                         ) : null}
@@ -157,6 +157,7 @@ class Rule extends Component {
                                     selectedOperator={this.props.selectedOperator}
                                     setOperator={this.props.setOperator}
                                     renderAsDropdown={this.props.config.settings.renderFieldAndOpAsDropdown}
+                                    customProps={{disabled: !this.isDraftMode(this.props)}}
                                 />
                             </Col>
                         )}
@@ -181,6 +182,7 @@ class Rule extends Component {
                                   config={this.props.config}
                                   setValue={this.props.setValue}
                                   setValueSrc={this.props.setValueSrc}
+                                  customProps={{disabled: !this.isDraftMode(this.props)}}
                                 />
                             </Col>
                         }

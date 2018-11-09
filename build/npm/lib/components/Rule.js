@@ -22,6 +22,8 @@ var _menu = require('antd/lib/menu');
 
 var _menu2 = _interopRequireDefault(_menu);
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _class, _class2, _temp;
@@ -203,7 +205,7 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
                         selectedField: this.props.selectedField,
                         setField: this.props.setField,
                         renderAsDropdown: this.props.config.settings.renderFieldAndOpAsDropdown,
-                        customProps: this.props.config.settings.customFieldSelectProps
+                        customProps: _extends({}, this.props.config.settings.customFieldSelectProps, { disabled: !this.isDraftMode(this.props) })
                     })
                 ) : null,
                 this.props.selectedField && !selectedFieldWidgetConfig.hideOperator && _react2.default.createElement(
@@ -220,7 +222,8 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
                         selectedField: this.props.selectedField,
                         selectedOperator: this.props.selectedOperator,
                         setOperator: this.props.setOperator,
-                        renderAsDropdown: this.props.config.settings.renderFieldAndOpAsDropdown
+                        renderAsDropdown: this.props.config.settings.renderFieldAndOpAsDropdown,
+                        customProps: { disabled: !this.isDraftMode(this.props) }
                     })
                 ),
                 this.props.selectedField && selectedFieldWidgetConfig.hideOperator && selectedFieldWidgetConfig.operatorInlineLabel && _react2.default.createElement(
@@ -252,7 +255,8 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
                         valueSrc: this.props.valueSrc,
                         config: this.props.config,
                         setValue: this.props.setValue,
-                        setValueSrc: this.props.setValueSrc
+                        setValueSrc: this.props.setValueSrc,
+                        customProps: { disabled: !this.isDraftMode(this.props) }
                     })
                 ),
                 isFieldAndOpSelected && selectedOperatorHasOptions && _react2.default.createElement(

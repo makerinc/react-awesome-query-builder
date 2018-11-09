@@ -72,7 +72,8 @@ var Widget = (0, _WidgetContainer2.default)(_class = (_temp2 = _class2 = functio
 }(_react.Component), _class2.propTypes = {
   config: _propTypes2.default.object.isRequired,
   name: _propTypes2.default.string.isRequired,
-  children: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.element])
+  children: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.element]),
+  customProps: _propTypes2.default.object
 }, _temp2)) || _class;
 
 exports.default = Widget;

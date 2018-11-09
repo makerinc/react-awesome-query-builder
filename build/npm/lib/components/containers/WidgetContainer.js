@@ -125,7 +125,8 @@ exports.default = function (Widget) {
                     value: _this.props.value.get(delta),
                     label: valueLabel.label,
                     placeholder: valueLabel.placeholder,
-                    setValue: _this._getSetValueHandler(delta, widgetType)
+                    setValue: _this._getSetValueHandler(delta, widgetType),
+                    customProps: _this.props.customProps
                 });
 
                 if (widget == 'field') {
@@ -232,27 +233,26 @@ exports.default = function (Widget) {
                             }
                         }
 
-                        if (valueSources.length > 1) parts.push(_react2.default.createElement(
-                            'div',
-                            { key: "valuesrc-" + _this2.props.field + "-" + delta, className: 'widget--valuesrc' },
-                            settings.showLabels ? _react2.default.createElement(
-                                'label',
-                                null,
-                                '\xA0'
-                            ) : null,
-                            _this2.renderValueSorces(delta, valueSources, valueSrc)
-                        ));
+                        if (valueSources.length > 1)
+                            // parts.push((
+                            //     <div key={"valuesrc-"+this.props.field+"-"+delta} className="widget--valuesrc">
+                            //         {settings.showLabels ?
+                            //             <label>&nbsp;</label>
+                            //         : null}
+                            //         {this.renderValueSorces(delta, valueSources, valueSrc)}
+                            //     </div>
+                            // ));
 
-                        parts.push(_react2.default.createElement(
-                            'div',
-                            { key: "widget-" + _this2.props.field + "-" + delta, className: 'widget--widget' },
-                            settings.showLabels ? _react2.default.createElement(
-                                'label',
-                                null,
-                                valueLabel.label
-                            ) : null,
-                            _this2.renderWidget(delta, valueSrc, widget)
-                        ));
+                            parts.push(_react2.default.createElement(
+                                'div',
+                                { key: "widget-" + _this2.props.field + "-" + delta, className: 'widget--widget' },
+                                settings.showLabels ? _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    valueLabel.label
+                                ) : null,
+                                _this2.renderWidget(delta, valueSrc, widget)
+                            ));
 
                         return parts;
                     })
@@ -269,6 +269,7 @@ exports.default = function (Widget) {
         operator: _propTypes2.default.string.isRequired,
         //actions
         setValue: _propTypes2.default.func,
-        setValueSrc: _propTypes2.default.func
+        setValueSrc: _propTypes2.default.func,
+        customProps: _propTypes2.default.object
     }, _temp;
 };

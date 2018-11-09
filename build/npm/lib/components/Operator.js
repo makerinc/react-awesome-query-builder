@@ -23,6 +23,8 @@ var _select = require('antd/lib/select');
 
 var _select2 = _interopRequireDefault(_select);
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _class, _temp;
@@ -192,9 +194,11 @@ var Operator = (_temp = _class = function (_Component) {
             var placeholder = this.curOpOpts().label || this.props.config.settings.operatorPlaceholder;
             var placeholderWidth = (0, _stuff.calcTextWidth)(placeholder, '12px');
             var fieldSelectItems = this.buildSelectItems(this.operatorOptions);
+            var customProps = this.props.customProps || {};
+
             var opSelect = _react2.default.createElement(
                 _select2.default,
-                {
+                _extends({
                     dropdownAlign: dropdownPlacement ? _stuff.BUILT_IN_PLACEMENTS[dropdownPlacement] : undefined,
                     dropdownMatchSelectWidth: false,
                     style: { width: this.props.selectedOperator ? null : placeholderWidth + 36 },
@@ -203,7 +207,7 @@ var Operator = (_temp = _class = function (_Component) {
                     size: this.props.config.settings.renderSize || "small",
                     onChange: this.handleOperatorSelect,
                     value: this.props.selectedOperator || undefined
-                },
+                }, customProps),
                 fieldSelectItems
             );
 
@@ -244,6 +248,7 @@ var Operator = (_temp = _class = function (_Component) {
     selectedField: _propTypes2.default.string,
     selectedOperator: _propTypes2.default.string,
     renderAsDropdown: _propTypes2.default.bool,
+    customProps: _propTypes2.default.object,
     //actions
     setOperator: _propTypes2.default.func.isRequired
 }, _temp);
