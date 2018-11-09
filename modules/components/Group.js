@@ -339,9 +339,7 @@ class Group extends Component {
           disabled={Boolean((this.props.meta || {}).experiment_id)}
         />
 
-        {this.props.config.gaSignedIn &&
-          this.props.config.settings.page_rule.enhance_page_type == "enhanced"
-         ? (
+        {this.props.config.gaSignedIn ? (
           <Button
             icon={
               (this.props.meta || {}).experiment_id != null ? "stop" : "plus"
@@ -442,7 +440,7 @@ class Group extends Component {
             {this.renderChildren()}
           </div>
         ) : null}
-        {this.renderFooter()}
+        {((this.props.config.settings || {}).page_rule || {}).enhance_page_type == "enhanced" && this.renderFooter()}
         {!this.isGroupTopPosition() && (
           <div className="group--footer">
             {this.renderGroup(this.getGroupPositionClass())}

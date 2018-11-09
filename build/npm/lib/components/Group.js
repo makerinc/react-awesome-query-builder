@@ -191,7 +191,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           },
           disabled: Boolean((this.props.meta || {}).experiment_id)
         }),
-        this.props.config.gaSignedIn && this.props.config.settings.page_rule.enhance_page_type == "enhanced" ? _react2.default.createElement(
+        this.props.config.gaSignedIn ? _react2.default.createElement(
           _button2.default,
           {
             icon: (this.props.meta || {}).experiment_id != null ? "stop" : "plus",
@@ -273,7 +273,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           },
           this.renderChildren()
         ) : null,
-        this.renderFooter(),
+        ((this.props.config.settings || {}).page_rule || {}).enhance_page_type == "enhanced" && this.renderFooter(),
         !this.isGroupTopPosition() && _react2.default.createElement(
           "div",
           { className: "group--footer" },
