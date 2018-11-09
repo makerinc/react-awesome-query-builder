@@ -171,14 +171,14 @@ export default (Widget) => {
                         }
 
                         if (valueSources.length > 1)
-                            // parts.push((
-                            //     <div key={"valuesrc-"+this.props.field+"-"+delta} className="widget--valuesrc">
-                            //         {settings.showLabels ?
-                            //             <label>&nbsp;</label>
-                            //         : null}
-                            //         {this.renderValueSorces(delta, valueSources, valueSrc)}
-                            //     </div>
-                            // ));
+                            parts.push((
+                                <div key={"valuesrc-"+this.props.field+"-"+delta} className="widget--valuesrc">
+                                    {settings.showLabels ?
+                                        <label>&nbsp;</label>
+                                    : null}
+                                    {this.renderValueSorces(delta, valueSources, valueSrc)}
+                                </div>
+                            ));
 
                         parts.push((
                             <div key={"widget-"+this.props.field+"-"+delta} className="widget--widget">
