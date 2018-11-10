@@ -75,7 +75,7 @@ var MultiTextWidget = (_temp2 = _class = function (_Component) {
         null,
         _react2.default.createElement(
           _col2.default,
-          null,
+          { style: { display: "inline-block", marginLeft: "5px" } },
           _react2.default.createElement(_input2.default, _extends({
             key: 'widget-text',
             size: this.props.config.settings.renderSize || "small",
@@ -88,7 +88,7 @@ var MultiTextWidget = (_temp2 = _class = function (_Component) {
         ),
         _react2.default.createElement(
           _col2.default,
-          null,
+          { style: { display: "inline-block", marginLeft: "5px" } },
           _react2.default.createElement(_input2.default, _extends({
             key: 'widget-text',
             size: this.props.config.settings.renderSize || "small",

@@ -26,7 +26,7 @@ export default class MultiTextWidget extends Component {
 
     return (
       <div>
-        <Col>
+        <Col style={{display: "inline-block", marginLeft: "5px"}}>
           <Input
             key="widget-text"
             size={this.props.config.settings.renderSize || "small"}
@@ -38,7 +38,7 @@ export default class MultiTextWidget extends Component {
             {...customProps}
           />
         </Col>
-        <Col>
+        <Col style={{display: "inline-block", marginLeft: "5px"}}>
           <Input
             key="widget-text"
             size={this.props.config.settings.renderSize || "small"}

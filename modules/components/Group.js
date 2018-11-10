@@ -298,7 +298,7 @@ class Group extends Component {
         }
       ),
       disabled =
-        ["running","ended", "archived", "scheduled"].indexOf(
+        ["ended", "archived", "scheduled"].indexOf(
           (this.props.meta || {}).status
         ) > -1;
 

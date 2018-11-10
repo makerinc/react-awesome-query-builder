@@ -144,7 +144,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           label
         );
       }),
-          disabled = ["running", "ended", "archived", "scheduled"].indexOf((this.props.meta || {}).status) > -1;
+          disabled = ["ended", "archived", "scheduled"].indexOf((this.props.meta || {}).status) > -1;
 
       return !this.props.isRoot && this.props.allowFurtherNesting ? _react2.default.createElement(
         "div",
