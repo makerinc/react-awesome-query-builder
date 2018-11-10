@@ -137,7 +137,11 @@ class Group extends Component {
                 }}
               >
                 {this.props.story != null
-                  ? `Story: ${(this.props.story || {}).name}`
+                  ? `Story: ${(this.props.story || {}).name}${
+                      (this.props.story || {}).variantName
+                        ? ` | Variant: ${this.props.story.variantName}`
+                        : ""
+                    }`
                   : "Select Story"}
               </Button>
             )}
@@ -352,16 +356,15 @@ class Group extends Component {
 
               e.preventDefault();
 
-              this.props.children1.map(item =>
-                (
-                  item.get('properties').get('story') === undefined ? (
-                    needsValidation = true
-                  ) : ''
-                )
-              )
+              this.props.children1.map(
+                item =>
+                  item.get("properties").get("story") === undefined
+                    ? (needsValidation = true)
+                    : ""
+              );
 
               if (needsValidation) {
-                swal('Please pick a story for all variants before continuing');
+                swal("Please pick a story for all variants before continuing");
                 return;
               }
 
@@ -454,7 +457,8 @@ class Group extends Component {
             {this.renderChildren()}
           </div>
         ) : null}
-        {((this.props.config.settings || {}).page_rule || {}).enhance_page_type == "enhanced" && this.renderFooter()}
+        {((this.props.config.settings || {}).page_rule || {})
+          .enhance_page_type == "enhanced" && this.renderFooter()}
         {!this.isGroupTopPosition() && (
           <div className="group--footer">
             {this.renderGroup(this.getGroupPositionClass())}

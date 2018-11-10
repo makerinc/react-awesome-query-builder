@@ -204,11 +204,11 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
               e.preventDefault();
 
               _this2.props.children1.map(function (item) {
-                return item.get('properties').get('story') === undefined ? needsValidation = true : '';
+                return item.get("properties").get("story") === undefined ? needsValidation = true : "";
               });
 
               if (needsValidation) {
-                swal('Please pick a story for all variants before continuing');
+                swal("Please pick a story for all variants before continuing");
                 return;
               }
 
@@ -378,7 +378,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
               _this3.props.config.storyPicker(_this3.props.setStory);
             }
           },
-          _this3.props.story != null ? "Story: " + (_this3.props.story || {}).name : "Select Story"
+          _this3.props.story != null ? "Story: " + (_this3.props.story || {}).name + ((_this3.props.story || {}).variantName ? " | Variant: " + _this3.props.story.variantName : "") : "Select Story"
         ),
         !_this3.props.config.settings.readonlyMode && _this3.isDraftMode(_this3.props) && !_this3.props.isRoot && !_this3.props.allowFurtherNesting && _react2.default.createElement(
           _button2.default,
