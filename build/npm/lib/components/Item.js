@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 exports.__esModule = true;
 
@@ -8,35 +8,35 @@ var _class, _temp2;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _immutable = require('immutable');
+var _immutable = require("immutable");
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reactAddonsShallowCompare = require('react-addons-shallow-compare');
+var _reactAddonsShallowCompare = require("react-addons-shallow-compare");
 
 var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-var _Rule = require('./Rule');
+var _Rule = require("./Rule");
 
 var _Rule2 = _interopRequireDefault(_Rule);
 
-var _Group = require('./Group');
+var _Group = require("./Group");
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+var _reactAddonsPureRenderMixin = require("react-addons-pure-render-mixin");
 
 var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
 
-var _reactRedux = require('react-redux');
+var _reactRedux = require("react-redux");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63,8 +63,8 @@ var typeMap = {
   group: function group(props) {
     return _react2.default.createElement(_Group2.default, _extends({}, props.properties.toObject(), {
       id: props.id,
-      story: props.properties.get('story'),
-      meta: props.properties.get('meta'),
+      story: props.properties.get("story"),
+      meta: props.meta || props.properties.get("meta"),
       path: props.path,
       actions: props.actions,
       config: props.config
@@ -94,11 +94,11 @@ var Item = (_temp2 = _class = function (_Component) {
   }
 
   _createClass(Item, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       var _props = this.props,
           type = _props.type,
-          props = _objectWithoutProperties(_props, ['type']);
+          props = _objectWithoutProperties(_props, ["type"]);
 
       return typeMap[type](props);
     }

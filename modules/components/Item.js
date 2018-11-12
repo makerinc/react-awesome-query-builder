@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Immutable from 'immutable';
-import shallowCompare from 'react-addons-shallow-compare';
-import Rule from './Rule';
-import Group from './Group';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Provider, Connector, connect} from 'react-redux';
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Immutable from "immutable";
+import shallowCompare from "react-addons-shallow-compare";
+import Rule from "./Rule";
+import Group from "./Group";
+import PureRenderMixin from "react-addons-pure-render-mixin";
+import { Provider, Connector, connect } from "react-redux";
 
 const typeMap = {
-  rule: (props) => (
+  rule: props => (
     <Rule
       {...props.properties.toObject()}
       id={props.id}
@@ -21,12 +20,12 @@ const typeMap = {
       meta={props.meta}
     />
   ),
-  group: (props) => (
+  group: props => (
     <Group
       {...props.properties.toObject()}
       id={props.id}
-      story={props.properties.get('story')}
-      meta={props.properties.get('meta')}
+      story={props.properties.get("story")}
+      meta={props.meta || props.properties.get("meta")}
       path={props.path}
       actions={props.actions}
       config={props.config}
@@ -37,7 +36,6 @@ const typeMap = {
     />
   )
 };
-
 
 class Item extends Component {
   static propTypes = {

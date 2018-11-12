@@ -119,6 +119,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   _createClass(Group, [{
     key: "isDraftMode",
     value: function isDraftMode(props) {
+      debugger;
       return (props.meta || {}).status === "draft" || (props.meta || {}).status === undefined;
     }
   }, {
@@ -368,18 +369,19 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       _react2.default.createElement(
         ButtonGroup,
         { size: _this3.props.config.settings.renderSize || "small" },
-        !_this3.props.config.settings.readonlyMode && _this3.isDraftMode(_this3.props) && !_this3.props.isRoot && !_this3.props.allowFurtherNesting && _react2.default.createElement(
+        !_this3.props.isRoot && !_this3.props.allowFurtherNesting ? _react2.default.createElement(
           _button2.default,
           {
             icon: _this3.props.story != null ? "edit" : "plus",
             className: "action action--SELECT-STORY",
+            disabled: _this3.props.config.settings.readonlyMode || !_this3.isDraftMode(_this3.props),
             onClick: function onClick(e) {
               e.preventDefault();
               _this3.props.config.storyPicker(_this3.props.setStory);
             }
           },
           _this3.props.story != null ? "Story: " + (_this3.props.story || {}).name + ((_this3.props.story || {}).variantName ? " | Variant: " + _this3.props.story.variantName : "") : "Select Story"
-        ),
+        ) : null,
         !_this3.props.config.settings.readonlyMode && _this3.isDraftMode(_this3.props) && !_this3.props.isRoot && !_this3.props.allowFurtherNesting && _react2.default.createElement(
           _button2.default,
           {
@@ -421,7 +423,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         key: item.get("id"),
         id: item.get("id"),
         story: item.get("story"),
-        meta: props.meta
+        meta: props.meta || item.get("meta")
         //path={props.path.push(item.get('id'))}
         , path: item.get("path"),
         type: item.get("type"),
@@ -449,7 +451,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       _this3.props.config.settings.renderConjsAsRadios ? _react2.default.createElement(
         RadioGroup,
         {
-          disabled: _this3.props.children1.size < 2,
+          disabled: _this3.props.children1.size < 2 || !_this3.isDraftMode(_this3.props),
           value: _this3.props.selectedConjunction,
           size: _this3.props.config.settings.renderSize || "small",
           onChange: _this3.props.setConjunction

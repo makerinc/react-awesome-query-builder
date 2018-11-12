@@ -104,6 +104,7 @@ class Group extends Component {
   };
 
   isDraftMode(props) {
+    debugger;
     return (
       (props.meta || {}).status === "draft" ||
       (props.meta || {}).status === undefined
@@ -124,27 +125,28 @@ class Group extends Component {
     return (
       <div className={`group--actions ${position}`}>
         <ButtonGroup size={this.props.config.settings.renderSize || "small"}>
-          {!this.props.config.settings.readonlyMode &&
-            this.isDraftMode(this.props) &&
-            !this.props.isRoot &&
-            !this.props.allowFurtherNesting && (
-              <Button
-                icon={this.props.story != null ? "edit" : "plus"}
-                className="action action--SELECT-STORY"
-                onClick={e => {
-                  e.preventDefault();
-                  this.props.config.storyPicker(this.props.setStory);
-                }}
-              >
-                {this.props.story != null
-                  ? `Story: ${(this.props.story || {}).name}${
-                      (this.props.story || {}).variantName
-                        ? ` | Variant: ${this.props.story.variantName}`
-                        : ""
-                    }`
-                  : "Select Story"}
-              </Button>
-            )}
+          {!this.props.isRoot && !this.props.allowFurtherNesting ? (
+            <Button
+              icon={this.props.story != null ? "edit" : "plus"}
+              className="action action--SELECT-STORY"
+              disabled={
+                this.props.config.settings.readonlyMode ||
+                !this.isDraftMode(this.props)
+              }
+              onClick={e => {
+                e.preventDefault();
+                this.props.config.storyPicker(this.props.setStory);
+              }}
+            >
+              {this.props.story != null
+                ? `Story: ${(this.props.story || {}).name}${
+                    (this.props.story || {}).variantName
+                      ? ` | Variant: ${this.props.story.variantName}`
+                      : ""
+                  }`
+                : "Select Story"}
+            </Button>
+          ) : null}
           {!this.props.config.settings.readonlyMode &&
             this.isDraftMode(this.props) &&
             !this.props.isRoot &&
@@ -205,7 +207,7 @@ class Group extends Component {
               key={item.get("id")}
               id={item.get("id")}
               story={item.get("story")}
-              meta={props.meta}
+              meta={props.meta || item.get("meta")}
               //path={props.path.push(item.get('id'))}
               path={item.get("path")}
               type={item.get("type")}
@@ -234,7 +236,9 @@ class Group extends Component {
       >
         {this.props.config.settings.renderConjsAsRadios ? (
           <RadioGroup
-            disabled={this.props.children1.size < 2}
+            disabled={
+              this.props.children1.size < 2 || !this.isDraftMode(this.props)
+            }
             value={this.props.selectedConjunction}
             size={this.props.config.settings.renderSize || "small"}
             onChange={this.props.setConjunction}
