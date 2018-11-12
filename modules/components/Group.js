@@ -104,7 +104,6 @@ class Group extends Component {
   };
 
   isDraftMode(props) {
-    debugger;
     return (
       (props.meta || {}).status === "draft" ||
       (props.meta || {}).status === undefined

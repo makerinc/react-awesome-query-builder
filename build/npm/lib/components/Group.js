@@ -119,7 +119,6 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   _createClass(Group, [{
     key: "isDraftMode",
     value: function isDraftMode(props) {
-      debugger;
       return (props.meta || {}).status === "draft" || (props.meta || {}).status === undefined;
     }
   }, {
