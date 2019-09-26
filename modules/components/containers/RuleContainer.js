@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import shallowCompare from 'react-addons-shallow-compare';
-import size from 'lodash/size';
-import {getFieldConfig} from "../../utils/configUtils";
-import Immutable from 'immutable';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Provider, Connector, connect} from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import shallowCompare from "react-addons-shallow-compare";
+import size from "lodash/size";
+import { getFieldConfig } from "../../utils/configUtils";
+import Immutable from "immutable";
+import PureRenderMixin from "react-addons-pure-render-mixin";
+import { Provider, Connector, connect } from "react-redux";
 
-
-export default (Rule) => {
+export default Rule => {
   class RuleContainer extends Component {
     static propTypes = {
       id: PropTypes.string.isRequired,
@@ -22,85 +21,87 @@ export default (Rule) => {
       valueSrc: PropTypes.any,
       operatorOptions: PropTypes.object,
       treeNodesCnt: PropTypes.number,
-      meta: PropTypes.meta
+      meta: PropTypes.object
       //connected:
       //dragging: PropTypes.object, //{id, x, y, w, h}
     };
 
     constructor(props) {
-        super(props);
+      super(props);
 
-        this.componentWillReceiveProps(props);
+      this.componentWillReceiveProps(props);
     }
 
-    componentWillReceiveProps(nextProps) {
-    }
+    componentWillReceiveProps(nextProps) {}
 
-    dummyFn = () => {}
+    dummyFn = () => {};
 
     removeSelf = () => {
       this.props.actions.removeRule(this.props.path);
-    }
+    };
 
-    setField = (field) => {
+    setField = field => {
       this.props.actions.setField(this.props.path, field);
-    }
+    };
 
-    setOperator = (operator) => {
+    setOperator = operator => {
       this.props.actions.setOperator(this.props.path, operator);
-    }
+    };
 
     setOperatorOption = (name, value) => {
       this.props.actions.setOperatorOption(this.props.path, name, value);
-    }
+    };
 
     setValue = (delta, value, type) => {
-        this.props.actions.setValue(this.props.path, delta, value, type);
-    }
+      this.props.actions.setValue(this.props.path, delta, value, type);
+    };
 
     setValueSrc = (delta, srcKey) => {
-        this.props.actions.setValueSrc(this.props.path, delta, srcKey);
-    }
+      this.props.actions.setValueSrc(this.props.path, delta, srcKey);
+    };
 
-
-    pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+    pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(
+      this
+    );
     //shouldComponentUpdate = this.pureShouldComponentUpdate;
 
     shouldComponentUpdate(nextProps, nextState) {
-        let prevProps = this.props;
-        let prevState = this.state;
+      let prevProps = this.props;
+      let prevState = this.state;
 
-        let should = this.pureShouldComponentUpdate(nextProps, nextState);
-        if (should) {
-          if (prevState == nextState && prevProps != nextProps) {
-            let chs = [];
-            for (let k in nextProps) {
-                let changed = (nextProps[k] != prevProps[k]);
-                if (k == 'dragging' && (nextProps.dragging.id || prevProps.dragging.id) != nextProps.id) {
-                  changed = false; //dragging another item -> ignore
-                }
-                if (changed) {
-                  chs.push(k);
-                }
+      let should = this.pureShouldComponentUpdate(nextProps, nextState);
+      if (should) {
+        if (prevState == nextState && prevProps != nextProps) {
+          let chs = [];
+          for (let k in nextProps) {
+            let changed = nextProps[k] != prevProps[k];
+            if (
+              k == "dragging" &&
+              (nextProps.dragging.id || prevProps.dragging.id) != nextProps.id
+            ) {
+              changed = false; //dragging another item -> ignore
             }
-            if (!chs.length)
-                should = false;
+            if (changed) {
+              chs.push(k);
+            }
           }
+          if (!chs.length) should = false;
         }
+      }
 
-        return should;
+      return should;
     }
 
     render() {
       const fieldConfig = getFieldConfig(this.props.field, this.props.config);
-      let isGroup = fieldConfig && fieldConfig.type == '!struct';
+      let isGroup = fieldConfig && fieldConfig.type == "!struct";
 
       return (
         <div
-          className={'group-or-rule-container rule-container'}
+          className={"group-or-rule-container rule-container"}
           data-id={this.props.id}
         >
-          {[(
+          {[
             <Rule
               key={"dragging"}
               isForDrag={true}
@@ -118,8 +119,7 @@ export default (Rule) => {
               treeNodesCnt={this.props.treeNodesCnt}
               dragging={this.props.dragging}
               meta={this.props.meta}
-            />
-          ), (
+            />,
             <Rule
               key={this.props.id}
               id={this.props.id}
@@ -140,23 +140,17 @@ export default (Rule) => {
               dragging={this.props.dragging}
               meta={this.props.meta}
             />
-          )]}
+          ]}
         </div>
       );
     }
+  }
 
-  };
-
-
-  const ConnectedRuleContainer = connect(
-      (state) => {
-          return {
-            dragging: state.dragging,
-          }
-      }
-  )(RuleContainer);
-
+  const ConnectedRuleContainer = connect(state => {
+    return {
+      dragging: state.dragging
+    };
+  })(RuleContainer);
 
   return ConnectedRuleContainer;
-
 };

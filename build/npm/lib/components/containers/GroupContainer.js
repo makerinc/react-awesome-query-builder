@@ -1,34 +1,34 @@
-'use strict';
+"use strict";
 
 exports.__esModule = true;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactAddonsShallowCompare = require('react-addons-shallow-compare');
+var _reactAddonsShallowCompare = require("react-addons-shallow-compare");
 
 var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-var _mapValues = require('lodash/mapValues');
+var _mapValues = require("lodash/mapValues");
 
 var _mapValues2 = _interopRequireDefault(_mapValues);
 
-var _immutable = require('immutable');
+var _immutable = require("immutable");
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+var _reactAddonsPureRenderMixin = require("react-addons-pure-render-mixin");
 
 var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
 
-var _reactRedux = require('react-redux');
+var _reactRedux = require("react-redux");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,7 +38,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var stringify = require('json-stringify-safe');
+var stringify = require("json-stringify-safe");
 
 exports.default = function (Group) {
   var _class, _temp;
@@ -100,7 +100,7 @@ exports.default = function (Group) {
     }
 
     _createClass(GroupContainer, [{
-      key: 'shouldComponentUpdate',
+      key: "shouldComponentUpdate",
 
       //shouldComponentUpdate = this.pureShouldComponentUpdate;
 
@@ -114,7 +114,7 @@ exports.default = function (Group) {
             var chs = [];
             for (var k in nextProps) {
               var changed = nextProps[k] != prevProps[k];
-              if (k == 'dragging' && (nextProps.dragging.id || prevProps.dragging.id) != nextProps.id) {
+              if (k == "dragging" && (nextProps.dragging.id || prevProps.dragging.id) != nextProps.id) {
                 changed = false; //dragging another item -> ignore
               }
               if (changed) {
@@ -128,7 +128,7 @@ exports.default = function (Group) {
         return should;
       }
     }, {
-      key: 'componentWillReceiveProps',
+      key: "componentWillReceiveProps",
       value: function componentWillReceiveProps(nextProps) {
         var config = nextProps.config,
             id = nextProps.id,
@@ -141,12 +141,12 @@ exports.default = function (Group) {
         }
       }
     }, {
-      key: '_getConjunctionOptions',
+      key: "_getConjunctionOptions",
       value: function _getConjunctionOptions(props) {
         return (0, _mapValues2.default)(props.config.conjunctions, function (item, index) {
           return {
-            id: 'conjunction-' + props.id + '-' + index,
-            name: 'conjunction[' + props.id + ']',
+            id: "conjunction-" + props.id + "-" + index,
+            name: "conjunction[" + props.id + "]",
             key: index,
             label: item.label,
             checked: index === props.conjunction
@@ -154,7 +154,7 @@ exports.default = function (Group) {
         });
       }
     }, {
-      key: 'setNot',
+      key: "setNot",
       value: function setNot() {
         var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
         var not = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
@@ -162,21 +162,21 @@ exports.default = function (Group) {
         this.props.actions.setNot(this.props.path, not);
       }
     }, {
-      key: 'render',
+      key: "render",
       value: function render() {
         var currentNesting = this.props.path.size;
         var maxNesting = this.props.config.settings.maxNesting;
 
         // Don't allow nesting further than the maximum configured depth and don't
         // allow removal of the root group.
-        var allowFurtherNesting = typeof maxNesting === 'undefined' || currentNesting < maxNesting;
+        var allowFurtherNesting = typeof maxNesting === "undefined" || currentNesting < maxNesting;
         var isRoot = currentNesting == 1;
 
         return _react2.default.createElement(
-          'div',
+          "div",
           {
-            className: 'group-or-rule-container group-container',
-            'data-id': this.props.id
+            className: "group-or-rule-container group-container",
+            "data-id": this.props.id
           },
           [_react2.default.createElement(Group, {
             key: "dragging",
@@ -238,15 +238,15 @@ exports.default = function (Group) {
     actions: _propTypes2.default.object.isRequired, //{setConjunction: Funciton, removeGroup, addGroup, addRule, ...}
     path: _propTypes2.default.instanceOf(_immutable2.default.List).isRequired,
     id: _propTypes2.default.string.isRequired,
-    story: _propTypes2.default.object.isRequired,
-    meta: _propTypes2.default.object.isRequired,
+    story: _propTypes2.default.object,
+    meta: _propTypes2.default.object,
     not: _propTypes2.default.bool,
     conjunction: _propTypes2.default.string,
     children1: _propTypes2.default.instanceOf(_immutable2.default.OrderedMap),
     onDragStart: _propTypes2.default.func,
     treeNodesCnt: _propTypes2.default.number
   }, _temp);
-  ;
+
 
   var ConnectedGroupContainer = (0, _reactRedux.connect)(function (state) {
     return {

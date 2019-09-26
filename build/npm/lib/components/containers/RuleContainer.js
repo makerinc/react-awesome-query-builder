@@ -1,36 +1,36 @@
-'use strict';
+"use strict";
 
 exports.__esModule = true;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactAddonsShallowCompare = require('react-addons-shallow-compare');
+var _reactAddonsShallowCompare = require("react-addons-shallow-compare");
 
 var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-var _size = require('lodash/size');
+var _size = require("lodash/size");
 
 var _size2 = _interopRequireDefault(_size);
 
-var _configUtils = require('../../utils/configUtils');
+var _configUtils = require("../../utils/configUtils");
 
-var _immutable = require('immutable');
+var _immutable = require("immutable");
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+var _reactAddonsPureRenderMixin = require("react-addons-pure-render-mixin");
 
 var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
 
-var _reactRedux = require('react-redux');
+var _reactRedux = require("react-redux");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -85,10 +85,10 @@ exports.default = function (Rule) {
     }
 
     _createClass(RuleContainer, [{
-      key: 'componentWillReceiveProps',
+      key: "componentWillReceiveProps",
       value: function componentWillReceiveProps(nextProps) {}
     }, {
-      key: 'shouldComponentUpdate',
+      key: "shouldComponentUpdate",
 
       //shouldComponentUpdate = this.pureShouldComponentUpdate;
 
@@ -102,7 +102,7 @@ exports.default = function (Rule) {
             var chs = [];
             for (var k in nextProps) {
               var changed = nextProps[k] != prevProps[k];
-              if (k == 'dragging' && (nextProps.dragging.id || prevProps.dragging.id) != nextProps.id) {
+              if (k == "dragging" && (nextProps.dragging.id || prevProps.dragging.id) != nextProps.id) {
                 changed = false; //dragging another item -> ignore
               }
               if (changed) {
@@ -116,16 +116,16 @@ exports.default = function (Rule) {
         return should;
       }
     }, {
-      key: 'render',
+      key: "render",
       value: function render() {
         var fieldConfig = (0, _configUtils.getFieldConfig)(this.props.field, this.props.config);
-        var isGroup = fieldConfig && fieldConfig.type == '!struct';
+        var isGroup = fieldConfig && fieldConfig.type == "!struct";
 
         return _react2.default.createElement(
-          'div',
+          "div",
           {
-            className: 'group-or-rule-container rule-container',
-            'data-id': this.props.id
+            className: "group-or-rule-container rule-container",
+            "data-id": this.props.id
           },
           [_react2.default.createElement(Rule, {
             key: "dragging",
@@ -181,11 +181,11 @@ exports.default = function (Rule) {
     valueSrc: _propTypes2.default.any,
     operatorOptions: _propTypes2.default.object,
     treeNodesCnt: _propTypes2.default.number,
-    meta: _propTypes2.default.meta
+    meta: _propTypes2.default.object
     //connected:
     //dragging: PropTypes.object, //{id, x, y, w, h}
   }, _temp);
-  ;
+
 
   var ConnectedRuleContainer = (0, _reactRedux.connect)(function (state) {
     return {

@@ -39,8 +39,8 @@ class Group extends Component {
     selectedConjunction: PropTypes.string,
     config: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
-    story: PropTypes.object.isRequired,
-    meta: PropTypes.object.isRequired,
+    story: PropTypes.object,
+    meta: PropTypes.object,
     path: PropTypes.instanceOf(Immutable.List),
     onDragStart: PropTypes.func,
     children1: PropTypes.instanceOf(Immutable.OrderedMap),
@@ -359,11 +359,10 @@ class Group extends Component {
 
               e.preventDefault();
 
-              this.props.children1.map(
-                item =>
-                  item.get("properties").get("story") === undefined
-                    ? (needsValidation = true)
-                    : ""
+              this.props.children1.map(item =>
+                item.get("properties").get("story") === undefined
+                  ? (needsValidation = true)
+                  : ""
               );
 
               if (needsValidation) {
@@ -403,12 +402,12 @@ class Group extends Component {
             {disabled
               ? "Experience Ended"
               : (this.props.meta || {}).starting_status === "loading"
-                ? "Loading..."
-                : (this.props.meta || {}).starting_status === "failed"
-                  ? "Failed"
-                  : (this.props.meta || {}).experiment_id != null
-                    ? "Stop Experience"
-                    : "Start Experience"}
+              ? "Loading..."
+              : (this.props.meta || {}).starting_status === "failed"
+              ? "Failed"
+              : (this.props.meta || {}).experiment_id != null
+              ? "Stop Experience"
+              : "Start Experience"}
           </Button>
         ) : (
           <span>&nbsp;&nbsp;&nbsp; Connect your Google Analytics first</span>
@@ -452,7 +451,7 @@ class Group extends Component {
             className={classNames(
               "group--children",
               this.props.children1.size < 2 &&
-              this.props.config.settings.hideConjForOne
+                this.props.config.settings.hideConjForOne
                 ? "hide--line"
                 : ""
             )}

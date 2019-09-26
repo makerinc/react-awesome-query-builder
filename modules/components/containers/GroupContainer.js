@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import shallowCompare from 'react-addons-shallow-compare';
-import mapValues from 'lodash/mapValues';
-import Immutable from 'immutable';
-var stringify = require('json-stringify-safe');
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Provider, Connector, connect} from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import shallowCompare from "react-addons-shallow-compare";
+import mapValues from "lodash/mapValues";
+import Immutable from "immutable";
+var stringify = require("json-stringify-safe");
+import PureRenderMixin from "react-addons-pure-render-mixin";
+import { Provider, Connector, connect } from "react-redux";
 
-
-export default (Group) => {
+export default Group => {
   class GroupContainer extends Component {
     static propTypes = {
       //tree: PropTypes.instanceOf(Immutable.Map).isRequired,
@@ -16,13 +15,13 @@ export default (Group) => {
       actions: PropTypes.object.isRequired, //{setConjunction: Funciton, removeGroup, addGroup, addRule, ...}
       path: PropTypes.instanceOf(Immutable.List).isRequired,
       id: PropTypes.string.isRequired,
-      story: PropTypes.object.isRequired,
-      meta: PropTypes.object.isRequired,
+      story: PropTypes.object,
+      meta: PropTypes.object,
       not: PropTypes.bool,
       conjunction: PropTypes.string,
       children1: PropTypes.instanceOf(Immutable.OrderedMap),
       onDragStart: PropTypes.func,
-      treeNodesCnt: PropTypes.number,
+      treeNodesCnt: PropTypes.number
     };
 
     constructor(props) {
@@ -31,36 +30,40 @@ export default (Group) => {
       this.conjunctionOptions = this._getConjunctionOptions(props);
     }
 
-    pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+    pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(
+      this
+    );
     //shouldComponentUpdate = this.pureShouldComponentUpdate;
 
     shouldComponentUpdate(nextProps, nextState) {
-        let prevProps = this.props;
-        let prevState = this.state;
+      let prevProps = this.props;
+      let prevState = this.state;
 
-        let should = this.pureShouldComponentUpdate(nextProps, nextState);
-        if (should) {
-          if (prevState == nextState && prevProps != nextProps) {
-            let chs = [];
-            for (let k in nextProps) {
-                let changed = (nextProps[k] != prevProps[k]);
-                if (k == 'dragging' && (nextProps.dragging.id || prevProps.dragging.id) != nextProps.id) {
-                  changed = false; //dragging another item -> ignore
-                }
-                if (changed) {
-                  chs.push(k);
-                }
+      let should = this.pureShouldComponentUpdate(nextProps, nextState);
+      if (should) {
+        if (prevState == nextState && prevProps != nextProps) {
+          let chs = [];
+          for (let k in nextProps) {
+            let changed = nextProps[k] != prevProps[k];
+            if (
+              k == "dragging" &&
+              (nextProps.dragging.id || prevProps.dragging.id) != nextProps.id
+            ) {
+              changed = false; //dragging another item -> ignore
             }
-            if (!chs.length)
-                should = false;
+            if (changed) {
+              chs.push(k);
+            }
           }
+          if (!chs.length) should = false;
         }
+      }
 
-        return should;
+      return should;
     }
 
     componentWillReceiveProps(nextProps) {
-      const {config, id, conjunction} = nextProps;
+      const { config, id, conjunction } = nextProps;
       const oldConfig = this.props.config;
       const oldConjunction = this.props.conjunction;
       if (oldConfig != config || oldConjunction != conjunction) {
@@ -68,13 +71,13 @@ export default (Group) => {
       }
     }
 
-    _getConjunctionOptions (props) {
+    _getConjunctionOptions(props) {
       return mapValues(props.config.conjunctions, (item, index) => ({
         id: `conjunction-${props.id}-${index}`,
         name: `conjunction[${props.id}]`,
         key: index,
         label: item.label,
-        checked: index === props.conjunction,
+        checked: index === props.conjunction
       }));
     }
 
@@ -85,41 +88,41 @@ export default (Group) => {
       }
 
       this.props.actions.setConjunction(this.props.path, conj);
-    }
+    };
 
     setNot(e = null, not = null) {
       this.props.actions.setNot(this.props.path, not);
     }
 
-    dummyFn = () => {}
+    dummyFn = () => {};
 
-    removeSelf = (event) => {
+    removeSelf = event => {
       this.props.actions.removeGroup(this.props.path);
       event.preventDefault();
       return false;
-    }
+    };
 
     addGroup = (event, groupType) => {
-      this.props.actions.addGroup(this.props.path, {} , groupType);
+      this.props.actions.addGroup(this.props.path, {}, groupType);
       event.preventDefault();
       return false;
-    }
+    };
 
-    addRule = (event) => {
+    addRule = event => {
       this.props.actions.addRule(this.props.path);
       event.preventDefault();
       return false;
-    }
+    };
 
-    setStory = (story) => {
+    setStory = story => {
       this.props.actions.setStory(this.props.path, story);
       return false;
-    }
+    };
 
-    setMeta = (meta) => {
+    setMeta = meta => {
       this.props.actions.setMeta(this.props.path, meta);
       return false;
-    }
+    };
 
     render() {
       const currentNesting = this.props.path.size;
@@ -127,15 +130,16 @@ export default (Group) => {
 
       // Don't allow nesting further than the maximum configured depth and don't
       // allow removal of the root group.
-      const allowFurtherNesting = typeof maxNesting === 'undefined' || currentNesting < maxNesting;
+      const allowFurtherNesting =
+        typeof maxNesting === "undefined" || currentNesting < maxNesting;
       const isRoot = currentNesting == 1;
 
       return (
         <div
-          className={'group-or-rule-container group-container'}
+          className={"group-or-rule-container group-container"}
           data-id={this.props.id}
         >
-          {[(
+          {[
             <Group
               key={"dragging"}
               isForDrag={true}
@@ -160,8 +164,7 @@ export default (Group) => {
               //tree={this.props.tree}
               treeNodesCnt={this.props.treeNodesCnt}
               dragging={this.props.dragging}
-            />
-          ), (
+            />,
             <Group
               key={this.props.id}
               id={this.props.id}
@@ -187,22 +190,17 @@ export default (Group) => {
               onDragStart={this.props.onDragStart}
               dragging={this.props.dragging}
             />
-          )]}
+          ]}
         </div>
       );
     }
+  }
 
-  };
-
-  const ConnectedGroupContainer = connect(
-      (state) => {
-          return {
-            dragging: state.dragging,
-          }
-      }
-  )(GroupContainer);
-
+  const ConnectedGroupContainer = connect(state => {
+    return {
+      dragging: state.dragging
+    };
+  })(GroupContainer);
 
   return ConnectedGroupContainer;
-
 };
