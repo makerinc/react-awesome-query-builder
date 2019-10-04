@@ -273,6 +273,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         _react2.default.createElement(
           "div",
           { className: "group--header" },
+          this.renderDragHandle(),
           this.renderHeader(),
           this.isGroupTopPosition() && this.renderGroup(this.getGroupPositionClass())
         ),
@@ -437,6 +438,23 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
     }).toList() : null;
   };
 
+  this.renderDragHandle = function () {
+    if (_this3.props.config.settings.canReorder && _this3.props.treeNodesCnt > 2 && !_this3.props.isRoot && _this3.isDraftMode(_this3.props)) {
+      return _react2.default.createElement(
+        "span",
+        {
+          className: "qb-drag-handler",
+          onMouseDown: _this3.handleDraggerMouseDown
+        },
+        " ",
+        _react2.default.createElement(_icon2.default, { type: "bars" }),
+        " "
+      );
+    }
+
+    return null;
+  };
+
   this.renderHeader = function () {
     var renderConjsAsRadios = false;
 
@@ -494,16 +512,6 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
             item.label
           );
         })
-      ),
-      _this3.props.config.settings.canReorder && _this3.props.treeNodesCnt > 2 && !_this3.props.isRoot && _this3.isDraftMode(_this3.props) && _react2.default.createElement(
-        "span",
-        {
-          className: "qb-drag-handler",
-          onMouseDown: _this3.handleDraggerMouseDown
-        },
-        " ",
-        _react2.default.createElement(_icon2.default, { type: "bars" }),
-        " "
       )
     );
   };

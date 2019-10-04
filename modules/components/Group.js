@@ -223,6 +223,27 @@ class Group extends Component {
       : null;
   };
 
+  renderDragHandle = () => {
+    if (
+      this.props.config.settings.canReorder &&
+      this.props.treeNodesCnt > 2 &&
+      !this.props.isRoot &&
+      this.isDraftMode(this.props)
+    ) {
+      return (
+        <span
+          className={"qb-drag-handler"}
+          onMouseDown={this.handleDraggerMouseDown}
+        >
+          {" "}
+          <Icon type="bars" />{" "}
+        </span>
+      );
+    }
+
+    return null;
+  };
+
   renderHeader = () => {
     let renderConjsAsRadios = false;
 
@@ -277,18 +298,6 @@ class Group extends Component {
             ))}
           </ButtonGroup>
         )}
-        {this.props.config.settings.canReorder &&
-          this.props.treeNodesCnt > 2 &&
-          !this.props.isRoot &&
-          this.isDraftMode(this.props) && (
-            <span
-              className={"qb-drag-handler"}
-              onMouseDown={this.handleDraggerMouseDown}
-            >
-              {" "}
-              <Icon type="bars" />{" "}
-            </span>
-          )}
       </div>
     );
   };
@@ -442,6 +451,7 @@ class Group extends Component {
         data-id={this.props.id}
       >
         <div className="group--header">
+          {this.renderDragHandle()}
           {this.renderHeader()}
           {this.isGroupTopPosition() &&
             this.renderGroup(this.getGroupPositionClass())}
