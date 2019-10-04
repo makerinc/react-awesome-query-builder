@@ -26,9 +26,9 @@ const addNewGroup = (state, path, properties, config, groupType) => {
     const groupPath = path.push(groupUuid);
     // If we don't set the empty map, then the following merge of addItem will create a Map rather than an OrderedMap for some reason
     state = state.setIn(expandTreePath(groupPath, 'children1'), new Immutable.OrderedMap());
-    if (groupType !== 'ADD_EXPERIENCE') {
-        state = addItem(state, groupPath, 'rule', uuid(), defaultRuleProperties(config).merge(properties || {}));
-    }
+    // if (groupType !== 'ADD_EXPERIENCE') {
+    //     state = addItem(state, groupPath, 'rule', uuid(), defaultRuleProperties(config).merge(properties || {}));
+    // }
     state = fixPathsInTree(state);
     return state;
 };
