@@ -121,12 +121,16 @@ class Group extends Component {
   }
 
   renderGroup = position => {
+    let storyIcon = <Icon type="plus" />;
+    if (this.props.story != null) {
+      storyIcon = this.props.config.settings.editIcon || <Icon type="edit" />;
+    }
+
     return (
       <div className={`group--actions ${position}`}>
         <ButtonGroup size={this.props.config.settings.renderSize || "small"}>
           {!this.props.isRoot && !this.props.allowFurtherNesting ? (
             <Button
-              icon={this.props.story != null ? "edit" : "plus"}
               className="action action--SELECT-STORY"
               disabled={
                 this.props.config.settings.readonlyMode ||
@@ -137,6 +141,7 @@ class Group extends Component {
                 this.props.config.storyPicker(this.props.setStory);
               }}
             >
+              {storyIcon}
               {this.props.story != null
                 ? `Story: ${(this.props.story || {}).name}${
                     (this.props.story || {}).variantName

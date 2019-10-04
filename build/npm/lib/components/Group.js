@@ -363,6 +363,11 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   };
 
   this.renderGroup = function (position) {
+    var storyIcon = _react2.default.createElement(_icon2.default, { type: "plus" });
+    if (_this3.props.story != null) {
+      storyIcon = _this3.props.config.settings.editIcon || _react2.default.createElement(_icon2.default, { type: "edit" });
+    }
+
     return _react2.default.createElement(
       "div",
       { className: "group--actions " + position },
@@ -372,7 +377,6 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         !_this3.props.isRoot && !_this3.props.allowFurtherNesting ? _react2.default.createElement(
           _button2.default,
           {
-            icon: _this3.props.story != null ? "edit" : "plus",
             className: "action action--SELECT-STORY",
             disabled: _this3.props.config.settings.readonlyMode || !_this3.isDraftMode(_this3.props),
             onClick: function onClick(e) {
@@ -380,6 +384,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
               _this3.props.config.storyPicker(_this3.props.setStory);
             }
           },
+          storyIcon,
           _this3.props.story != null ? "Story: " + (_this3.props.story || {}).name + ((_this3.props.story || {}).variantName ? " | Variant: " + _this3.props.story.variantName : "") : "Select Story"
         ) : null,
         !_this3.props.config.settings.readonlyMode && _this3.isDraftMode(_this3.props) && !_this3.props.isRoot && !_this3.props.allowFurtherNesting && _react2.default.createElement(
