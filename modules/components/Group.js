@@ -181,10 +181,10 @@ class Group extends Component {
           this.isDraftMode(this.props) ? (
             <Button
               type="danger"
-              icon="delete"
-              className="action action--ADD-DELETE"
+              className="ant-btn-icon-only action action--ADD-DELETE"
               onClick={this.props.removeSelf}
             >
+              {this.props.config.settings.deleteIcon || <Icon type="delete" />}
               {this.props.config.settings.delGroupLabel !== undefined
                 ? this.props.allowFurtherNesting
                   ? "Delete Experience"
@@ -235,8 +235,7 @@ class Group extends Component {
           className={"qb-drag-handler"}
           onMouseDown={this.handleDraggerMouseDown}
         >
-          {" "}
-          <Icon type="bars" />{" "}
+          {this.props.config.settings.dragIcon || <Icon type="bars" />}
         </span>
       );
     }

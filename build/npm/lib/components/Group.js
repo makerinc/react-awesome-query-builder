@@ -406,10 +406,10 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           _button2.default,
           {
             type: "danger",
-            icon: "delete",
-            className: "action action--ADD-DELETE",
+            className: "ant-btn-icon-only action action--ADD-DELETE",
             onClick: _this3.props.removeSelf
           },
+          _this3.props.config.settings.deleteIcon || _react2.default.createElement(_icon2.default, { type: "delete" }),
           _this3.props.config.settings.delGroupLabel !== undefined ? _this3.props.allowFurtherNesting ? "Delete Experience" : _this3.props.config.settings.delGroupLabel : "Delete"
         ) : null
       )
@@ -446,9 +446,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           className: "qb-drag-handler",
           onMouseDown: _this3.handleDraggerMouseDown
         },
-        " ",
-        _react2.default.createElement(_icon2.default, { type: "bars" }),
-        " "
+        _this3.props.config.settings.dragIcon || _react2.default.createElement(_icon2.default, { type: "bars" })
       );
     }
 
