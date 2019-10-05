@@ -185,6 +185,16 @@ class Group extends Component {
           !this.props.isRoot &&
           this.isDraftMode(this.props) ? (
             <Button
+              className="action action--PREVIEW"
+              onClick={this.props.config.settings.onPreview}
+            >
+              {this.props.config.settings.previewLabel || "Preview"}
+            </Button>
+          ) : null}
+          {!this.props.config.settings.readonlyMode &&
+          !this.props.isRoot &&
+          this.isDraftMode(this.props) ? (
+            <Button
               type="danger"
               className="ant-btn-icon-only action action--ADD-DELETE"
               onClick={this.props.removeSelf}

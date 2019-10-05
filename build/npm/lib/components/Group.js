@@ -410,6 +410,14 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         !_this3.props.config.settings.readonlyMode && !_this3.props.isRoot && _this3.isDraftMode(_this3.props) ? _react2.default.createElement(
           _button2.default,
           {
+            className: "action action--PREVIEW",
+            onClick: _this3.props.config.settings.onPreview
+          },
+          _this3.props.config.settings.previewLabel || "Preview"
+        ) : null,
+        !_this3.props.config.settings.readonlyMode && !_this3.props.isRoot && _this3.isDraftMode(_this3.props) ? _react2.default.createElement(
+          _button2.default,
+          {
             type: "danger",
             className: "ant-btn-icon-only action action--ADD-DELETE",
             onClick: _this3.props.removeSelf
