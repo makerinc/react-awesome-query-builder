@@ -363,9 +363,9 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
   };
 
   this.renderGroup = function (position) {
-    var storyIcon = _react2.default.createElement(_icon2.default, { type: "plus" });
+    var storyIcon = _react2.default.createElement(_icon2.default, { type: "arrow-right" });
     if (_this3.props.story != null) {
-      storyIcon = _this3.props.config.settings.editIcon || _react2.default.createElement(_icon2.default, { type: "edit" });
+      storyIcon = _this3.props.config.settings.editIcon || _react2.default.createElement(_icon2.default, { type: "check" });
     }
 
     return _react2.default.createElement(

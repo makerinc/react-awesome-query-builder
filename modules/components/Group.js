@@ -121,9 +121,9 @@ class Group extends Component {
   }
 
   renderGroup = position => {
-    let storyIcon = <Icon type="plus" />;
+    let storyIcon = <Icon type="arrow-right" />;
     if (this.props.story != null) {
-      storyIcon = this.props.config.settings.editIcon || <Icon type="edit" />;
+      storyIcon = this.props.config.settings.editIcon || <Icon type="check" />;
     }
 
     return (
