@@ -174,6 +174,7 @@ class Rule extends Component {
             <Field
               key="field"
               config={this.props.config}
+              meta={this.props.meta}
               selectedField={this.props.selectedField}
               setField={this.props.setField}
               renderAsDropdown={

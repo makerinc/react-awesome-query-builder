@@ -205,6 +205,7 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
           _react2.default.createElement(_Field2.default, {
             key: "field",
             config: this.props.config,
+            meta: this.props.meta,
             selectedField: this.props.selectedField,
             setField: this.props.setField,
             renderAsDropdown: this.props.config.settings.renderFieldAndOpAsDropdown,

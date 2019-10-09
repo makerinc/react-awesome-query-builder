@@ -148,7 +148,7 @@ class Group extends Component {
                       ? ` | Variant: ${this.props.story.variantName}`
                       : ""
                   }`
-                : "Select Story"}
+                : "Story"}
             </Button>
           ) : null}
           {!this.props.config.settings.readonlyMode &&

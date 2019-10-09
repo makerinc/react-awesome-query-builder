@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Immutable from 'immutable';
-import Item from '../components/Item';
-import SortableContainer from './containers/SortableContainer';
-import {getTotalNodesCountInTree} from "../utils/treeUtils";
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Immutable from "immutable";
+import Item from "../components/Item";
+import SortableContainer from "./containers/SortableContainer";
+import { getTotalNodesCountInTree } from "../utils/treeUtils";
 
 @SortableContainer
 export default class Builder extends Component {
@@ -12,7 +11,7 @@ export default class Builder extends Component {
     tree: PropTypes.instanceOf(Immutable.Map).isRequired,
     config: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
-    onDragStart: PropTypes.func,
+    onDragStart: PropTypes.func
   };
 
   constructor(props) {
@@ -25,19 +24,19 @@ export default class Builder extends Component {
   //   this._updPath(props);
   // }
 
-  _updPath (props) {
-    const id = props.tree.get('id');
+  _updPath(props) {
+    const id = props.tree.get("id");
     this.path = Immutable.List.of(id);
   }
 
   render() {
     const treeNodesCnt = getTotalNodesCountInTree(this.props.tree);
-    const id = this.props.tree.get('id');
+    const id = this.props.tree.get("id");
     let story = {};
-    let meta = {};
-    if (this.props.tree.get('properties')) {
-      story = this.props.tree.get('properties').get('story');
-      meta = this.props.tree.get('properties').get('meta');
+    // let meta = {};
+    if (this.props.tree.get("properties")) {
+      story = this.props.tree.get("properties").get("story");
+      // meta = this.props.tree.get('properties').get('meta');
     }
 
     return (
@@ -45,18 +44,16 @@ export default class Builder extends Component {
         key={id}
         id={id}
         story={story}
-        meta={meta}
         path={this.path}
-        type={this.props.tree.get('type')}
-        properties={this.props.tree.get('properties')}
+        type={this.props.tree.get("type")}
+        properties={this.props.tree.get("properties")}
         config={this.props.config}
         actions={this.props.actions}
-        children1={this.props.tree.get('children1')}
+        children1={this.props.tree.get("children1")}
         //tree={this.props.tree}
         treeNodesCnt={treeNodesCnt}
         onDragStart={this.props.onDragStart}
-      >
-      </Item>
+      ></Item>
     );
   }
 }

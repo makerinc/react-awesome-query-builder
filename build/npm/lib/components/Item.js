@@ -64,7 +64,7 @@ var typeMap = {
     return _react2.default.createElement(_Group2.default, _extends({}, props.properties.toObject(), {
       id: props.id,
       story: props.properties.get("story"),
-      meta: props.meta || props.properties.get("meta"),
+      meta: props.properties.get("meta") || props.meta,
       path: props.path,
       actions: props.actions,
       config: props.config

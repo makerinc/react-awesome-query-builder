@@ -385,7 +385,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
             }
           },
           storyIcon,
-          _this3.props.story != null ? "Story: " + (_this3.props.story || {}).name + ((_this3.props.story || {}).variantName ? " | Variant: " + _this3.props.story.variantName : "") : "Select Story"
+          _this3.props.story != null ? "Story: " + (_this3.props.story || {}).name + ((_this3.props.story || {}).variantName ? " | Variant: " + _this3.props.story.variantName : "") : "Story"
         ) : null,
         !_this3.props.config.settings.readonlyMode && _this3.isDraftMode(_this3.props) && !_this3.props.isRoot && !_this3.props.allowFurtherNesting && _react2.default.createElement(
           _button2.default,

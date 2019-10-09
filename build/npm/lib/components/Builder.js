@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 exports.__esModule = true;
 exports.default = undefined;
@@ -7,27 +7,27 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _class, _class2, _temp;
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _immutable = require('immutable');
+var _immutable = require("immutable");
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _Item = require('../components/Item');
+var _Item = require("../components/Item");
 
 var _Item2 = _interopRequireDefault(_Item);
 
-var _SortableContainer = require('./containers/SortableContainer');
+var _SortableContainer = require("./containers/SortableContainer");
 
 var _SortableContainer2 = _interopRequireDefault(_SortableContainer);
 
-var _treeUtils = require('../utils/treeUtils');
+var _treeUtils = require("../utils/treeUtils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55,34 +55,33 @@ var Builder = (0, _SortableContainer2.default)(_class = (_temp = _class2 = funct
   // }
 
   _createClass(Builder, [{
-    key: '_updPath',
+    key: "_updPath",
     value: function _updPath(props) {
-      var id = props.tree.get('id');
+      var id = props.tree.get("id");
       this.path = _immutable2.default.List.of(id);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var treeNodesCnt = (0, _treeUtils.getTotalNodesCountInTree)(this.props.tree);
-      var id = this.props.tree.get('id');
+      var id = this.props.tree.get("id");
       var story = {};
-      var meta = {};
-      if (this.props.tree.get('properties')) {
-        story = this.props.tree.get('properties').get('story');
-        meta = this.props.tree.get('properties').get('meta');
+      // let meta = {};
+      if (this.props.tree.get("properties")) {
+        story = this.props.tree.get("properties").get("story");
+        // meta = this.props.tree.get('properties').get('meta');
       }
 
       return _react2.default.createElement(_Item2.default, {
         key: id,
         id: id,
         story: story,
-        meta: meta,
         path: this.path,
-        type: this.props.tree.get('type'),
-        properties: this.props.tree.get('properties'),
+        type: this.props.tree.get("type"),
+        properties: this.props.tree.get("properties"),
         config: this.props.config,
         actions: this.props.actions,
-        children1: this.props.tree.get('children1')
+        children1: this.props.tree.get("children1")
         //tree={this.props.tree}
         , treeNodesCnt: treeNodesCnt,
         onDragStart: this.props.onDragStart
