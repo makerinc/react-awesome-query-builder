@@ -7,7 +7,7 @@ import Field from "./Field";
 import Operator from "./Operator";
 import Widget from "./Widget";
 import OperatorOptions from "./OperatorOptions";
-import { Row, Col, Menu, Dropdown, Icon, Tooltip, Button } from "antd";
+import { Row, Col, Menu, Dropdown, Icon, Tooltip, Button, Modal } from "antd";
 const SubMenu = Menu.SubMenu;
 const MenuItem = Menu.Item;
 const DropdownButton = Dropdown.Button;
@@ -83,6 +83,19 @@ class Rule extends Component {
     );
   }
 
+  showDeleteConfirm(e) {
+    e.preventDefault();
+
+    Modal.confirm({
+      title: "Are you sure?",
+      content: "This action can't be undone.",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk: this.props.removeSelf
+    });
+  }
+
   render() {
     let renderType = this.getRenderType(this.props);
     if (!renderType) return null;
@@ -142,7 +155,7 @@ class Rule extends Component {
               <Button
                 className="ant-btn-icon-only"
                 type="danger"
-                onClick={this.props.removeSelf}
+                onClick={this.showDeleteConfirm.bind(this)}
                 size={this.props.config.settings.renderSize || "small"}
               >
                 {this.props.config.settings.deleteIcon || (

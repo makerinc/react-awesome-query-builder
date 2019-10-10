@@ -4,7 +4,18 @@ import shallowCompare from "react-addons-shallow-compare";
 import map from "lodash/map";
 import startsWith from "lodash/startsWith";
 import GroupContainer from "./containers/GroupContainer";
-import { Row, Col, Icon, Button, Radio, Input, Select } from "antd";
+import {
+  Row,
+  Col,
+  Icon,
+  Button,
+  Radio,
+  Input,
+  Select,
+  Menu,
+  Dropdown,
+  Modal
+} from "antd";
 const ButtonGroup = Button.Group;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -191,24 +202,68 @@ class Group extends Component {
               {this.props.config.settings.previewLabel || "Preview"}
             </Button>
           ) : null}
-          {!this.props.config.settings.readonlyMode &&
-          !this.props.isRoot &&
-          this.isDraftMode(this.props) ? (
-            <Button
-              type="danger"
-              className="ant-btn-icon-only action action--ADD-DELETE"
-              onClick={this.props.removeSelf}
-            >
-              {this.props.config.settings.deleteIcon || <Icon type="delete" />}
-              {this.props.config.settings.delGroupLabel !== undefined
-                ? this.props.allowFurtherNesting
-                  ? "Delete Experience"
-                  : this.props.config.settings.delGroupLabel
-                : "Delete"}
-            </Button>
-          ) : null}
+          {this.renderMoreOptions()}
         </ButtonGroup>
       </div>
+    );
+  };
+
+  showDeleteConfirm = e => {
+    e.preventDefault();
+
+    Modal.confirm({
+      title: "Are you sure?",
+      content: "This action can't be undone.",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk: this.props.removeSelf
+    });
+  };
+
+  handleCookiesToggle = e => {
+    e.preventDefault();
+
+    const cookies = Boolean((this.props.meta || {}).cookies);
+    this.props.setMeta({
+      cookies: !cookies
+    });
+  };
+
+  renderMoreOptions = () => {
+    if (
+      this.props.config.settings.readonlyMode ||
+      this.props.isRoot ||
+      !this.isDraftMode(this.props)
+    ) {
+      return null;
+    }
+
+    const cookies = (this.props.meta || {}).cookies;
+    const cookiesIcon = cookies ? "check-square-o" : "close-square-o";
+
+    const menu = (
+      <Menu>
+        <Menu.Item key="0">
+          <a href="#" onClick={this.handleCookiesToggle}>
+            <Icon type={cookiesIcon} /> Use cookies to remember visitors
+          </a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="1">
+          <a href="#" onClick={this.showDeleteConfirm}>
+            Delete experience
+          </a>
+        </Menu.Item>
+      </Menu>
+    );
+
+    return (
+      <Dropdown overlay={menu} trigger={["click"]}>
+        <Button className="ant-btn-icon-only action action--MORE-OPTIONS">
+          {this.props.config.settings.menuIcon}
+        </Button>
+      </Dropdown>
     );
   };
 

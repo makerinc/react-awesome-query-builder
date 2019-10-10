@@ -3,6 +3,18 @@
 exports.__esModule = true;
 exports.groupActionsPositionList = undefined;
 
+var _dropdown = require("antd/lib/dropdown");
+
+var _dropdown2 = _interopRequireDefault(_dropdown);
+
+var _menu = require("antd/lib/menu");
+
+var _menu2 = _interopRequireDefault(_menu);
+
+var _modal = require("antd/lib/modal");
+
+var _modal2 = _interopRequireDefault(_modal);
+
 var _icon = require("antd/lib/icon");
 
 var _icon2 = _interopRequireDefault(_icon);
@@ -26,6 +38,12 @@ var _button2 = _interopRequireDefault(_button);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _class, _class2, _temp, _initialiseProps;
+
+require("antd/lib/dropdown/style/css");
+
+require("antd/lib/menu/style/css");
+
+require("antd/lib/modal/style/css");
 
 require("antd/lib/icon/style/css");
 
@@ -415,16 +433,73 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           },
           _this3.props.config.settings.previewLabel || "Preview"
         ) : null,
-        !_this3.props.config.settings.readonlyMode && !_this3.props.isRoot && _this3.isDraftMode(_this3.props) ? _react2.default.createElement(
-          _button2.default,
-          {
-            type: "danger",
-            className: "ant-btn-icon-only action action--ADD-DELETE",
-            onClick: _this3.props.removeSelf
-          },
-          _this3.props.config.settings.deleteIcon || _react2.default.createElement(_icon2.default, { type: "delete" }),
-          _this3.props.config.settings.delGroupLabel !== undefined ? _this3.props.allowFurtherNesting ? "Delete Experience" : _this3.props.config.settings.delGroupLabel : "Delete"
-        ) : null
+        _this3.renderMoreOptions()
+      )
+    );
+  };
+
+  this.showDeleteConfirm = function (e) {
+    e.preventDefault();
+
+    _modal2.default.confirm({
+      title: "Are you sure?",
+      content: "This action can't be undone.",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk: _this3.props.removeSelf
+    });
+  };
+
+  this.handleCookiesToggle = function (e) {
+    e.preventDefault();
+
+    var cookies = Boolean((_this3.props.meta || {}).cookies);
+    _this3.props.setMeta({
+      cookies: !cookies
+    });
+  };
+
+  this.renderMoreOptions = function () {
+    if (_this3.props.config.settings.readonlyMode || _this3.props.isRoot || !_this3.isDraftMode(_this3.props)) {
+      return null;
+    }
+
+    var cookies = (_this3.props.meta || {}).cookies;
+    var cookiesIcon = cookies ? "check-square-o" : "close-square-o";
+
+    var menu = _react2.default.createElement(
+      _menu2.default,
+      null,
+      _react2.default.createElement(
+        _menu2.default.Item,
+        { key: "0" },
+        _react2.default.createElement(
+          "a",
+          { href: "#", onClick: _this3.handleCookiesToggle },
+          _react2.default.createElement(_icon2.default, { type: cookiesIcon }),
+          " Use cookies to remember visitors"
+        )
+      ),
+      _react2.default.createElement(_menu2.default.Divider, null),
+      _react2.default.createElement(
+        _menu2.default.Item,
+        { key: "1" },
+        _react2.default.createElement(
+          "a",
+          { href: "#", onClick: _this3.showDeleteConfirm },
+          "Delete experience"
+        )
+      )
+    );
+
+    return _react2.default.createElement(
+      _dropdown2.default,
+      { overlay: menu, trigger: ["click"] },
+      _react2.default.createElement(
+        _button2.default,
+        { className: "ant-btn-icon-only action action--MORE-OPTIONS" },
+        _this3.props.config.settings.menuIcon
       )
     );
   };

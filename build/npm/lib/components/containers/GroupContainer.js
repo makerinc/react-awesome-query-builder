@@ -69,7 +69,9 @@ exports.default = function (Group) {
 
       _this.removeSelf = function (event) {
         _this.props.actions.removeGroup(_this.props.path);
-        event.preventDefault();
+        if (event) {
+          event.preventDefault();
+        }
         return false;
       };
 

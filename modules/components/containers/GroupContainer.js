@@ -98,7 +98,9 @@ export default Group => {
 
     removeSelf = event => {
       this.props.actions.removeGroup(this.props.path);
-      event.preventDefault();
+      if (event) {
+        event.preventDefault();
+      }
       return false;
     };
 

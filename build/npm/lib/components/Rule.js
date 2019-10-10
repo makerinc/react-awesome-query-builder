@@ -14,6 +14,10 @@ var _icon = require("antd/lib/icon");
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _modal = require("antd/lib/modal");
+
+var _modal2 = _interopRequireDefault(_modal);
+
 var _dropdown = require("antd/lib/dropdown");
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
@@ -33,6 +37,8 @@ require("antd/lib/col/style/css");
 require("antd/lib/button/style/css");
 
 require("antd/lib/icon/style/css");
+
+require("antd/lib/modal/style/css");
 
 require("antd/lib/dropdown/style/css");
 
@@ -141,6 +147,20 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
       return (props.meta || {}).status === "draft" || (props.meta || {}).status === undefined;
     }
   }, {
+    key: "showDeleteConfirm",
+    value: function showDeleteConfirm(e) {
+      e.preventDefault();
+
+      _modal2.default.confirm({
+        title: "Are you sure?",
+        content: "This action can't be undone.",
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        onOk: this.props.removeSelf
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var renderType = this.getRenderType(this.props);
@@ -179,7 +199,7 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
             {
               className: "ant-btn-icon-only",
               type: "danger",
-              onClick: this.props.removeSelf,
+              onClick: this.showDeleteConfirm.bind(this),
               size: this.props.config.settings.renderSize || "small"
             },
             this.props.config.settings.deleteIcon || _react2.default.createElement(_icon2.default, { type: "delete" }),
