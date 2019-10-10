@@ -1,21 +1,21 @@
-'use strict';
+"use strict";
 
 exports.__esModule = true;
 exports.moveItem = exports.removeGroup = exports.addGroup = exports.removeRule = exports.addRule = exports.setTree = undefined;
 
-var _uuid = require('../utils/uuid');
+var _uuid = require("../utils/uuid");
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _treeUtils = require('../utils/treeUtils');
+var _treeUtils = require("../utils/treeUtils");
 
-var _defaultUtils = require('../utils/defaultUtils');
+var _defaultUtils = require("../utils/defaultUtils");
 
-var _constants = require('../constants');
+var _constants = require("../constants");
 
 var constants = _interopRequireWildcard(_constants);
 
-var _immutable = require('immutable');
+var _immutable = require("immutable");
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
@@ -24,7 +24,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var hasChildren = function hasChildren(tree, path) {
-  return tree.getIn((0, _treeUtils.expandTreePath)(path, 'children1')).size > 0;
+  return tree.getIn((0, _treeUtils.expandTreePath)(path, "children1")).size > 0;
 };
 
 /**
@@ -48,7 +48,8 @@ var addRule = exports.addRule = function addRule(config, path, properties) {
     type: constants.ADD_RULE,
     path: path,
     id: (0, _uuid2.default)(),
-    properties: (0, _defaultUtils.defaultRuleProperties)(config).merge(properties || {})
+    properties: (0, _defaultUtils.defaultRuleProperties)(config).merge(properties || {}),
+    config: config
   };
 };
 

@@ -52,7 +52,8 @@ const addNewGroup = (
     path,
     "group",
     groupUuid,
-    defaultGroupProperties(config).merge(properties || {})
+    defaultGroupProperties(config).merge(properties || {}),
+    config
   );
 
   const groupPath = path.push(groupUuid);
@@ -106,7 +107,8 @@ const removeGroup = (state, path, config) => {
       parentPath,
       "rule",
       uuid(),
-      defaultRuleProperties(config)
+      defaultRuleProperties(config),
+      config
     );
   }
   state = fixPathsInTree(state);
@@ -131,7 +133,8 @@ const removeRule = (state, path, config) => {
       parentPath,
       "rule",
       uuid(),
-      defaultRuleProperties(config)
+      defaultRuleProperties(config),
+      config
     );
   }
   state = fixPathsInTree(state);
@@ -183,13 +186,29 @@ const setMeta = (state, path, meta) => {
  * @param {string} id
  * @param {Immutable.OrderedMap} properties
  */
-const addItem = (state, path, type, id, properties) => {
+const addItem = (state, path, type, id, properties, config) => {
+  const currentMeta =
+    getItemByPath(state, path)
+      .get("properties")
+      .get("meta") || {};
+  const existingChildren = hasChildren(state, path);
+
   state = state.mergeIn(
     expandTreePath(path, "children1"),
     new Immutable.OrderedMap({
       [id]: new Immutable.Map({ type, id, properties })
     })
   );
+
+  if (currentMeta.targeting === "page" && !existingChildren) {
+    const rulePath = path.push(id);
+    state = setField(state, rulePath, "dimension_url", config);
+
+    if (window.parentUrl) {
+      state = setValue(state, rulePath, 0, window.parentUrl, "text", config);
+    }
+  }
+
   state = fixPathsInTree(state);
   return state;
 };
@@ -788,7 +807,8 @@ export default config => {
             action.path,
             "group",
             action.id,
-            action.properties
+            action.properties,
+            action.config
           )
         });
 
@@ -804,7 +824,8 @@ export default config => {
             action.path,
             "rule",
             action.id,
-            action.properties
+            action.properties,
+            action.config
           )
         });
 

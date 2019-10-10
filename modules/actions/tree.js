@@ -1,11 +1,14 @@
-import uuid from '../utils/uuid';
-import {expandTreePath} from '../utils/treeUtils';
-import {defaultRuleProperties, defaultGroupProperties} from '../utils/defaultUtils';
-import * as constants from '../constants';
-import Immutable from 'immutable';
+import uuid from "../utils/uuid";
+import { expandTreePath } from "../utils/treeUtils";
+import {
+  defaultRuleProperties,
+  defaultGroupProperties
+} from "../utils/defaultUtils";
+import * as constants from "../constants";
+import Immutable from "immutable";
 
 const hasChildren = (tree, path) =>
-  tree.getIn(expandTreePath(path, 'children1')).size > 0;
+  tree.getIn(expandTreePath(path, "children1")).size > 0;
 
 /**
  * @param {object} config
@@ -25,7 +28,8 @@ export const addRule = (config, path, properties) => ({
   type: constants.ADD_RULE,
   path: path,
   id: uuid(),
-  properties: defaultRuleProperties(config).merge(properties || {})
+  properties: defaultRuleProperties(config).merge(properties || {}),
+  config
 });
 
 // /**
@@ -58,7 +62,6 @@ export const removeRule = (config, path) => ({
   config: config
 });
 
-
 // /**
 //  * @param {object} config
 //  * @param {Immutable.List} path
@@ -88,16 +91,14 @@ export const removeRule = (config, path) => ({
  * @param {object} properties
  */
 export const addGroup = (config, path, properties, groupType) => ({
-    type: constants.ADD_NEW_GROUP,
-    story: {},
-    meta: {user_id: ((window.gon || {}).current_user || {}).id || null},
-    path: path,
-    properties: defaultGroupProperties(config).merge(properties || {}),
-    config: config,
-    groupType: groupType
+  type: constants.ADD_NEW_GROUP,
+  story: {},
+  meta: { user_id: ((window.gon || {}).current_user || {}).id || null },
+  path: path,
+  properties: defaultGroupProperties(config).merge(properties || {}),
+  config: config,
+  groupType: groupType
 });
-
-
 
 // /**
 //  * @param {object} config
@@ -124,12 +125,10 @@ export const addGroup = (config, path, properties, groupType) => ({
  * @param {Immutable.List} path
  */
 export const removeGroup = (config, path) => ({
-    type: constants.REMOVE_GROUP,
-    path: path,
-    config: config
+  type: constants.REMOVE_GROUP,
+  path: path,
+  config: config
 });
-
-
 
 /**
  * @param {object} config
@@ -142,5 +141,5 @@ export const moveItem = (config, fromPath, toPath, placement) => ({
   fromPath: new Immutable.List(fromPath),
   toPath: new Immutable.List(toPath),
   placement: placement,
-  config: config,
+  config: config
 });

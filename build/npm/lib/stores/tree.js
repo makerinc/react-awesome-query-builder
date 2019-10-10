@@ -53,7 +53,7 @@ var addNewGroup = function addNewGroup(state, path, properties, config, groupTyp
   var firstRun = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : true;
 
   var groupUuid = (0, _uuid2.default)();
-  state = addItem(state, path, "group", groupUuid, (0, _defaultUtils.defaultGroupProperties)(config).merge(properties || {}));
+  state = addItem(state, path, "group", groupUuid, (0, _defaultUtils.defaultGroupProperties)(config).merge(properties || {}), config);
 
   var groupPath = path.push(groupUuid);
 
@@ -88,7 +88,7 @@ var removeGroup = function removeGroup(state, path, config) {
   var isEmptyRoot = isEmptyGroup && parentPath.size == 1;
   var canLeaveEmpty = isEmptyGroup && config.settings.canLeaveEmptyGroup && !isEmptyRoot;
   if (isEmptyGroup && !canLeaveEmpty) {
-    state = addItem(state, parentPath, "rule", (0, _uuid2.default)(), (0, _defaultUtils.defaultRuleProperties)(config));
+    state = addItem(state, parentPath, "rule", (0, _uuid2.default)(), (0, _defaultUtils.defaultRuleProperties)(config), config);
   }
   state = (0, _treeUtils.fixPathsInTree)(state);
   return state;
@@ -106,7 +106,7 @@ var removeRule = function removeRule(state, path, config) {
   var isEmptyRoot = isEmptyGroup && parentPath.size == 1;
   var canLeaveEmpty = isEmptyGroup && config.settings.canLeaveEmptyGroup && !isEmptyRoot;
   if (isEmptyGroup && !canLeaveEmpty) {
-    state = addItem(state, parentPath, "rule", (0, _uuid2.default)(), (0, _defaultUtils.defaultRuleProperties)(config));
+    state = addItem(state, parentPath, "rule", (0, _uuid2.default)(), (0, _defaultUtils.defaultRuleProperties)(config), config);
   }
   state = (0, _treeUtils.fixPathsInTree)(state);
   return state;
@@ -157,8 +157,21 @@ var setMeta = function setMeta(state, path, meta) {
  * @param {string} id
  * @param {Immutable.OrderedMap} properties
  */
-var addItem = function addItem(state, path, type, id, properties) {
+var addItem = function addItem(state, path, type, id, properties, config) {
+  var currentMeta = (0, _treeUtils.getItemByPath)(state, path).get("properties").get("meta") || {};
+  var existingChildren = hasChildren(state, path);
+
   state = state.mergeIn((0, _treeUtils.expandTreePath)(path, "children1"), new _immutable2.default.OrderedMap(_defineProperty({}, id, new _immutable2.default.Map({ type: type, id: id, properties: properties }))));
+
+  if (currentMeta.targeting === "page" && !existingChildren) {
+    var rulePath = path.push(id);
+    state = setField(state, rulePath, "dimension_url", config);
+
+    if (window.parentUrl) {
+      state = setValue(state, rulePath, 0, window.parentUrl, "text", config);
+    }
+  }
+
   state = (0, _treeUtils.fixPathsInTree)(state);
   return state;
 };
@@ -648,7 +661,7 @@ exports.default = function (config) {
 
       case constants.ADD_GROUP:
         return Object.assign({}, state, {
-          tree: addItem(state.tree, action.path, "group", action.id, action.properties)
+          tree: addItem(state.tree, action.path, "group", action.id, action.properties, action.config)
         });
 
       case constants.REMOVE_GROUP:
@@ -658,7 +671,7 @@ exports.default = function (config) {
 
       case constants.ADD_RULE:
         return Object.assign({}, state, {
-          tree: addItem(state.tree, action.path, "rule", action.id, action.properties)
+          tree: addItem(state.tree, action.path, "rule", action.id, action.properties, action.config)
         });
 
       case constants.REMOVE_RULE:
