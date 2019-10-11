@@ -256,6 +256,7 @@ class Group extends Component {
       <Dropdown overlay={menu} trigger={["click"]}>
         <Button className="ant-btn-icon-only action action--MORE-OPTIONS">
           {this.props.config.settings.menuIcon}
+          <span>More options</span>
         </Button>
       </Dropdown>
     );

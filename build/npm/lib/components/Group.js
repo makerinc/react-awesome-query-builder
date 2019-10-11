@@ -500,7 +500,12 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
       _react2.default.createElement(
         _button2.default,
         { className: "ant-btn-icon-only action action--MORE-OPTIONS" },
-        _this3.props.config.settings.menuIcon
+        _this3.props.config.settings.menuIcon,
+        _react2.default.createElement(
+          "span",
+          null,
+          "More options"
+        )
       )
     );
   };
