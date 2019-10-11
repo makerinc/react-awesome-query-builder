@@ -14,7 +14,8 @@ import {
   Select,
   Menu,
   Dropdown,
-  Modal
+  Modal,
+  Switch
 } from "antd";
 const ButtonGroup = Button.Group;
 const RadioButton = Radio.Button;
@@ -221,15 +222,6 @@ class Group extends Component {
     });
   };
 
-  handleCookiesToggle = e => {
-    e.preventDefault();
-
-    const cookies = Boolean((this.props.meta || {}).cookies);
-    this.props.setMeta({
-      cookies: !cookies
-    });
-  };
-
   renderMoreOptions = () => {
     if (
       this.props.config.settings.readonlyMode ||
@@ -239,14 +231,16 @@ class Group extends Component {
       return null;
     }
 
-    const cookies = (this.props.meta || {}).cookies;
-    const cookiesIcon = cookies ? "check-square-o" : "close-square-o";
+    const cookies = ((this.props.meta || {}).cookies || {}).enabled;
 
     const menu = (
       <Menu>
         <Menu.Item key="0">
-          <a href="#" onClick={this.handleCookiesToggle}>
-            <Icon type={cookiesIcon} /> Use cookies to remember visitors
+          <a
+            href="#"
+            onClick={e => this.props.config.settings.onCookies(e, this.props)}
+          >
+            <Switch size="small" checked={cookies} /> Cookie visitors
           </a>
         </Menu.Item>
         <Menu.Divider />

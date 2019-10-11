@@ -11,6 +11,10 @@ var _menu = require("antd/lib/menu");
 
 var _menu2 = _interopRequireDefault(_menu);
 
+var _switch = require("antd/lib/switch");
+
+var _switch2 = _interopRequireDefault(_switch);
+
 var _modal = require("antd/lib/modal");
 
 var _modal2 = _interopRequireDefault(_modal);
@@ -42,6 +46,8 @@ var _class, _class2, _temp, _initialiseProps;
 require("antd/lib/dropdown/style/css");
 
 require("antd/lib/menu/style/css");
+
+require("antd/lib/switch/style/css");
 
 require("antd/lib/modal/style/css");
 
@@ -451,22 +457,12 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
     });
   };
 
-  this.handleCookiesToggle = function (e) {
-    e.preventDefault();
-
-    var cookies = Boolean((_this3.props.meta || {}).cookies);
-    _this3.props.setMeta({
-      cookies: !cookies
-    });
-  };
-
   this.renderMoreOptions = function () {
     if (_this3.props.config.settings.readonlyMode || _this3.props.isRoot || !_this3.isDraftMode(_this3.props)) {
       return null;
     }
 
-    var cookies = (_this3.props.meta || {}).cookies;
-    var cookiesIcon = cookies ? "check-square-o" : "close-square-o";
+    var cookies = ((_this3.props.meta || {}).cookies || {}).enabled;
 
     var menu = _react2.default.createElement(
       _menu2.default,
@@ -476,9 +472,14 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         { key: "0" },
         _react2.default.createElement(
           "a",
-          { href: "#", onClick: _this3.handleCookiesToggle },
-          _react2.default.createElement(_icon2.default, { type: cookiesIcon }),
-          " Use cookies to remember visitors"
+          {
+            href: "#",
+            onClick: function onClick(e) {
+              return _this3.props.config.settings.onCookies(e, _this3.props);
+            }
+          },
+          _react2.default.createElement(_switch2.default, { size: "small", checked: cookies }),
+          " Cookie visitors"
         )
       ),
       _react2.default.createElement(_menu2.default.Divider, null),
