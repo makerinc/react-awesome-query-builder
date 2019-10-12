@@ -43,13 +43,15 @@ var setTree = exports.setTree = function setTree(config, tree) {
  * @param {Immutable.List} path
  * @param {object} properties
  */
-var addRule = exports.addRule = function addRule(config, path, properties) {
+var addRule = exports.addRule = function addRule(config, path, properties, field, meta) {
   return {
     type: constants.ADD_RULE,
     path: path,
     id: (0, _uuid2.default)(),
     properties: (0, _defaultUtils.defaultRuleProperties)(config).merge(properties || {}),
-    config: config
+    config: config,
+    field: field,
+    meta: meta
   };
 };
 

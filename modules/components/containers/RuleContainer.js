@@ -21,7 +21,8 @@ export default Rule => {
       valueSrc: PropTypes.any,
       operatorOptions: PropTypes.object,
       treeNodesCnt: PropTypes.number,
-      meta: PropTypes.object
+      meta: PropTypes.object,
+      fieldMeta: PropTypes.object
       //connected:
       //dragging: PropTypes.object, //{id, x, y, w, h}
     };
@@ -119,6 +120,7 @@ export default Rule => {
               treeNodesCnt={this.props.treeNodesCnt}
               dragging={this.props.dragging}
               meta={this.props.meta}
+              fieldMeta={this.props.fieldMeta}
             />,
             <Rule
               key={this.props.id}
@@ -139,6 +141,7 @@ export default Rule => {
               onDragStart={this.props.onDragStart}
               dragging={this.props.dragging}
               meta={this.props.meta}
+              fieldMeta={this.props.fieldMeta}
             />
           ]}
         </div>

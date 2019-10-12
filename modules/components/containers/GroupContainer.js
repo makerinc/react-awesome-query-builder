@@ -110,9 +110,11 @@ export default Group => {
       return false;
     };
 
-    addRule = event => {
-      this.props.actions.addRule(this.props.path);
-      event.preventDefault();
+    addRule = (event, field, meta) => {
+      this.props.actions.addRule(this.props.path, undefined, field, meta);
+      if (typeof (event || {}).preventDefault === "function") {
+        event.preventDefault();
+      }
       return false;
     };
 

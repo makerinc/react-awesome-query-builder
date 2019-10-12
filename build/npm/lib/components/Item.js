@@ -57,7 +57,8 @@ var typeMap = {
       treeNodesCnt: props.treeNodesCnt,
       config: props.config,
       onDragStart: props.onDragStart,
-      meta: props.meta
+      meta: props.meta,
+      fieldMeta: props.fieldMeta
     }));
   },
   group: function group(props) {

@@ -416,7 +416,9 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           {
             icon: "plus",
             className: "action action--ADD-RULE",
-            onClick: _this3.props.addRule
+            onClick: function onClick(e) {
+              return _this3.props.config.settings.onAddRule(e, _this3.props);
+            }
           },
           _this3.props.config.settings.addRuleLabel || "Add rule"
         ),
@@ -517,7 +519,8 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
         key: item.get("id"),
         id: item.get("id"),
         story: item.get("story"),
-        meta: props.meta || item.get("meta")
+        meta: props.meta || item.get("meta"),
+        fieldMeta: item.get("properties").get("meta")
         //path={props.path.push(item.get('id'))}
         , path: item.get("path"),
         type: item.get("type"),

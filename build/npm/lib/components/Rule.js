@@ -226,6 +226,7 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
             key: "field",
             config: this.props.config,
             meta: this.props.meta,
+            fieldMeta: this.props.fieldMeta,
             selectedField: this.props.selectedField,
             setField: this.props.setField,
             renderAsDropdown: this.props.config.settings.renderFieldAndOpAsDropdown,
@@ -335,7 +336,8 @@ var Rule = (0, _RuleContainer2.default)(_class = (_temp = _class2 = function (_C
   treeNodesCnt: _propTypes2.default.number,
   //connected:
   dragging: _propTypes2.default.object, //{id, x, y, w, h}
-  meta: _propTypes2.default.object
+  meta: _propTypes2.default.object,
+  fieldMeta: _propTypes2.default.object
 }, _temp)) || _class;
 
 exports.default = Rule;

@@ -81,9 +81,11 @@ exports.default = function (Group) {
         return false;
       };
 
-      _this.addRule = function (event) {
-        _this.props.actions.addRule(_this.props.path);
-        event.preventDefault();
+      _this.addRule = function (event, field, meta) {
+        _this.props.actions.addRule(_this.props.path, undefined, field, meta);
+        if (typeof (event || {}).preventDefault === "function") {
+          event.preventDefault();
+        }
         return false;
       };
 

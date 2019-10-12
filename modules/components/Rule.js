@@ -47,7 +47,8 @@ class Rule extends Component {
     treeNodesCnt: PropTypes.number,
     //connected:
     dragging: PropTypes.object, //{id, x, y, w, h}
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    fieldMeta: PropTypes.object
   };
 
   pureShouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -188,6 +189,7 @@ class Rule extends Component {
               key="field"
               config={this.props.config}
               meta={this.props.meta}
+              fieldMeta={this.props.fieldMeta}
               selectedField={this.props.selectedField}
               setField={this.props.setField}
               renderAsDropdown={

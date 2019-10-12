@@ -126,7 +126,8 @@ export default class Field extends Component {
     fields,
     path = null,
     optGroupLabel = null,
-    filterByTargeting
+    filterByTargeting,
+    filterFields
   ) {
     let fieldSeparator = this.props.config.settings.fieldSeparator;
     if (!fields) return null;
@@ -136,6 +137,12 @@ export default class Field extends Component {
     if (filterByTargeting && TARGETING[filterByTargeting]) {
       fieldKeys = fieldKeys.filter(
         fieldKey => TARGETING[filterByTargeting].indexOf(fieldKey) > -1
+      );
+    }
+
+    if (filterFields && Array.isArray(filterFields)) {
+      fieldKeys = fieldKeys.filter(
+        fieldKey => filterFields.indexOf(fieldKey) > -1
       );
     }
 
@@ -150,7 +157,8 @@ export default class Field extends Component {
               field.subfields,
               subpath,
               label,
-              filterByTargeting
+              filterByTargeting,
+              filterFields
             )}
           </OptGroup>
         );
@@ -222,7 +230,8 @@ export default class Field extends Component {
       fieldOptions,
       undefined,
       undefined,
-      (this.props.meta || {}).targeting
+      (this.props.meta || {}).targeting,
+      (this.props.fieldMeta || {}).filterFields
     );
     let customProps = this.props.customProps || {};
 

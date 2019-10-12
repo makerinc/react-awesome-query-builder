@@ -24,12 +24,14 @@ export const setTree = (config, tree) => ({
  * @param {Immutable.List} path
  * @param {object} properties
  */
-export const addRule = (config, path, properties) => ({
+export const addRule = (config, path, properties, field, meta) => ({
   type: constants.ADD_RULE,
   path: path,
   id: uuid(),
   properties: defaultRuleProperties(config).merge(properties || {}),
-  config
+  config,
+  field,
+  meta
 });
 
 // /**

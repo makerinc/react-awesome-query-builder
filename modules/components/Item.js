@@ -18,6 +18,7 @@ const typeMap = {
       config={props.config}
       onDragStart={props.onDragStart}
       meta={props.meta}
+      fieldMeta={props.fieldMeta}
     />
   ),
   group: props => (

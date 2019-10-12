@@ -186,7 +186,7 @@ const setMeta = (state, path, meta) => {
  * @param {string} id
  * @param {Immutable.OrderedMap} properties
  */
-const addItem = (state, path, type, id, properties, config) => {
+const addItem = (state, path, type, id, properties, config, field, meta) => {
   const currentMeta =
     getItemByPath(state, path)
       .get("properties")
@@ -200,12 +200,20 @@ const addItem = (state, path, type, id, properties, config) => {
     })
   );
 
-  if (currentMeta.targeting === "page" && !existingChildren) {
+  if (!field && currentMeta.targeting === "page" && !existingChildren) {
+    field = "dimension_url";
+  }
+
+  if (field) {
     const rulePath = path.push(id);
-    state = setField(state, rulePath, "dimension_url", config);
+    state = setField(state, rulePath, field, config);
 
     if (window.parentUrl) {
       state = setValue(state, rulePath, 0, window.parentUrl, "text", config);
+    }
+
+    if (meta) {
+      state = setMeta(state, rulePath, meta);
     }
   }
 
@@ -825,7 +833,9 @@ export default config => {
             "rule",
             action.id,
             action.properties,
-            action.config
+            action.config,
+            action.field,
+            action.meta
           )
         });
 

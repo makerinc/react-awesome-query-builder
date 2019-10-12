@@ -143,7 +143,8 @@ exports.default = function (Rule) {
             config: this.props.config,
             treeNodesCnt: this.props.treeNodesCnt,
             dragging: this.props.dragging,
-            meta: this.props.meta
+            meta: this.props.meta,
+            fieldMeta: this.props.fieldMeta
           }), _react2.default.createElement(Rule, {
             key: this.props.id,
             id: this.props.id,
@@ -162,7 +163,8 @@ exports.default = function (Rule) {
             treeNodesCnt: this.props.treeNodesCnt,
             onDragStart: this.props.onDragStart,
             dragging: this.props.dragging,
-            meta: this.props.meta
+            meta: this.props.meta,
+            fieldMeta: this.props.fieldMeta
           })]
         );
       }
@@ -181,7 +183,8 @@ exports.default = function (Rule) {
     valueSrc: _propTypes2.default.any,
     operatorOptions: _propTypes2.default.object,
     treeNodesCnt: _propTypes2.default.number,
-    meta: _propTypes2.default.object
+    meta: _propTypes2.default.object,
+    fieldMeta: _propTypes2.default.object
     //connected:
     //dragging: PropTypes.object, //{id, x, y, w, h}
   }, _temp);

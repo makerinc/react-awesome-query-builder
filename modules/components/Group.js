@@ -170,7 +170,9 @@ class Group extends Component {
               <Button
                 icon="plus"
                 className="action action--ADD-RULE"
-                onClick={this.props.addRule}
+                onClick={e =>
+                  this.props.config.settings.onAddRule(e, this.props)
+                }
               >
                 {this.props.config.settings.addRuleLabel || "Add rule"}
               </Button>
@@ -272,6 +274,7 @@ class Group extends Component {
               id={item.get("id")}
               story={item.get("story")}
               meta={props.meta || item.get("meta")}
+              fieldMeta={item.get("properties").get("meta")}
               //path={props.path.push(item.get('id'))}
               path={item.get("path")}
               type={item.get("type")}

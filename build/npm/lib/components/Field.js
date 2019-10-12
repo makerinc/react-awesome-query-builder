@@ -201,11 +201,12 @@ var Field = (_temp = _class = function (_Component) {
     key: "buildSelectItems",
     value: function buildSelectItems(fields) {
       var path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var optGroupLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
       var _this3 = this;
 
-      var optGroupLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
       var filterByTargeting = arguments[3];
+      var filterFields = arguments[4];
 
       var fieldSeparator = this.props.config.settings.fieldSeparator;
       if (!fields) return null;
@@ -218,6 +219,12 @@ var Field = (_temp = _class = function (_Component) {
         });
       }
 
+      if (filterFields && Array.isArray(filterFields)) {
+        fieldKeys = fieldKeys.filter(function (fieldKey) {
+          return filterFields.indexOf(fieldKey) > -1;
+        });
+      }
+
       return fieldKeys.map(function (fieldKey) {
         var field = fields[fieldKey];
         var label = _this3.getFieldDisplayLabel(field, fieldKey);
@@ -226,7 +233,7 @@ var Field = (_temp = _class = function (_Component) {
           return _react2.default.createElement(
             OptGroup,
             { key: prefix + fieldKey, label: label },
-            _this3.buildSelectItems(field.subfields, subpath, label, filterByTargeting)
+            _this3.buildSelectItems(field.subfields, subpath, label, filterByTargeting, filterFields)
           );
         } else {
           return _react2.default.createElement(
@@ -285,7 +292,7 @@ var Field = (_temp = _class = function (_Component) {
       selectText = (0, _stuff.truncateString)(selectText, maxLabelsLength);
       var selectWidth = (0, _stuff.calcTextWidth)(selectText, "12px");
       //let tooltip = this.curFieldOpts().label2 || selectedFieldFullLabel || this.curFieldOpts().label;
-      var fieldSelectItems = this.buildSelectItems(fieldOptions, undefined, undefined, (this.props.meta || {}).targeting);
+      var fieldSelectItems = this.buildSelectItems(fieldOptions, undefined, undefined, (this.props.meta || {}).targeting, (this.props.fieldMeta || {}).filterFields);
       var customProps = this.props.customProps || {};
 
       var fieldSelect = _react2.default.createElement(

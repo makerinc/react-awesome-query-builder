@@ -157,18 +157,26 @@ var setMeta = function setMeta(state, path, meta) {
  * @param {string} id
  * @param {Immutable.OrderedMap} properties
  */
-var addItem = function addItem(state, path, type, id, properties, config) {
+var addItem = function addItem(state, path, type, id, properties, config, field, meta) {
   var currentMeta = (0, _treeUtils.getItemByPath)(state, path).get("properties").get("meta") || {};
   var existingChildren = hasChildren(state, path);
 
   state = state.mergeIn((0, _treeUtils.expandTreePath)(path, "children1"), new _immutable2.default.OrderedMap(_defineProperty({}, id, new _immutable2.default.Map({ type: type, id: id, properties: properties }))));
 
-  if (currentMeta.targeting === "page" && !existingChildren) {
+  if (!field && currentMeta.targeting === "page" && !existingChildren) {
+    field = "dimension_url";
+  }
+
+  if (field) {
     var rulePath = path.push(id);
-    state = setField(state, rulePath, "dimension_url", config);
+    state = setField(state, rulePath, field, config);
 
     if (window.parentUrl) {
       state = setValue(state, rulePath, 0, window.parentUrl, "text", config);
+    }
+
+    if (meta) {
+      state = setMeta(state, rulePath, meta);
     }
   }
 
@@ -671,7 +679,7 @@ exports.default = function (config) {
 
       case constants.ADD_RULE:
         return Object.assign({}, state, {
-          tree: addItem(state.tree, action.path, "rule", action.id, action.properties, action.config)
+          tree: addItem(state.tree, action.path, "rule", action.id, action.properties, action.config, action.field, action.meta)
         });
 
       case constants.REMOVE_RULE:
