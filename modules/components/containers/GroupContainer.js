@@ -96,12 +96,8 @@ export default Group => {
 
     dummyFn = () => {};
 
-    removeSelf = event => {
+    removeSelf = () => {
       this.props.actions.removeGroup(this.props.path);
-      if (typeof (event || {}).preventDefault === "function") {
-        event.preventDefault();
-      }
-      return false;
     };
 
     addGroup = (event, groupType) => {

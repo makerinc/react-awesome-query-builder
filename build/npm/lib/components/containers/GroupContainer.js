@@ -67,12 +67,8 @@ exports.default = function (Group) {
 
       _this.dummyFn = function () {};
 
-      _this.removeSelf = function (event) {
+      _this.removeSelf = function () {
         _this.props.actions.removeGroup(_this.props.path);
-        if (typeof (event || {}).preventDefault === "function") {
-          event.preventDefault();
-        }
-        return false;
       };
 
       _this.addGroup = function (event, groupType) {
