@@ -171,7 +171,7 @@ var addItem = function addItem(state, path, type, id, properties, config, field,
     var rulePath = path.push(id);
     state = setField(state, rulePath, field, config);
 
-    if (window.parentUrl) {
+    if (field === "dimension_url" && window.parentUrl) {
       state = setValue(state, rulePath, 0, window.parentUrl, "text", config);
     }
 
