@@ -415,7 +415,15 @@ var _validateValue = function _validateValue(config, field, operator, value, val
   var isValid = true;
   if (v != null) {
     var rightFieldDefinition = vSrc == "field" ? (0, _configUtils.getFieldConfig)(v, config) : null;
-    if (vSrc == "field") {
+
+    var fn = fieldWidgetDefinition.validateValue;
+    if (typeof fn == "function") {
+      var args = [v,
+      //field,
+      fieldConfig];
+      if (vSrc == "field") v.push(rightFieldDefinition);
+      isValid = isValid && fn.apply(undefined, args);
+    } else if (vSrc == "field") {
       if (v == field || !rightFieldDefinition) {
         //can't compare field with itself or no such field
         isValid = false;
@@ -471,14 +479,6 @@ var _validateValue = function _validateValue(config, field, operator, value, val
           isValid = isValid && v <= fieldSettings.max;
         }
       }
-    }
-    var fn = fieldWidgetDefinition.validateValue;
-    if (typeof fn == "function") {
-      var args = [v,
-      //field,
-      fieldConfig];
-      if (vSrc == "field") v.push(rightFieldDefinition);
-      isValid = isValid && fn.apply(undefined, args);
     }
   }
   return isValid;

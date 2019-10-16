@@ -514,7 +514,17 @@ const _validateValue = (
   if (v != null) {
     const rightFieldDefinition =
       vSrc == "field" ? getFieldConfig(v, config) : null;
-    if (vSrc == "field") {
+
+    let fn = fieldWidgetDefinition.validateValue;
+    if (typeof fn == "function") {
+      let args = [
+        v,
+        //field,
+        fieldConfig
+      ];
+      if (vSrc == "field") v.push(rightFieldDefinition);
+      isValid = isValid && fn(...args);
+    } else if (vSrc == "field") {
       if (v == field || !rightFieldDefinition) {
         //can't compare field with itself or no such field
         isValid = false;
@@ -552,16 +562,6 @@ const _validateValue = (
           isValid = isValid && v <= fieldSettings.max;
         }
       }
-    }
-    let fn = fieldWidgetDefinition.validateValue;
-    if (typeof fn == "function") {
-      let args = [
-        v,
-        //field,
-        fieldConfig
-      ];
-      if (vSrc == "field") v.push(rightFieldDefinition);
-      isValid = isValid && fn(...args);
     }
   }
   return isValid;
