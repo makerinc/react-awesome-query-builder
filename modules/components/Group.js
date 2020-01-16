@@ -234,6 +234,7 @@ class Group extends Component {
     }
 
     const cookies = ((this.props.meta || {}).cookies || {}).enabled;
+    const microsite = ((this.props.meta || {}).microsite || {}).enabled;
 
     const menu = (
       <Menu>
@@ -245,8 +246,20 @@ class Group extends Component {
             <Switch size="small" checked={cookies} /> Cookie visitors
           </a>
         </Menu.Item>
+        {this.props.config.settings.onMicrosite ? (
+          <Menu.Item key="1">
+            <a
+              href="#"
+              onClick={e =>
+                this.props.config.settings.onMicrosite(e, this.props)
+              }
+            >
+              <Switch size="small" checked={microsite} /> Microsite
+            </a>
+          </Menu.Item>
+        ) : null}
         <Menu.Divider />
-        <Menu.Item key="1">
+        <Menu.Item key="2">
           <a href="#" onClick={this.showDeleteConfirm}>
             Delete experience
           </a>

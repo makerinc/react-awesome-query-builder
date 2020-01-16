@@ -465,6 +465,7 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
     }
 
     var cookies = ((_this3.props.meta || {}).cookies || {}).enabled;
+    var microsite = ((_this3.props.meta || {}).microsite || {}).enabled;
 
     var menu = _react2.default.createElement(
       _menu2.default,
@@ -484,10 +485,25 @@ var Group = (0, _GroupContainer2.default)(_class = (_temp = _class2 = function (
           " Cookie visitors"
         )
       ),
+      _this3.props.config.settings.onMicrosite ? _react2.default.createElement(
+        _menu2.default.Item,
+        { key: "1" },
+        _react2.default.createElement(
+          "a",
+          {
+            href: "#",
+            onClick: function onClick(e) {
+              return _this3.props.config.settings.onMicrosite(e, _this3.props);
+            }
+          },
+          _react2.default.createElement(_switch2.default, { size: "small", checked: microsite }),
+          " Microsite"
+        )
+      ) : null,
       _react2.default.createElement(_menu2.default.Divider, null),
       _react2.default.createElement(
         _menu2.default.Item,
-        { key: "1" },
+        { key: "2" },
         _react2.default.createElement(
           "a",
           { href: "#", onClick: _this3.showDeleteConfirm },
