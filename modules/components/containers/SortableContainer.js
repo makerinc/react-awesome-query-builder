@@ -271,32 +271,35 @@ export default (Builder, CanMoveFn = null) => {
                 trgRect = trgEl.getBoundingClientRect();
             } else {
               if (isGroup) {
-                if (dragDirs.vrt > 0) { //down
-                    //take group header (for prepend only)
-                    var hovInnerEl = hovCNodeEl.getElementsByClassName('group--header');
-                    var hovEl2 = hovInnerEl.length ? hovInnerEl[0] : null;
-                    var hovRect2 = hovEl2.getBoundingClientRect();
-                    var hovHeight2 = hovRect2.bottom - hovRect2.top;
-                    var isOverHover = ((dragRect.bottom - hovRect2.top) > hovHeight2*3/4);
-                    if (isOverHover && hovII.top > dragInfo.itemInfo.top) {
-                      trgII = hovII;
-                      trgRect = hovRect2;
-                      trgEl = hovEl2;
-                      doPrepend = true;
-                    }
-                } else if (dragDirs.vrt < 0) { //up
-                  if (hovII.lev >= itemInfo.lev) {
-                    //take whole group
-                    //todo: 5 is magic for now (bottom margin), configure it!
-                    var isClimbToHover = ((hovRect.bottom - dragRect.top) >= 2);
-                    if (isClimbToHover && hovII.top < dragInfo.itemInfo.top) {
-                        trgII = hovII;
-                        trgRect = hovRect;
-                        trgEl = hovEl;
-                        doAppend = true;
-                    }
-                  }
-                }
+                // NOTE: Comment this out, because we want only to allow dragging within one group
+                // and not between groups. So no append/prepend is allowed.
+                //
+                // if (dragDirs.vrt > 0) { //down
+                //     //take group header (for prepend only)
+                //     var hovInnerEl = hovCNodeEl.getElementsByClassName('group--header');
+                //     var hovEl2 = hovInnerEl.length ? hovInnerEl[0] : null;
+                //     var hovRect2 = hovEl2.getBoundingClientRect();
+                //     var hovHeight2 = hovRect2.bottom - hovRect2.top;
+                //     var isOverHover = ((dragRect.bottom - hovRect2.top) > hovHeight2*3/4);
+                //     if (isOverHover && hovII.top > dragInfo.itemInfo.top) {
+                //       trgII = hovII;
+                //       trgRect = hovRect2;
+                //       trgEl = hovEl2;
+                //       doPrepend = true;
+                //     }
+                // } else if (dragDirs.vrt < 0) { //up
+                //   if (hovII.lev >= itemInfo.lev) {
+                //     //take whole group
+                //     //todo: 5 is magic for now (bottom margin), configure it!
+                //     var isClimbToHover = ((hovRect.bottom - dragRect.top) >= 2);
+                //     if (isClimbToHover && hovII.top < dragInfo.itemInfo.top) {
+                //         trgII = hovII;
+                //         trgRect = hovRect;
+                //         trgEl = hovEl;
+                //         doAppend = true;
+                //     }
+                //   }
+                // }
                 if (!doPrepend && !doAppend) {
                   //take whole group and check if we can move before/after group
                   var isOverHover = (dragDirs.vrt < 0 //up
@@ -418,6 +421,11 @@ export default (Builder, CanMoveFn = null) => {
       if(fromII.id === toII.id)
         return false;
 
+      // Allow only dragging witnin one group
+      if (fromII.parent !== toII.parent || toII.id === (toParentII || {}).id) {
+        return false;
+      }
+
       var res = true;
       if (canMoveFn)
         res = canMoveFn(fromII.node.toJS(), toII.node.toJS(), placement, toParentII ? toParentII.node.toJS() : null);
@@ -455,4 +463,3 @@ export default (Builder, CanMoveFn = null) => {
   return SortableContainer;
 
 }
-
